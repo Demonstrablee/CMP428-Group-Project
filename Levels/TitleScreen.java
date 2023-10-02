@@ -6,15 +6,15 @@ import java.awt.event.ActionListener;
 
 public class TitleScreen extends JPanel implements ActionListener{ 
     //drawing methods
-    Button button = new Button("Begin");
-    JLabel title = new JLabel("UNTITLED GAME");
+    JButton button = new JButton("START");
+    JLabel title = new JLabel("TITLE SCREEN UNTITLED GAME");
+    
     int dispWidth;
     int dispHeight;
 
 
-    public TitleScreen(int dispWidth,int dispHeight){
-        this.dispWidth = dispWidth;
-        this.dispHeight = dispHeight;
+    public TitleScreen(){
+ 
 
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
@@ -30,7 +30,7 @@ public class TitleScreen extends JPanel implements ActionListener{
 
         constraints.anchor = GridBagConstraints.PAGE_END;
         constraints.gridx = 0;
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         add(button, constraints);
 
        
@@ -41,6 +41,7 @@ public class TitleScreen extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e){
         
         System.out.print("Button Clicked");
+
         System.exit(0);
     }
    
@@ -52,7 +53,7 @@ public class TitleScreen extends JPanel implements ActionListener{
         super.paintComponent(pen);//component that does the painting 
        
         //pen.setColor(Color.RED);
-        pen.drawRect(dispWidth/5,dispHeight/6,dispWidth/2,dispHeight/4);
+        pen.drawRect(100,100, 700, 60);
        
 
         
