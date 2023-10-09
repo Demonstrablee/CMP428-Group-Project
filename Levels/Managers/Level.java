@@ -1,4 +1,4 @@
-package Levels.Menus.Managers;
+package Levels.Managers;
 
 import javax.swing.JPanel;
 import java.awt.*;

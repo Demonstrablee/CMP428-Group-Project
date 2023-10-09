@@ -1,4 +1,4 @@
-package Levels;
+package Levels.Menus;
 
 import java.awt.Color;
 import java.awt.Graphics;

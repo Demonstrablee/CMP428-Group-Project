@@ -1,7 +1,7 @@
 package Levels;
 import java.awt.*;
 
-import Levels.Menus.Managers.Level;
+import Levels.Managers.Level;
 
 public class HubGilletHall extends Level { 
 

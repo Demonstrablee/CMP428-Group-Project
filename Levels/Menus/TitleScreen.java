@@ -1,7 +1,7 @@
 package Levels.Menus;
 import javax.swing.*;
 
-import Levels.Menus.Managers.Level;
+import Levels.Managers.Level;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class TitleScreen extends Level implements ActionListener{ 
     //drawing methods
-    Button button = new Button("Begin");
+    JButton button = new JButton("START");
     JLabel title = new JLabel("UNTITLED GAME");
     int dispWidth;
     int dispHeight;
