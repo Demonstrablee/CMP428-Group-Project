@@ -30,10 +30,13 @@ public class TitleScreen extends Level implements ActionListener{
         constraints.gridy = 1;
         add(button, constraints);
 
-       
-
     }
+    @Override
+        public void paintComponent(Graphics pen){  //method for painting
+            super.paintComponent(pen);//component that does the painting 
 
+        }
+        
     @Override
     public void actionPerformed(ActionEvent e){
         
@@ -44,15 +47,5 @@ public class TitleScreen extends Level implements ActionListener{
    
     
 
-    @Override
-    public void paintComponent(Graphics pen){  //method for painting
-        super.paintComponent(pen);//component that does the painting 
-       
-        //pen.setColor(Color.RED);
-        pen.drawRect(dispWidth/5,dispHeight/6,dispWidth/2,dispHeight/4);
-       
-
-        
-
-    }
+    
 }

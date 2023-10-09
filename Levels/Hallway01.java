@@ -1,13 +1,13 @@
 package Levels;
-import javax.swing.*;
+import Levels.Managers.Level;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Hallway01 extends JPanel { 
+public class Hallway01 extends Level implements ActionListener { 
 
     public Hallway01(){
-        setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
-        setBackground(Color.BLACK); // set pane to black
+        super(Color.BLACK); // set pane to black
 
     }
    
@@ -17,6 +17,13 @@ public class Hallway01 extends JPanel {
         super.paintComponent(pen);//component that does the painting 
 
 
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
     

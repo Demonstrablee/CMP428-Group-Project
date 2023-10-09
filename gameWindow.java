@@ -45,6 +45,7 @@ public class gameWindow extends JFrame{
         window.setContentPane(cardManagerPanel); // add the content pane to the jframe
         window.setVisible(true);  
 
+        // Handel of screen size
         // if (fullScreen){ // RESOLUTION IN FULLSCREEN MODE
         //     try{ // so that full screen doesnt lock me in
             
