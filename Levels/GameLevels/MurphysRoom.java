@@ -1,21 +1,21 @@
-package Levels;
-import Levels.Managers.Level;
+package Levels.GameLevels;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Hallway01 extends Level implements ActionListener { 
+import Levels.Managers.Level;
 
-    public Hallway01(){
+public class MurphysRoom extends Level implements ActionListener { 
+
+    public MurphysRoom(){
         super(Color.BLACK); // set pane to black
-
+        
     }
    
 
     @Override
     public void paintComponent(Graphics pen){  //method for painting
         super.paintComponent(pen);//component that does the painting 
-
 
     }
 
