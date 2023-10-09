@@ -1,15 +1,13 @@
 package Levels;
-import javax.swing.*;
 import java.awt.*;
 
-public class MurphysRoom extends JPanel { 
-    //drawing methods
+import Levels.Menus.Managers.Level;
+
+public class MurphysRoom extends Level { 
 
     public MurphysRoom(){
-        setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
-        setBackground(Color.BLACK); // set pane to black
-
+        super(Color.BLACK); // set pane to black
+        
     }
    
 

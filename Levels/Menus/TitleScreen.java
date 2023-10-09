@@ -1,10 +1,13 @@
-package Levels;
+package Levels.Menus;
 import javax.swing.*;
+
+import Levels.Menus.Managers.Level;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TitleScreen extends JPanel implements ActionListener{ 
+public class TitleScreen extends Level implements ActionListener{ 
     //drawing methods
     Button button = new Button("Begin");
     JLabel title = new JLabel("UNTITLED GAME");
@@ -12,14 +15,8 @@ public class TitleScreen extends JPanel implements ActionListener{
     int dispHeight;
 
 
-    public TitleScreen(int dispWidth,int dispHeight){
-        this.dispWidth = dispWidth;
-        this.dispHeight = dispHeight;
-
-        setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
-        
-        setBackground(Color.GRAY); // set pane to black
+    public TitleScreen(){
+        super(Color.GRAY);
         
         button.addActionListener(this);
         
