@@ -1,7 +1,6 @@
+package Levels.Managers;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import Levels.Managers.CardManagerPanel;
 
 import java.awt.*;
 
