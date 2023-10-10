@@ -1,5 +1,5 @@
 package UI;
 
-public class interviewMode {
+public class InterviewMode {
     
 }

@@ -2,10 +2,10 @@ package Levels.Managers;
   import java.awt.*;
   import javax.swing.JFrame;
 
-public class simpleScreenManager { // from the book 
+public class SimpleScreenManager { // from the book 
     
     private GraphicsDevice device;
-        public simpleScreenManager(){
+        public SimpleScreenManager(){
             GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
             device = environment.getDefaultScreenDevice();
         }

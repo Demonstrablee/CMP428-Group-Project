@@ -1,5 +1,5 @@
 package UI;
 
-public class inventory {
+public class Inventory {
     
 }

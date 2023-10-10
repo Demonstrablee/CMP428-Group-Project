@@ -7,9 +7,9 @@ import Levels.Managers.Level;
 
 public class HubGilletHall extends Level implements ActionListener { 
 
-    public HubGilletHall(){
-        super(Color.gray);
-
+    public HubGilletHall(Color c, Level entLevel, Level exLevel){
+        super(c,entLevel,exLevel);
+        
     }
 
     @Override

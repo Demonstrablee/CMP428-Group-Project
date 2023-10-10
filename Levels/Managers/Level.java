@@ -9,7 +9,7 @@ public class Level extends JPanel{
     private Level exit = null; // node behind
     protected GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
     
-    public Level(String Title){
+    public Level(){
         setLayout(new GridBagLayout());
         setBackground(Color.BLACK); // set pane to black
         

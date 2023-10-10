@@ -7,11 +7,13 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 
-public class OptionsMenu extends JPanel {
+import Levels.Managers.Level;
+
+public class OptionsMenu extends Level {
 
     JLabel title = new JLabel("OPTIONS");
     JLabel resoLabel = new JLabel("1920 x 1080"); // TEMP VAL
@@ -102,9 +104,9 @@ public class OptionsMenu extends JPanel {
 
    
      @Override
-    public void paintComponent(Graphics pen){  //method for painting
+    public void paintComponent(Graphics pen){  //method for painting called with repaint method
         super.paintComponent(pen);//component that does the painting 
-
+        
 
     }
 }

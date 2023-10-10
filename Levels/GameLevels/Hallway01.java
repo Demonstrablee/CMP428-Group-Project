@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 
 public class Hallway01 extends Level implements ActionListener { 
 
-    public Hallway01(){
-        super(Color.BLACK); // set pane to black
-
+    public Hallway01(Color c, Level entLevel, Level exLevel){
+        super(c,entLevel,exLevel); 
+        
     }
    
 
