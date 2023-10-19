@@ -1,37 +1,44 @@
-package Levels;
+// package Levels.Menus;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+// import java.awt.Color;
+// import java.awt.Graphics;
+// import java.awt.GridBagConstraints;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+// import javax.swing.JButton;
+// import javax.swing.JLabel;
 
-public class SaveMenu extends JPanel {
-    JLabel title = new JLabel("SAVE GAME");
-    public SaveMenu(){
-        setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
-        setBackground(Color.DARK_GRAY); 
-
-        constraints.anchor = GridBagConstraints.PAGE_START;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        add(title, constraints);
+// import Levels.Managers.Level;
 
 
+// public class SaveMenu extends Level {
+//     JLabel title = new JLabel("SAVE GAME");
+//     JButton backButton;
+//     public SaveMenu(JButton backButton){
+//         super(Color.DARK_GRAY); 
+//         this.backButton = backButton;
 
+//         constraints.anchor = GridBagConstraints.PAGE_START;
+//         constraints.gridx = 0;
+//         constraints.gridy = 0;
+//         add(title, constraints);
+
+//         constraints.anchor = GridBagConstraints.PAGE_START;
+//         constraints.gridx = 0;
+//         constraints.gridy = 0;
+//         add(backButton, constraints);
 
         
-    }
+//     }
+    
    
 
-   
-     @Override
-    public void paintComponent(Graphics pen){  //method for painting
-        super.paintComponent(pen);//component that does the painting 
+//      @Override
+//     public void paint(Graphics pen){  //method for painting
+//         pen.setColor(Color.RED);
+//         pen.clearRect(0, 0, getWidth(), getHeight());
+//         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
+//         title.repaint();
+//         backButton.repaint();
 
-
-    }
-}
+//     }
+// }

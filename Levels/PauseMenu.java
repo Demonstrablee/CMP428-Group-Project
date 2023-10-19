@@ -1,43 +1,49 @@
-package Levels;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+// package Levels.Menus;
+// import javax.swing.*;
 
-public class PauseMenu extends JPanel implements ActionListener{ 
-    JLabel title = new JLabel("PAUSE");
-    
-    public PauseMenu(){
-        setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
-        setBackground(Color.ORANGE); // set pane to black
-// 
-        //nButtons = arr;
-        // adding components to the screen
-        constraints.anchor = GridBagConstraints.PAGE_START;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        add(title, constraints);
-    
-        
-    }
+// import Levels.Managers.Level;
+
+// import java.awt.*;
+
+
+// public class PauseMenu extends Level{ 
+//     //JLabel title = new JLabel("PAUSE");
+//     JButton [] pauseMButtons;
+
+//     public PauseMenu(JButton [] pauseMButtons){
+//         super(); // set pane to black
+//         setBg("images/bg_pause02.jpg");
+//         // adding components to the screen
+//         this.pauseMButtons = pauseMButtons;
+
+//         // constraints.anchor = GridBagConstraints.PAGE_START;
+//         // constraints.gridx = 0;
+//         // constraints.gridy = 0;
+//         // add(title, constraints);
+     
+//         int i = 0;
+//         for(JButton button : pauseMButtons){ 
+//                 constraints = new GridBagConstraints();  
+//                 constraints.gridx = 0;
+//                 constraints. gridy = i;
+                
+//                 add(button, constraints);
+     
+//                 i++;
+//             }
+//     }
    
 
-    @Override
-    public void paintComponent(Graphics pen){  //method for painting
-        super.paintComponent(pen);//component that does the painting 
-
-
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
+//     @Override
+//     public void paint(Graphics pen){  //method for painting
+//         pen.setColor(Color.RED);
+//         pen.clearRect(0, 0, getWidth(), getHeight());
+//         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
+//         for(JButton button : pauseMButtons){ button.repaint();}
+//         // p1.draw(pen); // player from level class
         
-        
-        //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
+//     }
 
     
-}
+// }
  
