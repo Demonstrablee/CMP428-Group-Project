@@ -28,7 +28,7 @@ public class Rect
 		this.x += dx;
 		this.y += dy;
 	}
-	
+		
 	public boolean wasLeftOf(Rect r)
 	{
 		return x - vx < r.x - w + 1;
