@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="Characters/|Levels/Managers/" kind="src" path="Group Project Game/src"/>
+	<classpathentry kind="src" path="Group Project Game/src/Characters"/>
+	<classpathentry kind="src" path="Group Project Game/src/Levels/Managers"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre"/>
+	<classpathentry kind="output" path="Group Project Game/bin"/>
+</classpath>
