@@ -18,8 +18,7 @@ public class Hallway01 extends Level2 {
     public Hallway01(Level2 enter, Level2 exit){
         super(enter, exit, "hallway01");
         setBg("GroupGame\\src\\images\\bg_hallway01.jpg"); // set pane to black
-        super(enter, exit, "hallway01");
-        setBg("GroupGame\\src\\images\\bg_hallway01.jpg"); // set pane to black
+        
         wall = new Wall[]{new Wall(0, 50, 1920, 80), new Wall(0, 500, 1920, 80)};
        
         //ENTERANCE AND EXITS
@@ -40,14 +39,12 @@ public class Hallway01 extends Level2 {
     @Override
     public void paintComponent(Graphics pen){  //method for painting
         super.paintComponent(pen);//component that does the painting 
-        super.paintComponent(pen);
+   
         pen.clearRect(0, 0, getWidth(), getHeight());
         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
        
-       
   
         for(Wall walls : wall){
-            walls.setColor(Color.ORANGE);
             walls.setColor(Color.ORANGE);
             walls.draw(pen);
         }
