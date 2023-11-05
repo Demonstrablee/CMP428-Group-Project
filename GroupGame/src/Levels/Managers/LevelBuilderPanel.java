@@ -207,6 +207,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                     enemies = gameRoom.getEnemies();
                     health = healthBar.getCurrentHealth(); // get the players health 
                     students = gameRoom.getStudents();
+                    
                     //healthStations = getHealthStationsLocations();
                     
                     //GAME OVER CONDITIONS
