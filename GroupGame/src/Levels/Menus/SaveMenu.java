@@ -19,7 +19,7 @@ public class SaveMenu extends Level2 {
 
     public SaveMenu(JButton backButton){
         super(null,null, "saveMenu");
-        wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop in game loop
+        //wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop in game loop
        
         this.backButton = backButton;
 
@@ -43,7 +43,7 @@ public class SaveMenu extends Level2 {
      @Override
     public void paintComponent(Graphics pen){  //method for painting
         pen.setColor(Color.RED);
-        pen.clearRect(0, 0, getWidth(), getHeight());
+        //pen.clearRect(0, 0, getWidth(), getHeight());
         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
         //title.repaint();
         backButton.repaint();

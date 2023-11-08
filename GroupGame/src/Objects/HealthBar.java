@@ -2,8 +2,8 @@ package Objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
-import Levels.Managers.SimpleSoundPlayer;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 public class HealthBar extends Rect {
 	
@@ -12,10 +12,15 @@ public class HealthBar extends Rect {
 	int maxHealth = 3;
 	
 	boolean notInvincible = true;
+
+	Image heart = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/heart.png");
 	
 	public HealthBar(int x, int y, int w, int h) {
-		
 		super(x, y, w, h);
+
+		// RESCALING heart to make it larger
+		heart = heart.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+		
 		
 	}
 	/**Get players health */
@@ -27,12 +32,12 @@ public class HealthBar extends Rect {
 	}
 	public boolean damage() {
 		
-		return notInvincible = true;
+		return notInvincible = true; // character can take damage
 	}
-	
+
 	public boolean noDamage() {
 		
-		return notInvincible = false;
+		return notInvincible = false; // character cant take damage
 	}
 	
 	public void increaseHealth(int x) {
@@ -40,11 +45,7 @@ public class HealthBar extends Rect {
 		if(health < maxHealth){ // if not at full health
 			health++;
 			//SimpleSoundPlayer.playSound("GroupGame/src/music/zelda_heartRestore.wav"); // causes lag
-			try{
-				Thread.sleep(500);
-			}catch(Exception e){
-
-			}
+			
 		}
 	}
 
@@ -76,7 +77,8 @@ public class HealthBar extends Rect {
 		pen.setColor(Color.RED);
 		
 	    for (int i = 0; i < health; i++) { // draw one less rectangle for the health of the player
-	        pen.fillRect((int)(this.x + i * 25), (int)(this.y), (int)(this.w), (int)(this.h));
+	        pen.drawImage(heart, (int)(this.x + i * 25), (int)(this.y), null);
+			//pen.fillRect((int)(this.x + i * 25), (int)(this.y), (int)(this.w), (int)(this.h));
 	    }
 	    
 	}

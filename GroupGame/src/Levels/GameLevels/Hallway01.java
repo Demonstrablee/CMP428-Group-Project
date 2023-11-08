@@ -2,8 +2,6 @@ package Levels.GameLevels;
 import javax.swing.*;
 
 import Characters.Characters.Enemy;
-import Characters.Characters.Enemy;
-//import Characters.Characters.PlayerCharacter;
 import Levels.Managers.Level2;
 import Objects.HealthStation;
 import Objects.Wall;
@@ -16,8 +14,12 @@ public class Hallway01 extends Level2 {
     
     
     public Hallway01(Level2 enter, Level2 exit){
+      
         super(enter, exit, "hallway01");
-        setBg("GroupGame\\src\\images\\bg_hallway01.jpg"); // set pane to black
+    
+        //BACKGROUND
+       setBg("bg_hallway01.jpg"); 
+        
         
         wall = new Wall[]{new Wall(0, 50, 1920, 80), new Wall(0, 500, 1920, 80)};
        
@@ -27,7 +29,7 @@ public class Hallway01 extends Level2 {
         
         setHealthStation(new HealthStation(100, 300));
         // Setting enemys array
-        enemies = new Enemy[] {new Enemy(900, 100, 100, 100),new Enemy(900, 400, 100, 100)} ;
+        enemies = new Enemy[] {new Enemy(900, 100, 100, 100), new Enemy(900, 400, 100, 100)} ;
 
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -40,7 +42,7 @@ public class Hallway01 extends Level2 {
     public void paintComponent(Graphics pen){  //method for painting
         super.paintComponent(pen);//component that does the painting 
    
-        pen.clearRect(0, 0, getWidth(), getHeight());
+        //pen.clearRect(0, 0, getWidth(), getHeight());
         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
        
   

@@ -16,30 +16,37 @@ import Objects.Wall;
 public class OptionsMenu extends Level2 {
 
     JLabel title = new JLabel("OPTIONS");
+
+    // Labels
     JLabel resoLabel = new JLabel("1920 x 1080"); // TEMP VAL
     JLabel musicLabel = new JLabel("BGM");
     JLabel diaLabel = new JLabel("DIALOGUE");
 
+    //Subtitles
     JRadioButton subs = new JRadioButton("Subtitles");
-     
+
+    //Buttons
     JButton resoR = new JButton();
     JButton resoL = new JButton();
     JButton confirmButton = new JButton("Set");
+    JButton backButton;
 
-
+    //Sliders
     JSlider musicSlider = new JSlider(0,100);
     JSlider diaSlider = new JSlider(0,100);
 
     GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
     
-    JButton backButton;
+
 
     public OptionsMenu(JButton backButtons){
         super(null,null, "optionsMenu"); // no enterance exit logic just using card manager in levelbuilder
-        setBg("GroupGame\\src\\images\\bg_classroom03.jpg"); 
-        wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop in game loop
-       
-         this.backButton = backButtons;
+        
+        //BACKGROUND
+        setBg("bg_classroom03.jpg"); 
+        //Get Buttons
+        this.backButton = backButtons;
+
         //TITLE
         constraints.anchor = GridBagConstraints.PAGE_START;
         constraints.gridx = 1;
@@ -114,9 +121,10 @@ public class OptionsMenu extends Level2 {
      @Override
     public void paintComponent(Graphics pen){  //method for painting called with repaint method
         super.paintComponent(pen);
-        title.repaint();
-        pen.clearRect(0, 0, getWidth(), getHeight()); 
+       // pen.clearRect(0, 0, getWidth(), getHeight()); 
         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
+        
+        // Draw Components
         title.repaint();
         subs.repaint();
         resoR.repaint();

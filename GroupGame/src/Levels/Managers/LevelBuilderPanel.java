@@ -26,6 +26,7 @@ import java.awt.event.*;
  
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 ;
 
@@ -81,7 +82,9 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
     /**States when the game is paused state (happens while in any menu)*/
     boolean isPaused; 
     /** States whether or not the game is over  */
-    boolean isOver = false;  
+    boolean isOver = false;
+    
+    Timer timer;
 
     static final int UP = KeyEvent.VK_UP;
     static final int DN = KeyEvent.VK_DOWN;
@@ -122,7 +125,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
            t = new Thread(this);
             
            t.start();
-            
+        
 
         }
 
@@ -136,7 +139,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
             inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
             inGameMenuButton.setLocation(900, 100);
        
-
+          
             // initiallizing buttons
             String [] buttonN = new String[] {"RESUME", "OPTIONS", "QUIT", "RETURN TO TITLE", "BACK", "SAVE GAME", "START", "TRY AGAIN",};
             createButton(new String [] {buttonN[6],buttonN[1],buttonN[2]}, titleButtons); // TITLE SCREEN
@@ -195,7 +198,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                     isPaused = true; // so it works in testing and in game
                     // gameRoom = gameOverMenu; // its a menu after all
                     currLevel = gameOverMenu;
-                    //repaint();
+                    
                 }
 
                 // if you are not in a game menu    
@@ -209,7 +212,8 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                     health = healthBar.getCurrentHealth(); // get the players health 
                     students = gameRoom.getStudents();
                     healthStation = gameRoom.getHealthStation();
-                    
+                    p1.setColor(Color.RED); // Player color will change depending on if hit or not
+
                     //GAME OVER CONDITIONS
                     if(health == 0){
                         isOver = true;
@@ -240,18 +244,18 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                     //Player Damage
 			
                     if (enemies != null){
-                         Enemy e1 = enemies[0];
-                            if (p1.overlaps(e1)) p1.setColor(Color.RED);
-                            
-                            // else p1.setColor(Color.BLACK);
-                            
-                           if (p1.overlaps(e1)) healthBar.damageTaken();
-                            
+                        Enemy e1 = enemies[1]; // temporary a loop will kill the player immediately
+                            if (p1.overlaps(e1)){
+                                p1.setColor(Color.GREEN);
+                                healthBar.damageTaken();
+                            }
+
                            if (!p1.overlaps(e1)) healthBar.damage();
-                            
+                        
                         ///PLAYER HEALING
-                        if (healthStation != null){
+                        if (healthStation != null){ // theres like one healthStation in specific locations
                             if (p1.overlaps(healthStation)) {
+                               
                                 healthBar.increaseHealth(1);
                                  
                                 }
@@ -317,8 +321,6 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
 
 
                 repaint(); // draw the panel
-                
-                
 
                 try{
                     Thread.sleep(15);
@@ -332,7 +334,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
         }
     @Override
         public void paint(Graphics pen){
-            pen.clearRect(0, 0, getWidth(), getHeight()); 
+            //pen.clearRect(0, 0, getWidth(), getHeight()); 
             currLevel.paintComponent(pen); // draw the level using its own paint method
             cLayout0.show(this,levIndex); // swaps to the next Level
 
@@ -346,7 +348,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
              
                // Draw the player
                 
-                p1.setColor(Color.RED);
+                //p1.setColor(Color.RED);
                 p1.draw(pen);
                 
                  //Student NPC Talk
@@ -435,12 +437,12 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
     public void actionPerformed(ActionEvent e) {
        
         Object buttonClicked = e.getSource();
-        SimpleSoundPlayer.playSound("GroupGame\\src\\music\\button_click01.wav");
+        SimpleSoundPlayer.playSound("GroupGame/src/music/button_click01.wav");
           
 		if(buttonClicked == titleButtons[0] || buttonClicked == pauseMButtons[0]|| buttonClicked == gameOverButtons[0]) {// go to resume
             //cLayout0.show(this, "4"); //paint method handels this
             currLevel = gameRoom ; // last game room (currLevel is what is used to draw the levels in the paint method)
-            //gameRoom =  ;
+            
 
             healthBar.refillHealth();   //NEED TO SET THIS TO FULL 
             // which level to switch to based on what the last game room you were in

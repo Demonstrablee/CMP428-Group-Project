@@ -17,14 +17,14 @@ public class GameOverMenu extends Level2 {
     public GameOverMenu(JButton [] gameOverOptions){
         super(null,null, "gameOverMenu");
 
-        setBg("GroupGame\\src\\images\\black01.jpg");
+        //BACKGROUND
+        setBg("black01.jpg");
         
-        
-        //wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop
 
-        // adding components to the screen
+        
+        // Add Buttons 
         this.gameOverOptions = gameOverOptions;
-
+        // adding components to the screen
         constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.PAGE_START;
         constraints.gridx = 0;
@@ -45,10 +45,10 @@ public class GameOverMenu extends Level2 {
     @Override
     public void paintComponent(Graphics pen){  //method for painting
         super.paintComponent(pen);
-        pen.clearRect(0, 0, getWidth(), getHeight());
+        //pen.clearRect(0, 0, getWidth(), getHeight());
         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
         pen.setColor(Color.BLACK);
-       // pen.fillRect(0, 0, getWidth(), getHeight());
+        // Draw the button
         title.repaint();
         for(JButton button : gameOverOptions){button.repaint();}
         

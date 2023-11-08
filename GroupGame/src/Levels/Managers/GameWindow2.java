@@ -1,6 +1,11 @@
 package Levels.Managers;
 import javax.swing.JFrame;
 
+import Characters.Characters.Enemy;
+import Characters.Characters.PlayerCharacter;
+import Characters.Characters.Student;
+import Objects.HealthBar;
+import Objects.HealthStation;
 import Objects.Rect;
 
 import Objects.Wall;
@@ -13,15 +18,14 @@ import java.awt.event.KeyListener;
 
 public class GameWindow2 extends JFrame implements KeyListener, Runnable, ActionListener{
     Thread t;
-     
+    
+    static String os = System.getProperty("os.name"); // check os of user
+
+
     // Screen Managment Variables  
     int currResMode = 1; // change to change the resolution
     int prevResMode = 1; // what to revert to 
     boolean fullScreen = false; // use full screen?
-
-    // Constraints
-        GridBagConstraints constraints;
-        CardLayout cLayout0 = new CardLayout();
 
     /// Managers
     SimpleScreenManager screen = new SimpleScreenManager(); // the screen manager
@@ -37,15 +41,36 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
                 
         };
 
-        final int [][] winRes = {{640,480},{1280,720},{1920,1080},{2560,1440}};
+    final int [][] winRes = {{640,480},{1280,720},{1920,1080},{2560,1440}};
     
-      // App icon 
-        Image appIcon = Toolkit.getDefaultToolkit().getImage("GroupGame\\src\\images\\appIcon\\moon03.png");
+    // App icon 
+
+    static String appFolder = os == "Mac" ? "GroupGame/src/images/appIcon/" :"GroupGame\\src\\images\\appIcon\\";
+    /**
+     * Get the path to the image folder for the game file path changes depending on the users Operation System
+     * @return the appFolder
+     */
+    static public String getAppFolder() {
+        return appFolder;
+    }
+
+
+    public Image appIcon = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/appIcon/");
 
         //Objects
-        Rect p1 = new Rect(10, 10, 200, 200);
-        Wall [] wall = {new Wall(100, 100, 600, 80), new Wall(150, 500, 100, 450), new Wall(3, 70, 100, 350)};
-        
+    PlayerCharacter p1 = new PlayerCharacter(300,300, 50,50); // so all levels can share same character
+    Wall [] wall; // get walls for refrence and collison detection
+    HealthBar healthBar = new HealthBar(100, 100,20, 20);
+    int health;
+    Enemy [] enemies;
+    Student [] students;
+    HealthStation healthStation;
+    
+    Rect exit;
+    Rect enter;
+    int nExitX;
+    int nExitY;
+
         boolean gameStarted = false; // have you started to actually play
         
 
@@ -75,11 +100,9 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
          
         getContentPane().add(lbPane);
 
-        //System.out.println("Game Starting");
-
         lbPane.init();// comment in and out to allow for updates to post or just run with F5
         
-       SimpleSoundPlayer.playSoundForever("GroupGame\\src\\music\\title_screen_track01(loop).wav");
+        //SimpleSoundPlayer.playSoundForever("GroupGame/src/music/title_screen_track01(loop).wav");
            
        
        

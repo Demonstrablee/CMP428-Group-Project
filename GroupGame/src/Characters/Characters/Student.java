@@ -13,9 +13,9 @@ public class Student extends Character{ // christan
 	
 	boolean appear = false;
 
-	public Student(int x, int y, int w, int h) {
+	public Student(int x, int y) {
 		
-		super(x, y, w, h);
+		super(x, y, 50, 50);
 		
 	}
     

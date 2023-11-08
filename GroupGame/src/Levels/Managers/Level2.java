@@ -16,6 +16,9 @@ import Characters.Characters.Student;
 /** Initialize a level inhertiting from JPanel*/
 public abstract class Level2 extends JPanel{
 
+    // the file names of paths will change base on this
+    protected String os = System.getProperty("os.name"); // check os of user
+    
     //Level Vars
     private Level2 enterance = null; // node ahead
     private Level2 exit = null; // node behind
@@ -203,8 +206,13 @@ public abstract class Level2 extends JPanel{
      * @param path file name
     */
     public void setBg(String path) {
+        String pathFolder;
+        if (os.contains("Mac"))pathFolder = "GroupGame/src/images/"; // mac
+        else pathFolder ="GroupGame\\src\\images\\"; // windows
+        
         bgPath = path;
-        bg = Toolkit.getDefaultToolkit().getImage(path);
+
+        bg = Toolkit.getDefaultToolkit().getImage(pathFolder + path);
     }
 
     /** Get the file path of the background */

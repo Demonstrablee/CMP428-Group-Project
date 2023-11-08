@@ -11,12 +11,17 @@ public class TitleScreen extends Level2{
     JButton[] titleButtons;
 
     public TitleScreen(JButton[] menuButtons){
+       
         super(null,null, "titleScreen");
-        setBg("GroupGame\\src\\images\\bg_classroom01.jpg");
+        setDoubleBuffered(true);
         
-        //wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop in game loop
+        //BACKGROUND
+        setBg("bg_classroom01.jpg");
+        
+        // Getting the buttons for the Menu
         this.titleButtons = menuButtons;
 
+        //Adding buttons to panel
         constraints = new GridBagConstraints();  
         constraints.gridx = 0;
         constraints. gridy = 0;
@@ -38,11 +43,12 @@ public class TitleScreen extends Level2{
     @Override
         public void paintComponent(Graphics pen){  //method for painting
             super.paintComponent(pen);
-            pen.clearRect(0, 0, getWidth(), getHeight());
+            //pen.clearRect(0, 0, getWidth(), getHeight());
             pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
-            title.repaint();
             
-            for(JButton button : titleButtons){button.repaint();}
+            repaint(100,100,4000,4000);
+            
+            //for(JButton button : titleButtons){button.repaint();}
         }
     
         

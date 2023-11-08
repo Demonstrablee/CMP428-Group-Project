@@ -34,11 +34,11 @@ public class Classroom extends JFrame implements KeyListener, Runnable{
 	 
 	MurphysRoom2 murphysRoom2 = new MurphysRoom2(null, null);
 	
-	Student s1 = new Student(500, 300, 50, 50);
+	Student s1 = new Student(500, 300);
 	
-	Student s2 = new Student(900, 100, 50, 50);
+	Student s2 = new Student(900, 100);
 	
-	Student s3 = new Student(1100, 700, 50, 50);
+	Student s3 = new Student(1100, 700);
 	
 	
 	boolean[] pressing = new boolean[1024];
