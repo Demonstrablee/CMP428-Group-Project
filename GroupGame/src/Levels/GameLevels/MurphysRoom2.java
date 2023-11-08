@@ -24,7 +24,7 @@ public class MurphysRoom2 extends Level2{
         setLevelExitPos(new int[] {800,490,100,25});
         
         // Set Walls
-        wall = new Wall[]{new Wall(0, 50, 1920, 80), new Wall(0, 500, 1920, 80), new Wall(100, 50, 80, 1000),new Wall(1400, 50, 80, 1000)};
+        wall = new Wall[]{new Wall(0, 50, 1920, 80), new Wall(0, 500, 1920, 80), new Wall(100, 50, 80, 1000),new Wall(1100, 50, 80, 1000)};
 
    
     }

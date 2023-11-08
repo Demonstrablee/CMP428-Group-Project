@@ -9,14 +9,14 @@ import java.awt.Toolkit;
 
 
 public class MenuButton extends Rect {
-    Image image = Toolkit.getDefaultToolkit().getImage("GroupGame\\src\\images\\RetroWindowsGUI\\Windows_Button_Inactive.png");
-    Label label;
-
+    Image image = Toolkit.getDefaultToolkit().getImage("");
+    String label;
+    
     char [] type = {'p','t','o','s'};
 
     public MenuButton(int x, int y, String btext) {
             super(x, y, 100, 50);
-            label = new Label(btext);
+            label = btext;
             // switch (type){
             //     case 'p':
             //     label = new JLabel("PAUSE");
@@ -41,10 +41,13 @@ public class MenuButton extends Rect {
     @Override
     public void draw(Graphics pen){
          
-        pen.setColor(Color.ORANGE);
+        pen.setColor(Color.YELLOW);
         pen.drawImage(image,(int)x,(int)y,(int)w,(int)h,null);
 		pen.drawRect((int)x, (int)y, (int)w, (int)h);
-        label.repaint();
+        
+        pen.setColor(Color.WHITE);
+        pen.drawString(label, (int)x + 34, (int)y + 28);
+        //label.repaint();
 
     }
 

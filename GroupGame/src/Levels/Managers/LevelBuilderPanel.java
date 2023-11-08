@@ -14,6 +14,7 @@ import Levels.Menus.SaveMenu;
 import Levels.Menus.TitleScreen;
 import Objects.HealthBar;
 import Objects.HealthStation;
+import Objects.MenuButton;
 import Objects.Rect;
 import Objects.Wall;
 
@@ -39,7 +40,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
     
     //Buttons
     
-    JButton inGameMenuButton = new JButton("PAUSE");
+    MenuButton inGameMenuButton = new MenuButton(1100,70,"PAUSE P");
    
     JButton [] titleButtons = new JButton[3];
     JButton [] pauseMButtons = new JButton[5];
@@ -135,9 +136,9 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
         public void loadElements(){
 
             setLayout(cLayout0); 
-            inGameMenuButton.addActionListener(this);
-            inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
-            inGameMenuButton.setLocation(900, 100);
+            // inGameMenuButton.addActionListener(this);
+            // inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
+            // inGameMenuButton.setLocation(900, 100);
        
           
             // initiallizing buttons
@@ -278,7 +279,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                        
                     if(exit != null){ 
                         if(exit.contains((int)(p1.x),(int)(p1.y + p1.h)) ){   //the part the player I'll check to make sure they can go into the room
-                            gameRoom.remove(inGameMenuButton); // take from the level you are currently on to put on the next level (in the paint method)
+                            //gameRoom.remove(inGameMenuButton); // take from the level you are currently on to put on the next level (in the paint method)
                             
                             //Put player intoi the exit to the next level
                             int [] exitPosition = currLevel.getExit().getLevelEntrancePos();//get position of enterance in next level
@@ -299,7 +300,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                             
                         if(enter != null){ 
                             if(enter.contains((int)(p1.x),(int)(p1.y + p1.h)) ){   //the part the player I'll check to make sure they can go into the room
-                                gameRoom.remove(inGameMenuButton); // take from the level you are currently on to put on the next level (in the paint method) 
+                               //gameRoom.remove(inGameMenuButton); // take from the level you are currently on to put on the next level (in the paint method) 
                                     
 
                                 //put player infront of the entrance to the previous level
@@ -344,7 +345,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
             if(!isPaused){ // draw player character if you are playing (drawn on every gameRoom) 
                 
                 // Add the pause menu button to the current gameRoom
-                gameRoom.add(inGameMenuButton);// add menubutton to show on whatever level is currently showing
+               // gameRoom.add(inGameMenuButton);// add menubutton to show on whatever level is currently showing
              
                // Draw the player
                 
@@ -359,7 +360,8 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
 
                  // PLAYER HUD
                 healthBar.draw(pen);
-                inGameMenuButton.repaint();
+                //inGameMenuButton.repaint();
+                inGameMenuButton.draw(pen);
                  
             }
 	    }
