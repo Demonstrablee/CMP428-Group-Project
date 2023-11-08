@@ -1,4 +1,4 @@
-package Levels.Managers;
+package Levels.GameLevels;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,18 +9,23 @@ import javax.swing.JFrame;
 
 import Characters.Characters.Enemy;
 import Characters.Characters.Student;
-import Levels.GameLevels.MurphysRoom2;
 import Objects.HealthBar;
 import Objects.HealthStation;
 import Objects.Rect;
+import UI.Phone;
 
-public class Classroom extends JFrame implements KeyListener, Runnable{
+public class Classroom01 extends JFrame implements KeyListener, Runnable{
 	
 	Thread t;
 	
 	Rect p1 = new Rect(100, 200, 50, 50);
 	
+	Phone ui = new Phone(100,50, 399, 700);
+	
 	boolean healable = false;
+	
+	//check if the phone key was pressed
+	boolean phonePressed = true;
 
 	//Player health stuff
 	
@@ -47,14 +52,20 @@ public class Classroom extends JFrame implements KeyListener, Runnable{
     static final int DN = KeyEvent.VK_DOWN;
     static final int LT = KeyEvent.VK_LEFT;
     static final int RT = KeyEvent.VK_RIGHT;
+    
+    //Phone key
+    static final int SP = KeyEvent.VK_SPACE;
 	
-	public Classroom() {
+	public Classroom01() {
 		        
 		setTitle("Spooky Classroom Test Lab");
 		
 		setSize(1500, 800);
 		
 		setVisible(true);
+		
+		//add phone MouseListener
+		addMouseListener(ui);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -85,38 +96,51 @@ public class Classroom extends JFrame implements KeyListener, Runnable{
             if (pressing[RT]) p1.moveBy(5,0);
             if (pressing[LT]) p1.moveBy(-5,0);
             
+            //show phone
             
-            //Player Damage
-			
-			 if(h1.getCurrentHealth() >= h1.getMaxHealth()) healable = false;
-
-			 if (p1.overlaps(e1)) p1.setColor(Color.RED);
-			 
-			 else p1.setColor(Color.BLACK);
-			
-			 if (p1.overlaps(e1)){h1.damageTaken();
-				healable = true;} // why was Graphics object needed in this method
-			 
-			
-			 if (!p1.overlaps(e1)) h1.damage();
-			
-			//Player Healing
-			 
-			if(healable){
-			 if (p1.overlaps(b1)) h1.refillHealth(); // why was graphics getGraphics() passed in?
-			 
-			 if (p1.overlaps(b2)) h1.increaseHealth(1);
-			 
-			}
-            //Student NPC Overlap
-            
-			
-			 if(p1.overlaps(s1)) s1.isSpeaking(); else s1.isNotSpeaking();
-			 
-			 if(p1.overlaps(s2)) s2.isSpeaking(); else s2.isNotSpeaking();
-			 
-			 if(p1.overlaps(s3)) s3.isSpeaking(); else s3.isNotSpeaking();
-			 
+            if (pressing[SP]) {
+            	if (!phonePressed) {
+//            		System.out.println("Phone Pressed");
+            		
+            		if (ui.phoneOut) ui.putAway();
+            		else ui.takeOut();
+            		
+            		phonePressed = true;
+            	}
+            }
+            else phonePressed = false;
+                    
+//            //Player Damage
+//			
+//			 if(h1.getCurrentHealth() >= h1.getMaxHealth()) healable = false;
+//
+//			 if (p1.overlaps(e1)) p1.setColor(Color.RED);
+//			 
+//			 else p1.setColor(Color.BLACK);
+//			
+//			 if (p1.overlaps(e1)){h1.damageTaken();
+//				healable = true;} // why was Graphics object needed in this method
+//			 
+//			
+//			 if (!p1.overlaps(e1)) h1.damage();
+//			
+//			//Player Healing
+//			 
+//			if(healable){
+//			 if (p1.overlaps(b1)) h1.refillHealth(); // why was graphics getGraphics() passed in?
+//			 
+//			 if (p1.overlaps(b2)) h1.increaseHealth(1);
+//			 
+//			}
+//            //Student NPC Overlap
+//            
+//			
+//			 if(p1.overlaps(s1)) s1.isSpeaking(); else s1.isNotSpeaking();
+//			 
+//			 if(p1.overlaps(s2)) s2.isSpeaking(); else s2.isNotSpeaking();
+//			 
+//			 if(p1.overlaps(s3)) s3.isSpeaking(); else s3.isNotSpeaking();
+//			 
     	
 			repaint();
 			
@@ -134,25 +158,24 @@ public class Classroom extends JFrame implements KeyListener, Runnable{
 		g.clearRect(0, 0, 1900, 1000);
 		
 		p1.draw(g);
+		
+		ui.draw(g);
 	
-		//health, enemy, and healthStation
-		
-		h1.draw(g);
-		e1.draw(g);
-		b1.draw(g);
-		
-		b2.draw(g);
-		
-		// Students Speech
-	
-		s1.draw(g);
-		s1.talk(g , "Hi");
-		
-		s2.draw(g);
-		s2.talk(g , "Can you stop staring at me!");
-		
-		s3.draw(g);
-		s3.talk(g , "Hey, I have something for you");
+		/*
+		 * //health, enemy, and healthStation
+		 * 
+		 * h1.draw(g); e1.draw(g); b1.draw(g);
+		 * 
+		 * b2.draw(g);
+		 * 
+		 * // Students Speech
+		 * 
+		 * s1.draw(g); s1.talk(g , "Hi");
+		 * 
+		 * s2.draw(g); s2.talk(g , "Can you stop staring at me!");
+		 * 
+		 * s3.draw(g); s3.talk(g , "Hey, I have something for you");
+		 */
 	}
 
 	@Override

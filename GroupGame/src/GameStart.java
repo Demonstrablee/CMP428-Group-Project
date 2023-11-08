@@ -1,11 +1,11 @@
-import Levels.Managers.Classroom; 
+import Levels.GameLevels.Classroom01;
 import Levels.Managers.GameWindow2;
 
 public class GameStart{
    // running code with the run | debug in the code works
     public static void main(String [] args){
-      new GameWindow2();
-      //new Classroom();
+//      new GameWindow2();
+      new Classroom01();
     } 
      
 
