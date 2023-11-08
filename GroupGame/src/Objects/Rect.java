@@ -3,6 +3,10 @@ package Objects;
 import java.awt.*;
 
 
+/*
+ * Collision does not occur if you move horizontally while adjacent to another rectangle
+ * Only occurs when your above it or below it
+*/
 
 public class Rect
 {
@@ -30,6 +34,10 @@ public class Rect
 	{
 		this.x += (double)dx;
 		this.y += (double)dy;
+		
+		this.vx = (double)dx;
+		this.vy = (double)dy;
+		
 		System.out.println("x position: "+ x);
 		System.out.println("y position: "+ y);
 	}
@@ -48,16 +56,13 @@ public class Rect
 	
 	public boolean wasAbove(Rect r)
 	{//( ALT: is the player above the rectangle)
-		boolean result = y + h - vy > r.y + 1;
-
-	
+		boolean result = y + h - vy < r.y + 1;
 		return result;
 	}
 	
 	public boolean wasBelow(Rect r) // lower player(small y) high
 	{ // is the player below the rectangle (works )
-		boolean result = y - vy < r.y + r.h - 1;
-	
+		boolean result = y - vy > r.y + r.h - 1;
 		return result;
 	}
 	
@@ -65,10 +70,10 @@ public class Rect
 	{
 		// this.x = 100;
 		// this.y = 200;
-		// if(wasLeftOf(r))    pushLeftOf(r);
-		// if(wasRightOf(r))   pushRightOf(r);
-		if(wasAbove(r))     pushAbove(r);
-		else if(wasBelow(r))     pushBelow(r);
+		 if(wasLeftOf(r))    pushLeftOf(r);
+		 if(wasRightOf(r))   pushRightOf(r);
+		 if(wasAbove(r))     pushAbove(r);
+		 if(wasBelow(r))     pushBelow(r);
 	}
 	
 	public void pushLeftOf(Rect r)
