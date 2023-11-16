@@ -1,98 +1,68 @@
-// package Characters;
+package Characters;
+import Levels.Managers.GameWindow2;
+/**
+    The Animation class manages a series of images (frames) and
+    the amount of time to display each frame.
+*/
+import java.awt.*;
 
-// import java.awt.Image;
-// import java.util.ArrayList;
+public class Animation
+{
+	private Image[] image;
+	
+	private int current = 0;
+	
+	private int duration;
+	private int delay;
+	
+	private int start = 0;
+	
+	public Animation(String name,String pose, int count, int start, int duration, String type)
+	{
+		this.start    = start;
+		
+		this.duration = duration;
+		delay         = duration;
+		
+		
+		image = new Image[count];
+		
 
-// /**
-//     The Animation class manages a series of images (frames) and
-//     the amount of time to display each frame.
-// */
-// public class Animation { // code from Brackeen.com
+		for(int i = 0; i < count; i++)
+         
+		{
+			if (GameWindow2.getOs().contains("Mac")){ // if on mac
+            	//System.out.println("GroupGame/src/images/"+ name +"/" + name + "_" + pose + "/"+ name +"_" +pose +"_"+ i + "." + type);
+				image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/"+ name +"/" + name + "_" + pose + "/"+ name +"_" +pose +"_"+ i + "." + type);}
+			else{ // if you are on windows
+				//System.out.println("GroupGame\\srcimages\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
+				image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame\\srcimages\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
+		
+			}
+		}
+	}
+	
+	
+	public Image getStaticImage()
+	{
+		return image[0];
+	}
 
-//     private ArrayList frames;
-//     private int currFrameIndex;
-//     private long animTime;
-//     private long totalDuration;
+	public Image getCurrentImage()
+	{
+		delay--;
+		
+		if(delay == 0)
+		{
+			current++;
+			
+			if(current == image.length)  current = start;
+			
+			delay = duration;
+		}
+		
+		return image[current];
+	}
+	
 
-
-//     /**
-//         Creates a new, empty Animation.
-//     */
-//     public Animation() {
-//         frames = new ArrayList();
-//         totalDuration = 0;
-//         start();
-//     }
-
-
-//     /**
-//         Adds an image to the animation with the specified
-//         duration (time to display the image).
-//     */
-//     public synchronized void addFrame(Image image,
-//         long duration)
-//     {
-//         totalDuration += duration;
-//         frames.add(new AnimFrame(image, totalDuration));
-//     }
-
-
-//     /**
-//         Starts this animation over from the beginning.
-//     */
-//     public synchronized void start() {
-//         animTime = 0;
-//         currFrameIndex = 0;
-//     }
-
-
-//     /**
-//         Updates this animation's current image (frame), if
-//         neccesary.
-//     */
-//     public synchronized void update(long elapsedTime) {
-//         if (frames.size() > 1) {
-//             animTime += elapsedTime;
-
-//             if (animTime >= totalDuration) {
-//                 animTime = animTime % totalDuration;
-//                 currFrameIndex = 0;
-//             }
-
-//             while (animTime > getFrame(currFrameIndex).endTime) {
-//                 currFrameIndex++;
-//             }
-//         }
-//     }
-
-
-//     /**
-//         Gets this Animation's current image. Returns null if this
-//         animation has no images.
-//     */
-//     public synchronized Image getImage() {
-//         if (frames.size() == 0) {
-//             return null;
-//         }
-//         else {
-//             return getFrame(currFrameIndex).image;
-//         }
-//     }
-
-
-//     private AnimFrame getFrame(int i) {
-//         return (AnimFrame)frames.get(i);
-//     }
-
-
-//     private class AnimFrame {
-
-//         Image image;
-//         long endTime;
-
-//         public AnimFrame(Image image, long endTime) {
-//             this.image = image;
-//             this.endTime = endTime;
-//         }
-//     }
-// }
+}

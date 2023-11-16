@@ -29,7 +29,7 @@ public class Hallway01 extends Level2 {
         
         setHealthStation(new HealthStation(100, 300));
         // Setting enemys array
-        enemies = new Enemy[] {new Enemy(900, 100, 100, 100), new Enemy(900, 400, 100, 100)} ;
+        enemies = new Enemy[] {new Enemy("REDWOLF",900, 100, 100, 100), new Enemy("REDWOLF",900, 400, 100, 100)} ;
 
         constraints.gridx = 0;
         constraints.gridy = 0;

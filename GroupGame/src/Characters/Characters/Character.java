@@ -1,12 +1,14 @@
 package Characters.Characters;
 // import Levels.Managers.Level;
 import Levels.Managers.Level2;
-import Objects.Rect;
+
 
 import java.awt.*;
 
+import Characters.Sprite;
 
-public class Character extends Rect{
+
+public class Character extends Sprite{
     //private static int numStudent =+ 1; // track the student created
     private String name = ""; //
 
@@ -19,15 +21,15 @@ public class Character extends Rect{
     //Animation animation;
     //Sprite sprites;
 
-    public Character(int x, int y , int w, int h){
-        super(x, y, w, h);
+    public Character(String name, String[] pose, int imagecount, int start, String filetype, int x, int y, int w, int h){
+        super(name, pose,imagecount, start, filetype, x, y, w, h);
         
 
 
     }
-    public Character(int x, int y , int h, int w, String name, long pNum, Level2 location, boolean canInterview){
-        this(x,y,h,w);
-        this.name = name;
+    public Character(String name, String[] pose, int imagecount, int start, String filetype,int x, int y , int h, int w, long pNum, Level2 location, boolean canInterview){
+        this(name, pose,imagecount, start, filetype, x, y, w, h);
+        this.name = name; // name of the character vs Name for the file
         this.pNum = pNum;
         this.location = location;
         this.canInterview = canInterview;

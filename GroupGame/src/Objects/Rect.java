@@ -16,10 +16,10 @@ public class Rect
 	public double w;
 	public double h;
 	
-	double vx = 0;
-	double vy = 0;
+	protected double vx = 0;
+	protected double vy = 0;
 
-	Color c = Color.BLACK;
+	protected Color c = Color.BLACK;
 
 
 	public Rect(int x, int y, int w, int h)
@@ -68,8 +68,7 @@ public class Rect
 	
 	public void pushedOutOf(Rect r)
 	{
-		// this.x = 100;
-		// this.y = 200;
+	
 		 if(wasLeftOf(r))    pushLeftOf(r);
 		 if(wasRightOf(r))   pushRightOf(r);
 		 if(wasAbove(r))     pushAbove(r);

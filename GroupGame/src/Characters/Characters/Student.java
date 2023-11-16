@@ -13,17 +13,14 @@ public class Student extends Character{ // christan
 	
 	boolean appear = false;
 
-	public Student(int x, int y) {
-		
-		super(x, y, 50, 50);
-		
+	static String[] pose = new String[] {"IDLE"}; // all students have just one pose
+
+	public Student(String name, int x, int y) {
+		super(name,pose,4,0,"png",x,y,50,50);
 	}
     
-    public Student(int x, int y , int h, int w, String name, long pNum, Level2 location, boolean canInterview){
-      
-		super(x, y , h, w, name, pNum, location, canInterview);
-      
-		
+    public Student(String name, int imagecount, int start, String filetype,int x, int y , int h, int w, long pNum, Level2 location, boolean canInterview){
+		super(name,pose,imagecount,start,filetype,x,y,w,h,pNum, location, canInterview);
 	}
 	
 	// Setters

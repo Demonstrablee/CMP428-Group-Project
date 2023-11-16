@@ -9,7 +9,6 @@ import java.awt.*;
 public class TitleScreen extends Level2{ 
     JLabel title = new JLabel("TITLE SCREEN");
     JButton[] titleButtons;
-
     public TitleScreen(JButton[] menuButtons){
        
         super(null,null, "titleScreen");
@@ -32,6 +31,7 @@ public class TitleScreen extends Level2{
                 constraints = new GridBagConstraints();  
                 constraints.gridx = 0;
                 constraints. gridy = i;
+                constraints.insets = new Insets(3, 5, 5, 5);
                 add(button, constraints);
                 i++;
             }

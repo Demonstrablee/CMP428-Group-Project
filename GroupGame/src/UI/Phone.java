@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 
 import Objects.Rect;
 
-public class Phone extends Rect implements MouseListener{
+public class Phone extends Rect  implements MouseListener{
 	
 	Rect [] buttons = new Rect [3];
 	

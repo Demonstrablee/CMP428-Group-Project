@@ -3,6 +3,7 @@ package Levels.Menus;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,6 +37,7 @@ public class GameOverMenu extends Level2 {
                 constraints = new GridBagConstraints();  
                 constraints.gridx = 0;
                 constraints. gridy = i;
+                constraints.insets = new Insets(3, 5, 5, 5);
                 add(button, constraints);
                 i++;
             }

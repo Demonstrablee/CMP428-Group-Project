@@ -11,7 +11,6 @@ import javax.swing.JSlider;
 
 import Levels.Managers.Level2;
 
-import Objects.Wall;
 
 public class OptionsMenu extends Level2 {
 

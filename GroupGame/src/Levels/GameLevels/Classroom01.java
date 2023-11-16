@@ -31,7 +31,7 @@ public class Classroom01 extends JFrame implements KeyListener, Runnable{
 	
 	  HealthBar h1 = new HealthBar(100,100,20,20);
 	 
-	  Enemy e1 = new Enemy(900, 100, 100, 100);
+	  Enemy e1 = new Enemy("REDWOLF",900, 100, 100, 100);
 	 
 	  HealthStation b1 = new HealthStation(500, 300);
 	 
@@ -39,11 +39,11 @@ public class Classroom01 extends JFrame implements KeyListener, Runnable{
 	 
 	MurphysRoom2 murphysRoom2 = new MurphysRoom2(null, null);
 	
-	Student s1 = new Student(500, 300);
+	Student s1 = new Student("dan",500, 300);
 	
-	Student s2 = new Student(900, 100);
+	Student s2 = new Student("shan",900, 100);
 	
-	Student s3 = new Student(1100, 700);
+	Student s3 = new Student("Margret",1100, 700);
 	
 	
 	boolean[] pressing = new boolean[1024];

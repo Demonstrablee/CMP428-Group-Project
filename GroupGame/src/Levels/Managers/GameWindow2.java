@@ -1,4 +1,5 @@
 package Levels.Managers;
+
 import javax.swing.JFrame;
 
 import Characters.Characters.Enemy;
@@ -22,6 +23,9 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
     static String os = System.getProperty("os.name"); // check os of user
 
 
+  
+
+
     // Screen Managment Variables  
     int currResMode = 1; // change to change the resolution
     int prevResMode = 1; // what to revert to 
@@ -42,7 +46,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
         };
 
     final int [][] winRes = {{640,480},{1280,720},{1920,1080},{2560,1440}};
-    
+     Container contentPane;
     // App icon 
 
     static String appFolder = os == "Mac" ? "GroupGame/src/images/appIcon/" :"GroupGame\\src\\images\\appIcon\\";
@@ -87,22 +91,33 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
  
     
     public GameWindow2(){
+        
 
         this.setIconImage(appIcon); // set the app icon for the game https://stackoverflow.com/questions/209812/how-do-i-change-the-default-application-icon-in-java
+       
         setTitle("Untitled Game V2");
 
+        //contentPane = this.getLayeredPane();
+
+        
         setSize(winRes[currResMode][0], winRes[currResMode][1]);
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        
+        setResizable(false);
         setVisible(true); 
+         
+        //  if(contentPane instanceof JComponent)
+        //     ((JComponent)contentPane).setOpaque(false);
          
         getContentPane().add(lbPane);
 
+        
         lbPane.init();// comment in and out to allow for updates to post or just run with F5
         
-        //SimpleSoundPlayer.playSoundForever("GroupGame/src/music/title_screen_track01(loop).wav");
+        
+        SimpleSoundPlayer.playSoundForever("GroupGame/src/music/Main_Theme.wav"); // only works on mac
            
        
        
@@ -112,7 +127,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
 
     public void init()
 	{		
-	
+        
 		addKeyListener(this);
 
 		requestFocus();
@@ -158,11 +173,19 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
         }
          
     } 
-    
+
+      /**
+     * @return the user Opeation System 
+     */
+    public static String getOs() {
+        return os;
+    }
+
     @Override
     public void paint(Graphics pen){   
         //pen.clearRect(0, 0, getWidth(), getHeight());
         //setContentPane(lbPane);
+        //contentPane.paintComponents(pen);
     }  
 
   

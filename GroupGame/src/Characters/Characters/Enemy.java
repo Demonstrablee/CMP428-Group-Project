@@ -3,17 +3,21 @@ package Characters.Characters;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import Objects.Rect;
+import Characters.Sprite;
 
-public class Enemy extends Rect{
+
+public class Enemy extends Sprite{
+	static String pose [] = new String[] {"ATTACKRT","ATTACKLT","RT","LT","IDLE"};
 	
-	public Enemy(int x, int y, int h, int w) {
-		
-		super(x, y, w, h);
+	public Enemy(String type, int x, int y, int h, int w) {
+		super(type,pose,6,0,"png",x, y, w, h);
+		c = Color.GRAY;
+
 	}
 	
+	
 	public void draw(Graphics pen) {
-		this.setColor(Color.GRAY);
+		
 		super.draw(pen);
 	}
 

@@ -7,24 +7,28 @@ import Objects.Wall;
 
 public class MurphysRoom2 extends Level2{ 
     //Students
-    Student ashley = new Student(690, 172);
-    Student davis = new Student(630, 150);
+   //Student stacy = new Student("STACY",690, 172);  // ALL THE IMAGES ARE IN THE FOLDER ASSOCIATED WITH THE CHARACTER
+   //Student marcus = new Student("MARCUS",630, 150);
     
     
     public MurphysRoom2(Level2 enter, Level2 exit){
         super(enter, exit, "murphysRoom");
         
-        ashley.setPhrase("The hell you want?");
+      // stacy.setPhrase("The hell you want?");
         setBg("bg_classroom02.jpg");
+        setBackground(Color.BLACK);
 
         // add students to 
-        students = new Student[]{ashley, davis};
+       //students = new Student[]{stacy, marcus};
 
         // Level Exit Set
         setLevelExitPos(new int[] {800,490,100,25});
         
         // Set Walls
-        wall = new Wall[]{new Wall(0, 50, 1920, 80), new Wall(0, 500, 1920, 80), new Wall(100, 50, 80, 1000),new Wall(1100, 50, 80, 1000)};
+        wall = new Wall[]{new Wall(100, 500, 1080, 80), //bottom
+            new Wall(100, 50, 1080, 80), //top
+            new Wall(100, 50, 80, 530), // left
+            new Wall(1100, 50, 80, 530)}; //right
 
    
     }
@@ -34,7 +38,7 @@ public class MurphysRoom2 extends Level2{
     public void paintComponent(Graphics pen){  //method for painting
         super.paintComponent(pen);
         //pen.clearRect(0, 0, getWidth(), getHeight());
-        pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
+        pen.drawImage(bg,97,53 ,1085, 530,null);
         
         
         for(Wall walls : wall){
@@ -46,9 +50,9 @@ public class MurphysRoom2 extends Level2{
         dRectEx.draw(pen);
       
         // DRAW THE STUDENTS
-        for(Student s : students){
-            s.draw(pen);
-        }
+        // for(Student s : students){
+        //     s.draw(pen);
+        // }
   
     }
 
