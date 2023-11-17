@@ -82,7 +82,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     static MurphysRoom2 murphysRoom2 = new MurphysRoom2(null, null); //4
     static Hallway01 hallway01 = new Hallway01(null, null); //5
     static CampusMap campusMap = new CampusMap(null, null);; // 6
-    Level2 level [] = new Level2[] {titleScreen,pauseMenu,optionsMenu,saveMenu,gameOverMenu, murphysRoom2,hallway01,campusMap};
+    
     // Movement vars
     boolean[] pressing = new boolean[1024];
 
@@ -118,8 +118,6 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     public void init()
         {   
            //setDoubleBuffered(true); (redundant)
-            
-           //NullRepaintManager.install(); // ignore repaint calls from individual Swing Components
 
            System.out.println("Init method in LevelBuilder activated");
             
@@ -198,7 +196,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             currLevel = titleScreen; // which room to draw currLevel and levLevel index are one to one (default: titleScreen)
             gameRoom = murphysRoom2; // track of the ingame rooms that player traverses with p1 (default; murphysRoom)
 
-            levIndex = currLevel.toString(); // which room to display
+            //levIndex = currLevel.toString(); // which room to display
             isPaused =  true; // is the game paused or not (default: true)
             titleOrPause = true; // at game start options goes to pause menu (default: true)
             isOver = false; // is the game over? (only have to change this for gameover window debug) (default: false)
@@ -372,7 +370,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             
             pen.clearRect(0, 0, getWidth(), getHeight());
 
-            // Drawing Jpanels
+ 
          
             
             super.paint(pen);
@@ -425,7 +423,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                 nButton.setBorder(border);
                 nButton.setBackground(Color.LIGHT_GRAY);
         
-                nButton.setOpaque(true);
+                nButton.setOpaque(true); // so that I can see the background
                 // nButton.setRolloverEnabled(true);
                 // nButton.setRolloverIcon(rolloverIcon);
                 // nButton.setBorder(null); // get rid of the border on the button

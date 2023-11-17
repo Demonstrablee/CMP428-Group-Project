@@ -19,8 +19,8 @@ public class PausePhoneMenu extends Level2{
 
         //BACKGROUND
         setBg("bg_pause02.jpg");
-        
-        setBounds(450,10,250,720); // set the bounds of the 
+        setBounds(450,10,250,720); // set the bounds of the panel
+
         phoneOutline = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/outline_phone.png");
         wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop
 

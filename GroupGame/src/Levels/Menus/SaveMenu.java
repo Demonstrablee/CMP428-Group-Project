@@ -3,6 +3,7 @@ package Levels.Menus;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,43 +14,44 @@ import Levels.Managers.Level2;
 
 
 public class SaveMenu extends Level2 {
-    JLabel title = new JLabel("SAVE GAME");
-    JButton backButton;
-    GridBagConstraints constraints;
+    JLabel title = new JLabel("SAVE");
+
 
     public SaveMenu(JButton backButton){
         super(null,null, "saveMenu");
+
+        //BACKGROUND
+        //setBg("black01.jpg");
         setBounds(0, 0, 1280, 720);
-        setVisible(false);
+        setBackground(Color.lightGray);
+
+
+        // adding components to the screen
+        constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.PAGE_START;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        add(title,constraints);
+
         
-        //wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop in game loop
-       
-        this.backButton = backButton;
-
-        constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.PAGE_START;
+        constraints = new GridBagConstraints();  
         constraints.gridx = 0;
-        constraints.gridy = 0;
-        add(title, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.PAGE_START;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
+        constraints. gridy = 1;
+        constraints.insets = new Insets(3, 5, 5, 5);
         add(backButton, constraints);
-
         
+            
     }
-    
    
 
-     @Override
+    @Override
     public void paintComponent(Graphics pen){  //method for painting
-        pen.setColor(Color.RED);
-        //pen.clearRect(0, 0, getWidth(), getHeight());
+        super.paintComponent(pen);
+       
         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
-        //title.repaint();
-        backButton.repaint();
-
+        pen.setColor(Color.BLACK);
+      
+        
+        
     }
 }
