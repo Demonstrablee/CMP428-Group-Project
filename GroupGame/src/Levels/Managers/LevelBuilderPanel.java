@@ -17,8 +17,8 @@ import Objects.HealthStation;
 import Objects.MenuButton;
 import Objects.Rect;
 import Objects.Wall;
+import UI.InterviewMode;
 
- 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -40,16 +40,14 @@ import javax.swing.border.Border;
 public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runnable, ActionListener, MouseListener{
     
     Thread t;
- 
-
     
     //Buttons
-    Image phone = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/Phone_Blue.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
+    Image phone = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/icons/Phone_Blue.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
     ImageIcon phoneIcon = new ImageIcon(phone);
     JButton inGameMenuButton = new JButton(phoneIcon);
    
-    JButton [] titleButtons = new JButton[3];
-    JButton [] pauseMButtons = new JButton[5];
+    JButton [] titleButtons = new JButton[3]; // number of buttons on each menu
+    JButton [] pauseMButtons = new JButton[6];
     JButton [] toPauseButtons = new JButton[2];
     JButton [] gameOverButtons = new JButton[3];
 
@@ -82,6 +80,9 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     static MurphysRoom2 murphysRoom2 = new MurphysRoom2(null, null); //4
     static Hallway01 hallway01 = new Hallway01(null, null); //5
     static CampusMap campusMap = new CampusMap(null, null);; // 6
+
+    //UI
+    InterviewMode interviewMode;
     
     // Movement vars
     boolean[] pressing = new boolean[1024];
@@ -90,8 +91,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     boolean isPaused; 
     /** States whether or not the game is over  */
     boolean isOver = false;
-    
-    Timer timer;
+
 
     static final int UP = KeyEvent.VK_UP;
     static final int DN = KeyEvent.VK_DOWN;
@@ -140,22 +140,24 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
          * them to the JPanel of the LevelBuilder Class
          */
         public void loadElements(){
-             
+            // GameWindow2.setPlayMusic(true); // play
             setBounds(0, 0, 1280, 720); // display size
 
             inGameMenuButton.addActionListener(this);
             inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
-            inGameMenuButton.setBounds(1130, 70,64,64);
+            inGameMenuButton.setBounds(1130, 70,62,62); // w and h are smaller than the image size so that the white background doesnt appear arround the button
+            
+
             add(inGameMenuButton);
             inGameMenuButton.setVisible(false);
        
           
             // initiallizing buttons
-            String [] buttonN = new String[] {"RESUME", "OPTIONS", "QUIT", "RETURN TO TITLE", "BACK", "SAVE GAME", "START", "TRY AGAIN"};
+            String [] buttonN = new String[] {"RESUME", "OPTIONS", "QUIT", "RETURN TO TITLE", "BACK", "SAVE GAME", "START", "TRY AGAIN", "INVENTORY"};
             createButton(new String [] {buttonN[6],buttonN[1],buttonN[2]}, titleButtons); // TITLE SCREEN
-            createButton(new String [] {buttonN[0],buttonN[5],buttonN[1],buttonN[3], buttonN[2]}, pauseMButtons); //PAUSE MENU 
+            createButton(new String [] {buttonN[0],buttonN[5],buttonN[1],buttonN[3], buttonN[2],buttonN[8]}, pauseMButtons); //PAUSE MENU 
             createButton(new String [] {buttonN[4],buttonN[4]}, toPauseButtons); // SAVE AND OPTIONS
-            createButton(new String [] {buttonN[7],buttonN[3],buttonN[2]}, gameOverButtons);
+            createButton(new String [] {buttonN[7],buttonN[3],buttonN[2]}, gameOverButtons); // GAME OVER
 
            
 
@@ -201,7 +203,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             titleOrPause = true; // at game start options goes to pause menu (default: true)
             isOver = false; // is the game over? (only have to change this for gameover window debug) (default: false)
              
-            currLevel.setVisible(true);
+            currLevel.setVisible(true); // whatever the stating level is set it to visible
             
         }
 
@@ -391,9 +393,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
 
                  // PLAYER HUD
                 healthBar.draw(pen);
-                //inGameMenuButton.repaint();
-                //inGameMenuButton.draw(pen); 
-                   
+               
                 pen.setColor(Color.BLACK);
                 
             }
@@ -403,20 +403,14 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
         public void createButton(String [] arr, JButton [] buttons){
             JButton nButton;
             Border border = BorderFactory.createBevelBorder(0);
-            // int width = 40;
-            // int height = width/2;
-            // Image img1 = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/WindowsGUI/Windows_Button_Inactive.png");
-            // img1 = img1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            // ImageIcon dIcon = new ImageIcon(img1);
-
-            // Image img2 = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/WindowsGUI/Windows_Button_Pressed.png");
-            // img2 = img2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            // ImageIcon rolloverIcon = new ImageIcon(img2);
             
+        
             for (int i = 0 ; i < arr.length; ++i){
                 nButton = new JButton(arr[i]);
+        
                 nButton.addActionListener(this);
                 nButton.setFocusable(false);
+                
 
                 //Button Stylings
 
@@ -544,7 +538,10 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
        else if(buttonClicked == pauseMButtons[4]|| buttonClicked == titleButtons[2]|| buttonClicked == gameOverButtons[2] ){ // quit
             System.exit(0);
         } 
-       else if(buttonClicked == inGameMenuButton|| buttonClicked == toPauseButtons[0]||(buttonClicked == toPauseButtons[1] && !titleOrPause)|| buttonClicked == toPauseButtons[2]){ // pause screen
+       else if(buttonClicked == inGameMenuButton|| 
+       buttonClicked == toPauseButtons[0]||
+       (buttonClicked == toPauseButtons[1] && !titleOrPause)|| 
+       buttonClicked == toPauseButtons[0]){ // pause screen
             //cLayout0.show(this, "1"); // show the pause menu
             if(currLevel != gameRoom) // if the last level was a menu level
                 currLevel.setVisible(false);
@@ -553,7 +550,11 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             //levIndex = currLevel.toString();
             isPaused = true; // pause the game
             System.out.println("Paused");
-        } 
+        }
+        else if(buttonClicked == pauseMButtons[5]){
+            System.out.println("Opening Player Inventory Coming Soon!");
+            GameWindow2.setPlayMusic(false); // play
+        }
        
         
 

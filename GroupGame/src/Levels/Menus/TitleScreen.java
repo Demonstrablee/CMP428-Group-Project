@@ -12,7 +12,7 @@ public class TitleScreen extends Level2{
     public TitleScreen(JButton[] menuButtons){
        
         super(null,null, "titleScreen");
-        setDoubleBuffered(true);
+        
         
         //BACKGROUND
         setBg("bg_classroom01.jpg");

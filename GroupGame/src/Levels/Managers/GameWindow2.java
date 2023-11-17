@@ -22,10 +22,6 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
     
     static String os = System.getProperty("os.name"); // check os of user
 
-
-  
-
-
     // Screen Managment Variables  
     int currResMode = 1; // change to change the resolution
     int prevResMode = 1; // what to revert to 
@@ -76,7 +72,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
     int nExitY;
 
     boolean gameStarted = false; // have you started to actually play
-        
+    static boolean playMusic = false;
 
         
         // Movement Vars
@@ -115,7 +111,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
         lbPane.init();// comment in and out to allow for updates to post or just run with F5
         
         
-        //SimpleSoundPlayer.playSoundForever("GroupGame/src/music/Main_Theme.wav"); // only works on mac
+        SimpleSoundPlayer.playSoundForever("GroupGame/src/music/Main_Theme.wav"); // only works on mac
            
        
        
@@ -177,6 +173,10 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
      */
     public static String getOs() {
         return os;
+    }
+
+    public static void setPlayMusic(boolean bool){
+        playMusic = bool;
     }
 
     @Override

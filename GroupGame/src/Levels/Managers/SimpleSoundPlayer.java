@@ -9,6 +9,9 @@ import javax.sound.sampled.*;
     from the file system and later played.
 */
 public class SimpleSoundPlayer  { // from bracmeen.com
+    static SimpleSoundPlayer sound;
+    static double volume;
+    boolean mute = false;
 
     public static void main(String[] args) { // only plays wav files
         // load a sound
@@ -117,8 +120,7 @@ public class SimpleSoundPlayer  { // from bracmeen.com
         try {
             int numBytesRead = 0;
             while (numBytesRead != -1) {
-                numBytesRead =
-                    source.read(buffer, 0, buffer.length);
+                numBytesRead = source.read(buffer, 0, buffer.length);
                 if (numBytesRead != -1) {
                    line.write(buffer, 0, numBytesRead);
                 }
@@ -152,8 +154,7 @@ public class SimpleSoundPlayer  { // from bracmeen.com
 
     public static void playSoundForever(String filePath){
         // load a sound
-        SimpleSoundPlayer sound =
-            new SimpleSoundPlayer(filePath);
+        sound = new SimpleSoundPlayer(filePath);
 
         // create the stream to play (looping version from brackeen website)
         InputStream stream =
@@ -164,6 +165,23 @@ public class SimpleSoundPlayer  { // from bracmeen.com
 
         // exit
         System.exit(0);
+    }
+
+    public static void stop(String filePath){
+         
+    }
+
+    public static void mute(){
+
+
+    }
+
+    public static void lowerVolume(){
+
+    }
+
+    public static void raiseVolume(){
+
     }
 
 }
