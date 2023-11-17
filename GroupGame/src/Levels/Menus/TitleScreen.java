@@ -16,6 +16,8 @@ public class TitleScreen extends Level2{
         
         //BACKGROUND
         setBg("bg_classroom01.jpg");
+        setBounds(0, 0, 1280, 720);
+       
         
         // Getting the buttons for the Menu
         this.titleButtons = menuButtons;
@@ -31,6 +33,8 @@ public class TitleScreen extends Level2{
                 constraints = new GridBagConstraints();  
                 constraints.gridx = 0;
                 constraints. gridy = i;
+                constraints.ipadx = 30;
+                constraints.ipady = 3;
                 constraints.insets = new Insets(3, 5, 5, 5);
                 add(button, constraints);
                 i++;
@@ -46,7 +50,7 @@ public class TitleScreen extends Level2{
             //pen.clearRect(0, 0, getWidth(), getHeight());
             pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
             
-            repaint(100,100,4000,4000);
+            //repaint(100,100,4000,4000);
             
             //for(JButton button : titleButtons){button.repaint();}
         }

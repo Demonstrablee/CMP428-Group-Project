@@ -13,8 +13,10 @@ public class CampusMap extends Level2 {
         super(enter, exit, "campusMap");
         
         //BACKGROUND
-        //setBackground(Color.BLACK); // set pane to black
+        setBackground(Color.BLACK); // set pane to black
         setBg("Lehman_Map.png");
+        setBounds(0, 0, 1280, 720);
+
         //Level Exit and Enterance Set
 
         // constraints.gridx = 0;

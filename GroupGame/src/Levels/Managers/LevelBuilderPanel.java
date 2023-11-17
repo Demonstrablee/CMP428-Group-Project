@@ -26,23 +26,27 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 
 ;
 
 /** Initialize a level inhertiting from JPanel*/
-public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, ActionListener, MouseListener{
+public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runnable, ActionListener, MouseListener{
     
     Thread t;
  
 
     
     //Buttons
-    
-    MenuButton inGameMenuButton = new MenuButton(1100,70,"PAUSE");
+    Image phone = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/Phone_Blue.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
+    ImageIcon phoneIcon = new ImageIcon(phone);
+    JButton inGameMenuButton = new JButton(phoneIcon);
    
     JButton [] titleButtons = new JButton[3];
     JButton [] pauseMButtons = new JButton[5];
@@ -78,7 +82,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
     static MurphysRoom2 murphysRoom2 = new MurphysRoom2(null, null); //4
     static Hallway01 hallway01 = new Hallway01(null, null); //5
     static CampusMap campusMap = new CampusMap(null, null);; // 6
-
+    Level2 level [] = new Level2[] {titleScreen,pauseMenu,optionsMenu,saveMenu,gameOverMenu, murphysRoom2,hallway01,campusMap};
     // Movement vars
     boolean[] pressing = new boolean[1024];
 
@@ -118,7 +122,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
            //NullRepaintManager.install(); // ignore repaint calls from individual Swing Components
 
            System.out.println("Init method in LevelBuilder activated");
-        
+            
            loadElements();
            
            addKeyListener(this);
@@ -138,15 +142,18 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
          * them to the JPanel of the LevelBuilder Class
          */
         public void loadElements(){
+             
+            setBounds(0, 0, 1280, 720); // display size
 
-            setLayout(cLayout0); 
-            // inGameMenuButton.addActionListener(this);
-            // inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
-            // inGameMenuButton.setLocation(900, 100);
+            inGameMenuButton.addActionListener(this);
+            inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
+            inGameMenuButton.setBounds(1130, 70,64,64);
+            add(inGameMenuButton);
+            inGameMenuButton.setVisible(false);
        
           
             // initiallizing buttons
-            String [] buttonN = new String[] {"RESUME", "OPTIONS", "QUIT", "RETURN TO TITLE", "BACK", "SAVE GAME", "START", "TRY AGAIN",};
+            String [] buttonN = new String[] {"RESUME", "OPTIONS", "QUIT", "RETURN TO TITLE", "BACK", "SAVE GAME", "START", "TRY AGAIN"};
             createButton(new String [] {buttonN[6],buttonN[1],buttonN[2]}, titleButtons); // TITLE SCREEN
             createButton(new String [] {buttonN[0],buttonN[5],buttonN[1],buttonN[3], buttonN[2]}, pauseMButtons); //PAUSE MENU 
             createButton(new String [] {buttonN[4],buttonN[4]}, toPauseButtons); // SAVE AND OPTIONS
@@ -161,6 +168,8 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
             saveMenu = new SaveMenu(toPauseButtons[0]); 
             gameOverMenu = new GameOverMenu(gameOverButtons);
 
+
+
             //MURPHYS ROOM
             murphysRoom2.setExit(hallway01); // the address initially was null 
 
@@ -171,15 +180,19 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
             // CAMPUS MAP
             campusMap.setEnterance(hallway01);
             
+            
             //ADDING Levels To Level builder Panel
-            add(titleScreen, titleScreen.toString());
-            add(pauseMenu, pauseMenu.toString());
-            add(optionsMenu, optionsMenu.toString());
-            add(saveMenu, saveMenu.toString());
-            add(murphysRoom2, murphysRoom2.toString());
-            add(hallway01, hallway01.toString());
-            add(campusMap, campusMap.toString());
-            add(gameOverMenu, gameOverMenu.toString());
+
+            add(pauseMenu);
+            add(titleScreen);
+            add(optionsMenu);
+            add(saveMenu);
+            add(murphysRoom2);
+            add(hallway01);
+            add(campusMap);
+            add(gameOverMenu);
+
+            
             
             // Game State variables AT START
             currLevel = titleScreen; // which room to draw currLevel and levLevel index are one to one (default: titleScreen)
@@ -190,7 +203,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
             titleOrPause = true; // at game start options goes to pause menu (default: true)
             isOver = false; // is the game over? (only have to change this for gameover window debug) (default: false)
              
-
+            currLevel.setVisible(true);
             
         }
 
@@ -199,15 +212,39 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
         public void run() {
             System.out.println("Game Started");
             while(true){ //game loop
-                if(isOver){
+                 
+                gameLoop();
+
+                repaint(); // draw the panel
+
+                try{
+                    Thread.sleep(15);
+
+                }catch(Exception e){
+
+                }  
+            }
+             
+            
+        }
+
+        public void gameLoop(){
+            if(isOver){
                     isPaused = true; // so it works in testing and in game
-                    // gameRoom = gameOverMenu; // its a menu after all
+                    //gameRoom = gameOverMenu; // its a menu after all
+                    currLevel.setVisible(false);
                     currLevel = gameOverMenu;
+                    currLevel.setVisible(true);
                     
+                }
+                if(isPaused){ 
+                    inGameMenuButton.setVisible(false);
+
+                
                 }
 
                 // if you are not in a game menu    
-                if(!isPaused || !isOver){ // Game Menu exit
+                else if(isPaused == false || isOver == false){ // Game Menu exit
                     // System.out.println("P1: Xpos: "+ (p1.x) + " Ypos: "+ (p1.y));
                     // MUST BE GAME ROOM since the menus dont have exits and entrances
                     wall = gameRoom.getWalls();
@@ -218,6 +255,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                     students = gameRoom.getStudents();
                     healthStation = gameRoom.getHealthStation();
                     p1.setColor(Color.RED); // Player color will change depending on if hit or not
+                    inGameMenuButton.setVisible(true);
 
                     //GAME OVER CONDITIONS
                     if(health == 0){
@@ -294,7 +332,10 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                             
                             // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
                             gameRoom = currLevel.getExit(); // 
+                            
+                            currLevel.setVisible(false);
                             currLevel = gameRoom;
+                            currLevel.setVisible(true);
 
                              
                             System.out.println("Entering "+ currLevel.toString());}   
@@ -315,38 +356,29 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                                 
                                 // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
                                 gameRoom = currLevel.getEnterance();  
+                                
+                                currLevel.setVisible(false);
                                 currLevel = gameRoom;
+                                currLevel.setVisible(true);
 
                                 System.out.println("Entering "+ currLevel.toString());}         
 
                         }
                 
                     }
-
-
-                repaint(); // draw the panel
-
-                try{
-                    Thread.sleep(15);
-
-                }catch(Exception e){
-
-                }  
-            }
-             
-            
         }
     @Override
         public void paint(Graphics pen){ // WOW rather than paint AWT make this paintComponent and everything is good  
-            //super.paintComponent(pen);
-            pen.clearRect(0, 0, getWidth(), getHeight()); 
-            currLevel.paintComponent(pen); // draw the level using its own paint method
-            cLayout0.show(this,levIndex); // swaps to the next Level
             
-        
+            pen.clearRect(0, 0, getWidth(), getHeight());
+
+            // Drawing Jpanels
+         
+            
+            super.paint(pen);
              
                             
-            levIndex = currLevel.toString();
+            //levIndex = currLevel.toString();
 
             if(!isPaused && !currLevel.equals(campusMap)){ // draw player character if you are playing (drawn on every gameRoom) 
                
@@ -362,7 +394,7 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
                  // PLAYER HUD
                 healthBar.draw(pen);
                 //inGameMenuButton.repaint();
-                inGameMenuButton.draw(pen); 
+                //inGameMenuButton.draw(pen); 
                    
                 pen.setColor(Color.BLACK);
                 
@@ -372,26 +404,32 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
         /** Create the buttons that will be in the menus  */
         public void createButton(String [] arr, JButton [] buttons){
             JButton nButton;
-            int width = 40;
-            int height = width/2;
-            Image img1 = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/WindowsGUI/Windows_Button_Inactive.png");
-            img1 = img1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            ImageIcon dIcon = new ImageIcon(img1);
+            Border border = BorderFactory.createBevelBorder(0);
+            // int width = 40;
+            // int height = width/2;
+            // Image img1 = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/WindowsGUI/Windows_Button_Inactive.png");
+            // img1 = img1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            // ImageIcon dIcon = new ImageIcon(img1);
 
-            Image img2 = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/WindowsGUI/Windows_Button_Pressed.png");
-            img2 = img2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            ImageIcon rolloverIcon = new ImageIcon(img2);
+            // Image img2 = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/WindowsGUI/Windows_Button_Pressed.png");
+            // img2 = img2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            // ImageIcon rolloverIcon = new ImageIcon(img2);
             
             for (int i = 0 ; i < arr.length; ++i){
-                nButton = new JButton(dIcon);
+                nButton = new JButton(arr[i]);
                 nButton.addActionListener(this);
                 nButton.setFocusable(false);
 
                 //Button Stylings
-                nButton.setRolloverEnabled(true);
-                nButton.setRolloverIcon(rolloverIcon);
-                nButton.setBorder(null); // get rid of the border on the button
-                nButton.setContentAreaFilled(false); // makes button transparent so imageICon can be only showing
+
+                nButton.setBorder(border);
+                nButton.setBackground(Color.LIGHT_GRAY);
+        
+                nButton.setOpaque(true);
+                // nButton.setRolloverEnabled(true);
+                // nButton.setRolloverIcon(rolloverIcon);
+                // nButton.setBorder(null); // get rid of the border on the button
+                // nButton.setContentAreaFilled(false); // makes button transparent so imageICon can be only showing
                 buttons[i] = nButton; // add button to array
             }
         }
@@ -407,15 +445,25 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
         //System.out.println(e.getKeyCode());  
 
         pressing[e.getKeyCode()] = true;
-
-        if(!isPaused){
-            if(e.getKeyCode() == KeyEvent.VK_P){ // if P is pressed pause the game
+       
+        if(e.getKeyCode() == KeyEvent.VK_P){ // if P is pressed pause the game
+            if(!isPaused){
+                //currLevel.setVisible(false);
                 currLevel = pauseMenu;
-                levIndex = currLevel.toString();
+                currLevel.setVisible(true);
+                //levIndex = currLevel.toString();
                 isPaused = true; // pause the game
                 System.out.println("Paused via key press");
-            }
+            
+            }else{ // go back to the game
+                //currLevel.setVisible(false);
+                //currLevel = pauseMenu;
+                currLevel.setVisible(false); // should be pause menu
+                //levIndex = currLevel.toString();
+                isPaused = false; // pause the game
+                System.out.println("UnPaused via key press");
         }
+    }
 
 
     }
@@ -455,32 +503,41 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
           
 		if(buttonClicked == titleButtons[0] || buttonClicked == pauseMButtons[0]|| buttonClicked == gameOverButtons[0]) {// go to resume
             //cLayout0.show(this, "4"); //paint method handels this
-            currLevel = gameRoom ; // last game room (currLevel is what is used to draw the levels in the paint method)
-            
+            currLevel.setVisible(false); // make previous room invisible
+            currLevel = gameRoom; // last game room (currLevel is what is used to draw the levels in the paint method) change levels
+            currLevel.setVisible(true); // make current room visible
+
 
             healthBar.refillHealth();   //NEED TO SET THIS TO FULL 
             // which level to switch to based on what the last game room you were in
             //levIndex = currLevel.equals(hallway01) ? "5":"4"; //murphys room or hallway 
-            levIndex = currLevel.toString();
+            //levIndex = currLevel.toString();
             isPaused = false;
             titleOrPause = false; //game started make option menu go to the pause menu
             isOver = false;
         } 
        else if(buttonClicked == pauseMButtons[1]){ // go to save 
            // cLayout0.show(this, "3"); 
+            currLevel.setVisible(false);
             currLevel = saveMenu;
-            levIndex = currLevel.toString();
+            currLevel.setVisible(true);
+            //levIndex = currLevel.toString();
         }
        else if(buttonClicked == titleButtons[1] || buttonClicked == pauseMButtons[2]){// go to options
             //cLayout0.show(this, "2");
+            currLevel.setVisible(false);
             currLevel = optionsMenu;
-            levIndex = currLevel.toString();
+            currLevel.setVisible(true);
+            //levIndex = currLevel.toString();
        }
        else if(buttonClicked == pauseMButtons[3] || buttonClicked == toPauseButtons[1] && titleOrPause || buttonClicked == gameOverButtons[1]){ // back to title screen
             //cLayout0.show(this, "0");
+            currLevel.setVisible(false);
             currLevel = titleScreen;
             gameRoom = murphysRoom2;
-            levIndex = currLevel.toString();
+            currLevel.setVisible(true);
+
+            //levIndex = currLevel.toString();
             healthBar.refillHealth();   //NEED TO SET THIS TO FULL   
             isPaused = true;
             isOver = false;
@@ -491,8 +548,11 @@ public class LevelBuilderPanel extends JPanel implements KeyListener, Runnable, 
         } 
        else if(buttonClicked == inGameMenuButton|| buttonClicked == toPauseButtons[0]||(buttonClicked == toPauseButtons[1] && !titleOrPause)|| buttonClicked == toPauseButtons[2]){ // pause screen
             //cLayout0.show(this, "1"); // show the pause menu
+            if(currLevel != gameRoom) // if the last level was a menu level
+                currLevel.setVisible(false);
             currLevel = pauseMenu;
-            levIndex = currLevel.toString();
+            currLevel.setVisible(true);
+            //levIndex = currLevel.toString();
             isPaused = true; // pause the game
             System.out.println("Paused");
         } 

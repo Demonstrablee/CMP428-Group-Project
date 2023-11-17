@@ -43,6 +43,9 @@ public class OptionsMenu extends Level2 {
         
         //BACKGROUND
         setBg("bg_classroom03.jpg"); 
+        setBounds(0, 0, 1280, 720);
+        setVisible(false);
+        
         //Get Buttons
         this.backButton = backButtons;
 

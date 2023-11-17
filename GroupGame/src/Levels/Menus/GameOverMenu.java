@@ -19,7 +19,8 @@ public class GameOverMenu extends Level2 {
         super(null,null, "gameOverMenu");
 
         //BACKGROUND
-        setBg("black01.jpg");
+        //setBg("black01.jpg");
+        setBounds(0, 0, 1280, 720);
         
 
         
@@ -51,8 +52,8 @@ public class GameOverMenu extends Level2 {
         pen.drawImage(bg,0,0,getWidth(), getHeight(),null);
         pen.setColor(Color.BLACK);
         // Draw the button
-        title.repaint();
-        for(JButton button : gameOverOptions){button.repaint();}
+        //title.repaint();
+        //for(JButton button : gameOverOptions){button.repaint();}
         
         
     }

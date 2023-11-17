@@ -19,7 +19,7 @@ public class Hallway01 extends Level2 {
     
         //BACKGROUND
        setBg("bg_hallway01.jpg"); 
-        
+       setBounds(0, 0, 1280, 720); // SO IMPORTANT THE LEVEL WONT APPEAR UNLESS THESE ARE SET
         
         wall = new Wall[]{new Wall(0, 50, 1920, 80), new Wall(0, 500, 1920, 80)};
        
@@ -29,11 +29,11 @@ public class Hallway01 extends Level2 {
         
         setHealthStation(new HealthStation(100, 300));
         // Setting enemys array
-        enemies = new Enemy[] {new Enemy("REDWOLF",900, 100, 100, 100), new Enemy("REDWOLF",900, 400, 100, 100)} ;
+        enemies = new Enemy[] {new Enemy("REDWOLF",900, 100, 100, 100), new Enemy("REDWOLF",500, 400, 100, 100)} ;
 
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        add(title, constraints);
+        // constraints.gridx = 0;
+        // constraints.gridy = 0;
+        // add(title, constraints);
         
     }
    

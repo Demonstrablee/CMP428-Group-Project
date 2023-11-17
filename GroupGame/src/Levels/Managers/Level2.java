@@ -8,6 +8,7 @@ import java.awt.*;
 
 import javax.swing.JPanel;
 
+import Characters.Sprite;
 import Characters.Characters.Enemy;
 import Characters.Characters.Student;
 
@@ -48,6 +49,9 @@ public abstract class Level2 extends JPanel{
 //CONSTRUCTORS
     public Level2(Level2 enter, Level2 exit, String name){
         setLayout(new GridBagLayout());
+        setBackground(Color.BLACK);
+        setVisible(false);
+
         this.enterance = enter;
         this.exit = exit;
         this.name = name;
@@ -83,15 +87,7 @@ public abstract class Level2 extends JPanel{
      * @returns null if the rectangle is not defined
     */
     public Rect getEnterRect(){
-        //  try {
-        //     if(dRectEnter == null) throw new NullPointerException();
-        //     // otherswise
     
-        //     return dRectEnter;
-        // } catch (Exception e) {
-        //     System.err.println("the rectangle that defines the enterance is not defined");
-        //     throw new NullPointerException(" the rectangle that defines the enterance is not defined");
-        // }
         return dRectEnter;
     }
 
@@ -119,15 +115,6 @@ public abstract class Level2 extends JPanel{
      * @returns null if the rectangle is not defined
     */
     public Rect getExitRect(){
-        // try {
-        //     if(dRectEx == null) throw new NullPointerException();
-        //     // otherswise
-    
-        //     return dRectEx;
-        // } catch (Exception e) {
-        //     System.err.println("the rectangle that defines the exit is not defined");
-        //     //throw new NullPointerException(" the rectangle that defines the exit is not defined");
-        // }
         return dRectEx; // stil return the null
         
         //return dRectEx;
@@ -148,6 +135,7 @@ public abstract class Level2 extends JPanel{
     public void setLevelEnterPos(int[] lEnterP) {
         this.lEnterP = lEnterP;
         dRectEnter = new Rect(lEnterP[0], lEnterP[1], lEnterP[2], lEnterP[3]);
+        //dRectEnter = new Sprite("DOOR", new String[]{"IDLE"},1, 0, "png", lExitP[0], lExitP[1], lExitP[2], lExitP[3]);
         dRectEnter.setColor(Color.cyan);
     }
 
@@ -164,6 +152,7 @@ public abstract class Level2 extends JPanel{
     public void setLevelExitPos(int[] lExitP) {
         this.lExitP = lExitP;
         dRectEx = new Rect(lExitP[0], lExitP[1], lExitP[2], lExitP[3]);
+        //dRectEx = new Sprite("DOOR", new String[]{"IDLE"},1, 0, "png", lExitP[0], lExitP[1], lExitP[2], lExitP[3]);
         dRectEx.setColor(Color.MAGENTA);
     }
 

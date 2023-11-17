@@ -17,7 +17,8 @@ public class MurphysRoom2 extends Level2{
       // stacy.setPhrase("The hell you want?");
         setBg("bg_classroom02.jpg");
         setBackground(Color.BLACK);
-
+        setBounds(0,0,1280,720);
+      
         // add students to 
        //students = new Student[]{stacy, marcus};
 

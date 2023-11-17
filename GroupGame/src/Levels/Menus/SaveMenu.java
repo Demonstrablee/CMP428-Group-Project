@@ -19,6 +19,9 @@ public class SaveMenu extends Level2 {
 
     public SaveMenu(JButton backButton){
         super(null,null, "saveMenu");
+        setBounds(0, 0, 1280, 720);
+        setVisible(false);
+        
         //wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop in game loop
        
         this.backButton = backButton;

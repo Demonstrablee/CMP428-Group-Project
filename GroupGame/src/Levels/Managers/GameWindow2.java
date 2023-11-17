@@ -46,7 +46,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
         };
 
     final int [][] winRes = {{640,480},{1280,720},{1920,1080},{2560,1440}};
-     Container contentPane;
+
     // App icon 
 
     static String appFolder = os == "Mac" ? "GroupGame/src/images/appIcon/" :"GroupGame\\src\\images\\appIcon\\";
@@ -75,7 +75,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
     int nExitX;
     int nExitY;
 
-        boolean gameStarted = false; // have you started to actually play
+    boolean gameStarted = false; // have you started to actually play
         
 
         
@@ -107,10 +107,8 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
        
         setResizable(false);
         setVisible(true); 
-         
-        //  if(contentPane instanceof JComponent)
-        //     ((JComponent)contentPane).setOpaque(false);
-         
+        
+        
         getContentPane().add(lbPane);
 
         

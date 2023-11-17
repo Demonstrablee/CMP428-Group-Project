@@ -19,12 +19,14 @@ public class PausePhoneMenu extends Level2{
 
         //BACKGROUND
         setBg("bg_pause02.jpg");
+        
+        setBounds(450,10,250,720); // set the bounds of the 
         phoneOutline = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/outline_phone.png");
         wall = new Wall[]{new Wall(10, 101, 100, 80)}; // temp to make errors stop
 
         // adding components to the screen
         this.pauseMButtons = pauseButtons;
-
+        setVisible(false);
         //Adding elements to the panel
         constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.PAGE_START;
@@ -41,7 +43,7 @@ public class PausePhoneMenu extends Level2{
                 add(button, constraints);
                 i++;
             }
-        Border phone = BorderFactory.createLineBorder(Color.RED); //https://www.youtube.com/watch?v=Eb2QydjQvV4
+        Border phone = BorderFactory.createLineBorder(Color.RED,10); //https://www.youtube.com/watch?v=Eb2QydjQvV4
         this.setBorder(phone); // add the boarder to this JPanel
     }
    
@@ -53,12 +55,11 @@ public class PausePhoneMenu extends Level2{
         
         //Draw Background
         pen.drawImage(bg,getWidth()/2 - 250,0,500, getHeight(),null);
-        pen.drawImage(phoneOutline, getWidth()/2 - 250,0, 500, getHeight(), null);
+        //pen.drawImage(phoneOutline, getWidth()/2 - 250,0, 500, getHeight(), null);
         // pen.drawRect(getWidth()/2 - 250,0,500,getHeight());
         //Draw Buttons and Title
         title.repaint();
         for(JButton button : pauseMButtons){
-            pen.drawString("QUIT", button.getX()+ 5, button.getY()+10);
             button.repaint();
             
         }
