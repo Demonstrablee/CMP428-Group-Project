@@ -82,7 +82,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     static CampusMap campusMap = new CampusMap(null, null);; // 6
 
     //UI
-    InterviewMode interviewMode;
+    InterviewMode interviewMode = new InterviewMode();
     
     // Movement vars
     boolean[] pressing = new boolean[1024];
@@ -158,7 +158,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             createButton(new String [] {buttonN[0],buttonN[5],buttonN[1],buttonN[3], buttonN[2],buttonN[8]}, pauseMButtons); //PAUSE MENU 
             createButton(new String [] {buttonN[4],buttonN[4]}, toPauseButtons); // SAVE AND OPTIONS
             createButton(new String [] {buttonN[7],buttonN[3],buttonN[2]}, gameOverButtons); // GAME OVER
-
+            
            
 
             //Intializing
@@ -191,7 +191,8 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             add(hallway01);
             add(campusMap);
             add(gameOverMenu);
-
+            
+            add(interviewMode);
             
             
             // Game State variables AT START
@@ -255,7 +256,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                     students = gameRoom.getStudents();
                     healthStation = gameRoom.getHealthStation();
                     p1.setColor(Color.RED); // Player color will change depending on if hit or not
-                    inGameMenuButton.setVisible(true);
+                    inGameMenuButton.setVisible(true); // how to open the phone
 
                     //GAME OVER CONDITIONS
                     if(health == 0){
@@ -369,19 +370,14 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
         }
     @Override
         public void paint(Graphics pen){ // WOW rather than paint AWT make this paintComponent and everything is good  
-            
             pen.clearRect(0, 0, getWidth(), getHeight());
 
- 
-         
             
             super.paint(pen);
              
-                            
-            //levIndex = currLevel.toString();
 
-            if(!isPaused && !currLevel.equals(campusMap)){ // draw player character if you are playing (drawn on every gameRoom) 
-               
+            if(isPaused == false){ // draw player character if you are playing (drawn on every gameRoom) 
+            //    if(!currLevel.equals(campusMap)) // giving errors saying that currLevel is null maybe has to do with threading?
                // Draw the player
                 p1.draw(pen);
                 
@@ -391,10 +387,10 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                     student.talk(pen);
                 }
 
-                 // PLAYER HUD
+                // PLAYER HUD
                 healthBar.draw(pen);
-               
-                pen.setColor(Color.BLACK);
+                //inGameMenuButton.setVisible(true);
+                
                 
             }
 	    }
@@ -499,11 +495,10 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             currLevel = gameRoom; // last game room (currLevel is what is used to draw the levels in the paint method) change levels
             currLevel.setVisible(true); // make current room visible
 
+            if(buttonClicked == gameOverButtons[0]) // refill if it was a game over
+                healthBar.refillHealth();   //NEED TO SET THIS TO FULL otherwise game over condition will stay true 
 
-            healthBar.refillHealth();   //NEED TO SET THIS TO FULL 
             // which level to switch to based on what the last game room you were in
-            //levIndex = currLevel.equals(hallway01) ? "5":"4"; //murphys room or hallway 
-            //levIndex = currLevel.toString();
             isPaused = false;
             titleOrPause = false; //game started make option menu go to the pause menu
             isOver = false;
