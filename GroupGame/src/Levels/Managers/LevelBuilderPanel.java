@@ -45,14 +45,12 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     Image phone = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/icons/Phone_Blue.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
     ImageIcon phoneIcon = new ImageIcon(phone);
     JButton inGameMenuButton = new JButton(phoneIcon);
-   
+    JButton mapButton = new JButton();
+
     JButton [] titleButtons = new JButton[3]; // number of buttons on each menu
-    JButton [] pauseMButtons = new JButton[6];
+    JButton [] pauseMButtons = new JButton[7];
     JButton [] toPauseButtons = new JButton[2];
     JButton [] gameOverButtons = new JButton[3];
-
-    //Layout
-    CardLayout cLayout0 = new CardLayout();
 
     
     //Objects
@@ -79,7 +77,8 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     //Levels
     static MurphysRoom2 murphysRoom2 = new MurphysRoom2(null, null); //4
     static Hallway01 hallway01 = new Hallway01(null, null); //5
-    static CampusMap campusMap = new CampusMap(null, null);; // 6
+    
+    static CampusMap campusMap; // 6
 
     //UI
     InterviewMode interviewMode = new InterviewMode();
@@ -99,6 +98,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     static final int RT = KeyEvent.VK_RIGHT;
     static final int Q = KeyEvent.VK_Q;
 
+    
     static final int W = KeyEvent.VK_W;
     static final int A = KeyEvent.VK_A;
     static final int S = KeyEvent.VK_S;
@@ -151,11 +151,15 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             add(inGameMenuButton);
             inGameMenuButton.setVisible(false);
        
+            mapButton.addActionListener(this);
+            mapButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
+            mapButton.setBounds(1130, 70,62,62); // w and h are smaller than the image size so that the white background doesnt appear arround the button
+            
           
             // initiallizing buttons
-            String [] buttonN = new String[] {"RESUME", "OPTIONS", "QUIT", "RETURN TO TITLE", "BACK", "SAVE GAME", "START", "TRY AGAIN", "INVENTORY"};
+            String [] buttonN = new String[] {"RESUME", "OPTIONS", "QUIT", "RETURN TO TITLE", "BACK", "SAVE GAME", "START", "TRY AGAIN", "INVENTORY", "MAP"};
             createButton(new String [] {buttonN[6],buttonN[1],buttonN[2]}, titleButtons); // TITLE SCREEN
-            createButton(new String [] {buttonN[0],buttonN[5],buttonN[1],buttonN[3], buttonN[2],buttonN[8]}, pauseMButtons); //PAUSE MENU 
+            createButton(new String [] {buttonN[0],buttonN[5],buttonN[1],buttonN[3], buttonN[2],buttonN[8], buttonN[9]}, pauseMButtons); //PAUSE MENU 
             createButton(new String [] {buttonN[4],buttonN[4]}, toPauseButtons); // SAVE AND OPTIONS
             createButton(new String [] {buttonN[7],buttonN[3],buttonN[2]}, gameOverButtons); // GAME OVER
             
@@ -167,7 +171,9 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             optionsMenu = new OptionsMenu(toPauseButtons[1]);
             saveMenu = new SaveMenu(toPauseButtons[0]); 
             gameOverMenu = new GameOverMenu(gameOverButtons);
-
+            
+            // CAMPUS MAP
+            campusMap = new CampusMap(hallway01, null,mapButton);
 
 
             //MURPHYS ROOM
@@ -177,19 +183,20 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             hallway01.setEnterance(murphysRoom2);
             hallway01.setExit(campusMap);
 
-            // CAMPUS MAP
-            campusMap.setEnterance(hallway01);
+           
+            //campusMap.setEnterance(hallway01);
             
             
             //ADDING Levels To Level builder Panel
-
+            
+            add(campusMap);
             add(pauseMenu);
             add(titleScreen);
             add(optionsMenu);
             add(saveMenu);
             add(murphysRoom2);
             add(hallway01);
-            add(campusMap);
+            
             add(gameOverMenu);
             
             add(interviewMode);
@@ -197,7 +204,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             
             // Game State variables AT START
             currLevel = titleScreen; // which room to draw currLevel and levLevel index are one to one (default: titleScreen)
-            gameRoom = murphysRoom2; // track of the ingame rooms that player traverses with p1 (default; murphysRoom)
+            gameRoom =  murphysRoom2; // track of the ingame rooms that player traverses with p1 (default; murphysRoom)
 
             //levIndex = currLevel.toString(); // which room to display
             isPaused =  true; // is the game paused or not (default: true)
@@ -205,7 +212,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             isOver = false; // is the game over? (only have to change this for gameover window debug) (default: false)
              
             currLevel.setVisible(true); // whatever the stating level is set it to visible
-            
+            //campusMap.setVisible(true);
         }
 
       
@@ -256,7 +263,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                     students = gameRoom.getStudents();
                     healthStation = gameRoom.getHealthStation();
                     p1.setColor(Color.RED); // Player color will change depending on if hit or not
-                    inGameMenuButton.setVisible(true); // how to open the phone
+                    //inGameMenuButton.setVisible(true); // how to open the phone
 
                     //GAME OVER CONDITIONS
                     if(health == 0){
@@ -334,9 +341,17 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                             // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
                             gameRoom = currLevel.getExit(); // 
                             
-                            currLevel.setVisible(false);
-                            currLevel = gameRoom;
-                            currLevel.setVisible(true);
+                             // Changing the level displayed on screen
+                                if (!gameRoom.equals(campusMap)){
+                                    currLevel.setVisible(false);
+                                    currLevel = gameRoom;
+                                    currLevel.setVisible(true);
+                                }else{
+                                    // adjust the map so that when it is displayed it shows where the player actually is
+                                    campusMap.setLocation(currLevel.toString());
+                                    isPaused = true; // so that th3e hud doesnt get drawn 
+                                    campusMap.setVisible(true);
+                                }
 
                              
                             System.out.println("Entering "+ currLevel.toString());}   
@@ -358,13 +373,25 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                                 // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
                                 gameRoom = currLevel.getEnterance();  
                                 
-                                currLevel.setVisible(false);
-                                currLevel = gameRoom;
-                                currLevel.setVisible(true);
+                                // Changing the level displayed on screen
+                                if (!gameRoom.equals(campusMap)){
+                                    currLevel.setVisible(false);
+                                    currLevel = gameRoom;
+                                    currLevel.setVisible(true);
+                                }else{
+                                    campusMap.setVisible(true);
+                                }
 
                                 System.out.println("Entering "+ currLevel.toString());}         
 
                         }
+                    
+                        // Map Adjustments
+
+                        // if (currLevel.equals(campusMap)){
+                        //     campusMap.setLocation("cafeteria");
+                        //     isPaused = true; // so that th3e hud doesnt get drawn 
+                        // }
                 
                     }
         }
@@ -377,8 +404,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
              
 
             if(isPaused == false){ // draw player character if you are playing (drawn on every gameRoom) 
-            //    if(!currLevel.equals(campusMap)) // giving errors saying that currLevel is null maybe has to do with threading?
-               // Draw the player
+                // Draw the player
                 p1.draw(pen);
                 
                  //Student NPC Talk
@@ -388,8 +414,9 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                 }
 
                 // PLAYER HUD
+
                 healthBar.draw(pen);
-                //inGameMenuButton.setVisible(true);
+                inGameMenuButton.setVisible(true);
                 
                 
             }
@@ -487,10 +514,10 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     public void actionPerformed(ActionEvent e) {
        
         Object buttonClicked = e.getSource();
-        SimpleSoundPlayer.playSound("GroupGame/src/music/button_click01.wav");
+        SimpleSoundPlayer.playSound("GroupGame/src/music/button_click01.wav");// have to wait for audio to finish before action can happen
           
 		if(buttonClicked == titleButtons[0] || buttonClicked == pauseMButtons[0]|| buttonClicked == gameOverButtons[0]) {// go to resume
-            //cLayout0.show(this, "4"); //paint method handels this
+          
             currLevel.setVisible(false); // make previous room invisible
             currLevel = gameRoom; // last game room (currLevel is what is used to draw the levels in the paint method) change levels
             currLevel.setVisible(true); // make current room visible
@@ -504,27 +531,26 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             isOver = false;
         } 
        else if(buttonClicked == pauseMButtons[1]){ // go to save 
-           // cLayout0.show(this, "3"); 
+    
             currLevel.setVisible(false);
             currLevel = saveMenu;
             currLevel.setVisible(true);
-            //levIndex = currLevel.toString();
+       
         }
        else if(buttonClicked == titleButtons[1] || buttonClicked == pauseMButtons[2]){// go to options
-            //cLayout0.show(this, "2");
+
             currLevel.setVisible(false);
             currLevel = optionsMenu;
             currLevel.setVisible(true);
-            //levIndex = currLevel.toString();
+  
        }
        else if(buttonClicked == pauseMButtons[3] || buttonClicked == toPauseButtons[1] && titleOrPause || buttonClicked == gameOverButtons[1]){ // back to title screen
-            //cLayout0.show(this, "0");
+
             currLevel.setVisible(false);
             currLevel = titleScreen;
             gameRoom = murphysRoom2;
             currLevel.setVisible(true);
 
-            //levIndex = currLevel.toString();
             healthBar.refillHealth();   //NEED TO SET THIS TO FULL   
             isPaused = true;
             isOver = false;
@@ -536,11 +562,16 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
        else if(buttonClicked == inGameMenuButton|| 
        buttonClicked == toPauseButtons[0]||
        (buttonClicked == toPauseButtons[1] && !titleOrPause)|| 
-       buttonClicked == toPauseButtons[0]){ // pause screen
+       buttonClicked == toPauseButtons[0] || buttonClicked == mapButton){ // pause screen
             //cLayout0.show(this, "1"); // show the pause menu
-            if(currLevel != gameRoom) // if the last level was a menu level
+            if(buttonClicked == mapButton){
+                campusMap.setVisible(false);
+                
+             }
+            else if(currLevel != gameRoom){ // if the last level was a menu level
                 currLevel.setVisible(false);
-            currLevel = pauseMenu;
+            }
+            currLevel = pauseMenu; // so the phone stacks ontop of the game level
             currLevel.setVisible(true);
             //levIndex = currLevel.toString();
             isPaused = true; // pause the game
@@ -548,7 +579,11 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
         }
         else if(buttonClicked == pauseMButtons[5]){
             System.out.println("Opening Player Inventory Coming Soon!");
-            GameWindow2.setPlayMusic(false); // play
+            //GameWindow2.setPlayMusic(false); // not working 
+        }else if (buttonClicked == pauseMButtons[6]){ // open the map
+            pauseMenu.setVisible(false);
+            campusMap.setLocation(currLevel.toString());
+            campusMap.setVisible(true);
         }
        
         
