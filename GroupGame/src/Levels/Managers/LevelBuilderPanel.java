@@ -4,14 +4,15 @@ import Sprites.Characters.Enemy;
 import Sprites.Characters.PlayerCharacter;
 import Sprites.Characters.Student;
 import Levels.GameLevels.Hallway01;
-import Levels.GameLevels.CampusMap;
 import Levels.GameLevels.MurphysRoom2;
 import Levels.Menus.GameOverMenu;
 
 import Levels.Menus.OptionsMenu;
-import Levels.Menus.PausePhoneMenu;
 import Levels.Menus.SaveMenu;
 import Levels.Menus.TitleScreen;
+import Levels.Menus.OverlayLevels.CampusMap;
+import Levels.Menus.OverlayLevels.Inventory;
+import Levels.Menus.OverlayLevels.PausePhoneMenu;
 import Objects.HealthBar;
 import Objects.HealthStation;
 import Objects.Rect;
@@ -47,6 +48,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     JButton [] pauseMButtons = new JButton[7];
     JButton [] toPauseButtons = new JButton[2];
     JButton [] gameOverButtons = new JButton[3];
+    JButton [] inventoryButtons = new JButton[7]; // how many items are in the game
 
     
     //Objects
@@ -69,6 +71,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     static OptionsMenu optionsMenu; // 2
     static SaveMenu saveMenu; //3
     static GameOverMenu gameOverMenu;
+    static Inventory inventory;
 
     //Levels
     static MurphysRoom2 murphysRoom2 = new MurphysRoom2(null, null); //4
@@ -158,7 +161,8 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             createButton(new String [] {buttonN[0],buttonN[5],buttonN[1],buttonN[3], buttonN[2],buttonN[8], buttonN[9]}, pauseMButtons); //PAUSE MENU 
             createButton(new String [] {buttonN[4],buttonN[4]}, toPauseButtons); // SAVE AND OPTIONS
             createButton(new String [] {buttonN[7],buttonN[3],buttonN[2]}, gameOverButtons); // GAME OVER
-            
+
+            createButton(new String[] {"BACK","WALLET","GATE 5 KEY","CHICKEN SAMMIE"}, inventoryButtons); // inventory items
            
 
             //Intializing
@@ -167,9 +171,10 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             optionsMenu = new OptionsMenu(toPauseButtons[1]);
             saveMenu = new SaveMenu(toPauseButtons[0]); 
             gameOverMenu = new GameOverMenu(gameOverButtons);
-            
+            campusMap = new CampusMap(mapButton); // technically a menu sort of
+            inventory = new Inventory(inventoryButtons); // TODO NOT FINISHED
             // CAMPUS MAP
-            campusMap = new CampusMap(hallway01, null,mapButton);
+            
 
 
             //MURPHYS ROOM
@@ -185,8 +190,10 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             
             //ADDING Levels To Level builder Panel
             
+            add(inventory);
             add(campusMap);
             add(pauseMenu);
+
             add(titleScreen);
             add(optionsMenu);
             add(saveMenu);
@@ -558,8 +565,8 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
        else if(buttonClicked == inGameMenuButton|| 
        buttonClicked == toPauseButtons[0]||
        (buttonClicked == toPauseButtons[1] && !titleOrPause)|| 
-       buttonClicked == toPauseButtons[0] || buttonClicked == mapButton){ // pause screen
-            //cLayout0.show(this, "1"); // show the pause menu
+       buttonClicked == toPauseButtons[0] || buttonClicked == mapButton || buttonClicked == inventoryButtons[0]){ // pause screen
+      
             if(buttonClicked == mapButton){
                 campusMap.setVisible(false);
                 
@@ -569,13 +576,17 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             }
             currLevel = pauseMenu; // so the phone stacks ontop of the game level
             currLevel.setVisible(true);
-            //levIndex = currLevel.toString();
+            inventory.setVisible(false);
+
             isPaused = true; // pause the game
             System.out.println("Paused");
         }
         else if(buttonClicked == pauseMButtons[5]){
             System.out.println("Opening Player Inventory Coming Soon!");
+            inventory.setVisible(true);
+            pauseMenu.setVisible(false);
             //GameWindow2.setPlayMusic(false); // not working 
+
         }else if (buttonClicked == pauseMButtons[6]){ // open the map
             pauseMenu.setVisible(false);
             campusMap.setLocation(currLevel.toString());

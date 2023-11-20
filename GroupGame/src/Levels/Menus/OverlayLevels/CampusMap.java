@@ -1,4 +1,4 @@
-package Levels.GameLevels;
+package Levels.Menus.OverlayLevels;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -16,8 +16,8 @@ public class CampusMap extends Level2 {
     Image phone = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/icons/Arrow Left_Lightgreen.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
     ImageIcon phoneIcon = new ImageIcon(phone);
 
-    public CampusMap(Level2 enter, Level2 exit, JButton mapButton){
-        super(enter, exit, "campusMap");
+    public CampusMap( JButton mapButton){
+        super(null, null, "campusMap");
         
         //BACKGROUND
         setBackground(Color.BLACK); // set pane to black
@@ -36,7 +36,7 @@ public class CampusMap extends Level2 {
         // MAP BUTTON
         mapButton.setIcon(phoneIcon);
         mapButton.setBounds(130, 70,62,62); 
-        
+
         add(mapButton);
     }
 

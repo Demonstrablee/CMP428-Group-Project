@@ -25,11 +25,11 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
     // Screen Managment Variables  
     int currResMode = 1; // change to change the resolution
     int prevResMode = 1; // what to revert to 
-    boolean fullScreen = false; // use full screen?
+    boolean fullScreen = false; // use full screen? (NOT WORKING)
 
     /// Managers
     SimpleScreenManager screen = new SimpleScreenManager(); // the screen manager
-    LevelBuilderPanel lbPane = new LevelBuilderPanel();
+    LevelBuilderPanel lbPane = new LevelBuilderPanel(); // Layered panel for displaying game levels
 
 
 
@@ -57,7 +57,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
 
     public Image appIcon = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/appIcon/");
 
-        //Objects
+    //Objects
     PlayerCharacter p1 = new PlayerCharacter(300,300, 50,50); // so all levels can share same character
     Wall [] wall; // get walls for refrence and collison detection
     HealthBar healthBar = new HealthBar(100, 100,20, 20);
@@ -108,10 +108,10 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
         getContentPane().add(lbPane);
 
         
-        lbPane.init();// comment in and out to allow for updates to post or just run with F5
+        lbPane.init();
         
         
-        //SimpleSoundPlayer.playSoundForever("GroupGame/src/music/Main_Theme.wav"); // only works on mac
+        SimpleSoundPlayer.playSoundForever("GroupGame/src/music/Main_Theme.wav"); // only works on mac
            
        
        
