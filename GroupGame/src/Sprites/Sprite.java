@@ -1,4 +1,4 @@
-package Characters;
+package Sprites;
 import java.awt.*;
 
 import Objects.Rect;

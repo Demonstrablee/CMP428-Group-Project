@@ -1,11 +1,11 @@
-package Characters.Characters;
+package Sprites.Characters;
 // import Levels.Managers.Level;
 import Levels.Managers.Level2;
 
 
 import java.awt.*;
 
-import Characters.Sprite;
+import Sprites.Sprite;
 
 
 public class Character extends Sprite{

@@ -1,4 +1,4 @@
-package Characters.Characters;
+package Sprites.Characters;
 
 import java.awt.Color;
 import java.awt.Graphics;

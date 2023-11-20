@@ -1,8 +1,8 @@
 package Levels.Managers;
 
-import Characters.Characters.Enemy;
-import Characters.Characters.PlayerCharacter;
-import Characters.Characters.Student;
+import Sprites.Characters.Enemy;
+import Sprites.Characters.PlayerCharacter;
+import Sprites.Characters.Student;
 import Levels.GameLevels.Hallway01;
 import Levels.GameLevels.CampusMap;
 import Levels.GameLevels.MurphysRoom2;
@@ -14,12 +14,10 @@ import Levels.Menus.SaveMenu;
 import Levels.Menus.TitleScreen;
 import Objects.HealthBar;
 import Objects.HealthStation;
-import Objects.MenuButton;
 import Objects.Rect;
 import Objects.Wall;
 import UI.InterviewMode;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -30,8 +28,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 import javax.swing.border.Border;
 
 ;

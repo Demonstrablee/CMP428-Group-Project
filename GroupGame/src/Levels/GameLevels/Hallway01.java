@@ -1,7 +1,7 @@
 package Levels.GameLevels;
 import javax.swing.*;
 
-import Characters.Characters.Enemy;
+import Sprites.Characters.Enemy;
 import Levels.Managers.Level2;
 import Objects.HealthStation;
 import Objects.Wall;

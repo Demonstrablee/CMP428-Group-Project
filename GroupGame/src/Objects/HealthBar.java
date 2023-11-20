@@ -1,5 +1,7 @@
 package Objects;
 
+import Objects.Items.Item;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -48,11 +50,6 @@ public class HealthBar extends Rect {
 			
 		}
 	}
-
-	public void useHealingItem(Item item){ 
-		health =+ item.healVal;
-	}
-	
 	
 	public void damageTaken() {
 	

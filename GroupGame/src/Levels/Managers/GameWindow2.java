@@ -2,9 +2,9 @@ package Levels.Managers;
 
 import javax.swing.JFrame;
 
-import Characters.Characters.Enemy;
-import Characters.Characters.PlayerCharacter;
-import Characters.Characters.Student;
+import Sprites.Characters.Enemy;
+import Sprites.Characters.PlayerCharacter;
+import Sprites.Characters.Student;
 import Objects.HealthBar;
 import Objects.HealthStation;
 import Objects.Rect;

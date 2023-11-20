@@ -8,9 +8,8 @@ import java.awt.*;
 
 import javax.swing.JPanel;
 
-import Characters.Sprite;
-import Characters.Characters.Enemy;
-import Characters.Characters.Student;
+import Sprites.Characters.Enemy;
+import Sprites.Characters.Student;
 
 //import Characters.Characters.PlayerCharacter;
 

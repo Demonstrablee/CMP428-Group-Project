@@ -1,7 +1,6 @@
 package Levels.GameLevels;
 import java.awt.*;
 
-import Characters.Characters.Student;
 import Levels.Managers.Level2;
 import Objects.Wall;
 

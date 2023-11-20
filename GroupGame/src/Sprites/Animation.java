@@ -1,4 +1,4 @@
-package Characters;
+package Sprites;
 import Levels.Managers.GameWindow2;
 /**
     The Animation class manages a series of images (frames) and

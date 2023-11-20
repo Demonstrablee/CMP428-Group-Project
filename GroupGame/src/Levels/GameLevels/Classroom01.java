@@ -1,14 +1,13 @@
 package Levels.GameLevels;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-import Characters.Characters.Enemy;
-import Characters.Characters.Student;
+import Sprites.Characters.Enemy;
+import Sprites.Characters.Student;
 import Objects.HealthBar;
 import Objects.HealthStation;
 import Objects.Rect;
@@ -44,8 +43,8 @@ public class Classroom01 extends JFrame implements KeyListener, Runnable{
 	Student s2 = new Student("shan",900, 100);
 	
 	Student s3 = new Student("Margret",1100, 700);
-	
-	
+
+
 	boolean[] pressing = new boolean[1024];
 
     static final int UP = KeyEvent.VK_UP;

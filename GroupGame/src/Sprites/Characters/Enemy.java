@@ -1,9 +1,9 @@
-package Characters.Characters;
+package Sprites.Characters;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import Characters.Sprite;
+import Sprites.Sprite;
 
 
 public class Enemy extends Sprite{
