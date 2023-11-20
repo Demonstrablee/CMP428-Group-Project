@@ -28,7 +28,7 @@ public class Classroom01 extends JFrame implements KeyListener, Runnable{
 
 	//Player health stuff
 	
-	  HealthBar h1 = new HealthBar(100,100,20,20);
+	  HealthBar h1 = new HealthBar(100,100,20,20, 3);
 	 
 	  Enemy e1 = new Enemy("REDWOLF",900, 100, 100, 100);
 	 

@@ -31,10 +31,10 @@ import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.border.Border;
 
-;
-
-/** Initialize a level inhertiting from JPanel*/
-public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runnable, ActionListener, MouseListener{
+/**
+ * Initializes a level inheriting from JPanel.
+ */
+public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runnable, ActionListener, MouseListener {
     
     Thread t;
     
@@ -54,7 +54,6 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     //Objects
     PlayerCharacter p1 = new PlayerCharacter(300,300, 50,50); // so all levels can share same character
     Wall [] wall; // get walls for refrence and collison detection
-    HealthBar healthBar = new HealthBar(100, 100,20, 20);
     int health;
     Enemy [] enemies;
     Student [] students;
@@ -81,9 +80,6 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
 
     //UI
     InterviewMode interviewMode = new InterviewMode();
-    
-    // Movement vars
-    boolean[] pressing = new boolean[1024];
 
     /**States when the game is paused state (happens while in any menu)*/
     boolean isPaused; 
@@ -259,10 +255,10 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                     // System.out.println("P1: Xpos: "+ (p1.x) + " Ypos: "+ (p1.y));
                     // MUST BE GAME ROOM since the menus dont have exits and entrances
                     wall = gameRoom.getWalls();
-                    enter = gameRoom.getEnterRect(); 
-                    exit = gameRoom.getExitRect(); 
+                    enter = gameRoom.getEnterRect();
+                    exit = gameRoom.getExitRect();
                     enemies = gameRoom.getEnemies();
-                    health = healthBar.getCurrentHealth(); // get the players health 
+                    health = p1.getHealthBar().getCurrentHealth(); // get the players health
                     students = gameRoom.getStudents();
                     healthStation = gameRoom.getHealthStation();
                     p1.setColor(Color.RED); // Player color will change depending on if hit or not
@@ -272,128 +268,117 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                     if(health == 0){
                         isOver = true;
                         isPaused = true;
-                    }  
-                          
-                    //MOVEMENT
-                    if (pressing[UP]){ p1.moveBy(0,-4);}
-                    if (pressing[LT]){p1.goLT(-4); p1.moveBy(-4,0);}
-                    if (pressing[DN]){ p1.moveBy(0,4);}
-                    if (pressing[RT]){ p1.goRT(4); p1.moveBy(4,0);}
-                    
+                    }
 
-                    if (pressing[W]){ p1.moveBy(0,-4);}
-                    if (pressing[A]){ p1.moveBy(-4,0);}
-                    if (pressing[S]){ p1.moveBy(0,4);}
-                    if (pressing[D]){ p1.moveBy(4,0);}
-                   
-                        
-                     // TODO collision detection STILL NOT WORKING 
-                        
+                    // Player Movement
+                    if (p1.isPressing(UP)){ p1.moveBy(0,-4);}
+                    if (p1.isPressing(LT)){p1.goLT(-4); p1.moveBy(-4,0);}
+                    if (p1.isPressing(DN)){ p1.moveBy(0,4);}
+                    if (p1.isPressing(RT)){ p1.goRT(4); p1.moveBy(4,0);}
+
+                    if (p1.isPressing(W)){ p1.moveBy(0,-4);}
+                    if (p1.isPressing(A)){ p1.moveBy(-4,0);}
+                    if (p1.isPressing(S)){ p1.moveBy(0,4);}
+                    if (p1.isPressing(D)){ p1.moveBy(4,0);}
+
+
+                     // TODO collision detection STILL NOT WORKING
+
                     if (wall != null)
                         for(int i = 0; i < wall.length; i++){
                             if(p1.overlaps(wall[i])){
                                 //System.out.println("Pushing player out of wall "+ i);
-                                 p1.pushedOutOf(wall[i]);}      
+                                 p1.pushedOutOf(wall[i]);}
                             }
 
-                    //Player Damage
-			
-                    if (enemies != null){
+                    // Player Damage
+                    if (enemies != null) {
                         Enemy e1 = enemies[1]; // temporary a loop will kill the player immediately
-                            if (p1.overlaps(e1)){
+                            if (p1.overlaps(e1)) {
                                 p1.setColor(Color.GREEN);
-                                healthBar.damageTaken();
+                                p1.getHealthBar().damageTaken();
                             }
 
-                           if (!p1.overlaps(e1)) healthBar.damage();
-                        
-                        ///PLAYER HEALING
-                        if (healthStation != null){ // theres like one healthStation in specific locations
-                            if (p1.overlaps(healthStation)) {
-                               
-                                healthBar.increaseHealth(1);
-                                 
-                                }
-                            }
+                           if (!p1.overlaps(e1)) p1.getHealthBar().damage();
+
+                        // Player Healing
+                        if(healthStation != null && p1.overlaps(healthStation))
+                            p1.getHealthBar().increaseHealth(1);
                     }
 
                     // Student interactions
-                    if(students != null){
+                    if(students != null) {
                         Student s = students[0];
-                        // for (Student s1: students){
-                            if(p1.overlaps(s)){
-                                s.isSpeaking();} //TODO FIX NOT DISPLAYING ON JPANEL
-                            else{s.isNotSpeaking();}
-                
-                       
+                            if(p1.overlaps(s)) s.isSpeaking();
+                            else s.isNotSpeaking();
+                            // TODO: FIX NOT DISPLAYING ON JPANEL
                     }
-                    // Going to diffrent levels based on currLevel and position
-                    
+
+                    // Going to different levels based on currLevel and position
                     // Exiting current level to new level
-                       
-                    if(exit != null){ 
-                            if(exit.overlaps(p1)){
-                            
+
+                    if(exit != null) {
+                            if(exit.overlaps(p1)) {
+
                             //Put player intoi the exit to the next level
                             int [] exitPosition = currLevel.getExit().getLevelEntrancePos();//get position of enterance in next level
-                          
+
                             nExitOrEnterX = exitPosition[0] + exitPosition[2]/3;
-                            nExitOrEnterY = exitPosition[1]- (int)(p1.h +20); 
+                            nExitOrEnterY = exitPosition[1]- (int)(p1.h +20);
                             p1.setLocation(nExitOrEnterX, nExitOrEnterY); //  make play start infront of the exit
-                            
+
                             // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
-                            gameRoom = currLevel.getExit(); // 
-                            
+                            gameRoom = currLevel.getExit(); //
+
                              // Changing the level displayed on screen
-                                if (!gameRoom.equals(campusMap)){
+                                if (!gameRoom.equals(campusMap)) {
                                     currLevel.setVisible(false);
                                     currLevel = gameRoom;
                                     currLevel.setVisible(true);
-                                }else{
+                                } else {
                                     // adjust the map so that when it is displayed it shows where the player actually is
                                     campusMap.setLocation(currLevel.toString());
-                                    isPaused = true; // so that th3e hud doesnt get drawn 
+                                    isPaused = true; // so that th3e hud doesnt get drawn
                                     campusMap.setVisible(true);
                                 }
 
-                             
-                            System.out.println("Entering "+ currLevel.toString());}   
+                            System.out.println("Entering " + currLevel.toString());}
                     }
 
                     //Entering a next level
-                            
-                        if(enter != null){ 
-                           
-                            if(enter.overlaps(p1)){
-                            
+
+                        if(enter != null) {
+
+                            if(enter.overlaps(p1)) {
+
                                 //put player infront of the entrance to the previous level
                                 int [] enterPositon = currLevel.getEnterance().getLevelExitPos();//get position of exit in previous level
                                 nExitOrEnterX = enterPositon[0] + enterPositon[2] / 3 ; //x + width/3
                                 nExitOrEnterY = enterPositon[1] - (int)(p1.h + 20); //y
                                 p1.setLocation(nExitOrEnterX, nExitOrEnterY); //  make play start infront of the exit
-                                
-                                
+
+
                                 // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
-                                gameRoom = currLevel.getEnterance();  
-                                
+                                gameRoom = currLevel.getEnterance();
+
                                 // Changing the level displayed on screen
-                                if (!gameRoom.equals(campusMap)){
+                                if (!gameRoom.equals(campusMap)) {
                                     currLevel.setVisible(false);
                                     currLevel = gameRoom;
                                     currLevel.setVisible(true);
-                                }else{
+                                } else {
                                     campusMap.setVisible(true);
                                 }
 
-                                System.out.println("Entering "+ currLevel.toString());}         
+                                System.out.println("Entering "+ currLevel.toString());}
 
                         }
-                    
+
                         // Map Adjustments
 
                         // if (currLevel.equals(campusMap)){
                         //     campusMap.setLocation("cafeteria");
-                        //     isPaused = true; // so that th3e hud doesnt get drawn 
+                        //     isPaused = true; // so that th3e hud doesnt get drawn
                         // }
                 
                     }
@@ -406,19 +391,19 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             super.paint(pen);
              
 
-            if(isPaused == false){ // draw player character if you are playing (drawn on every gameRoom) 
+            if(!isPaused) { // draw player character if you are playing (drawn on every gameRoom)
                 // Draw the player
                 p1.draw(pen);
                 
-                 //Student NPC Talk
-                if(students != null){
+                 // Student NPC Talk
+                if(students != null) {
                     for(Student student: students)
-                    student.talk(pen);
+                        student.talk(pen);
                 }
 
                 // PLAYER HUD
-
-                healthBar.draw(pen);
+                p1.getHealthBar().draw(pen);
+                p1.getInventory().draw(pen);
                 inGameMenuButton.setVisible(true);
                 
                 
@@ -460,9 +445,8 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println(e.getKeyCode());  
-
-        pressing[e.getKeyCode()] = true;
+        //System.out.println(e.getKeyCode());
+        p1.setPressing(e.getKeyCode(), true);
        
         if(e.getKeyCode() == KeyEvent.VK_P){ // if P is pressed pause the game
             if(!isPaused){
@@ -487,31 +471,24 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     }
     @Override
     public void keyReleased(KeyEvent e) {
-        pressing[e.getKeyCode()] = false;
+        p1.setPressing(e.getKeyCode(), false);
         p1.moving = false;
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-         }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) { 
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -526,7 +503,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             currLevel.setVisible(true); // make current room visible
 
             if(buttonClicked == gameOverButtons[0]) // refill if it was a game over
-                healthBar.refillHealth();   //NEED TO SET THIS TO FULL otherwise game over condition will stay true 
+                p1.getHealthBar().refillHealth();   //NEED TO SET THIS TO FULL otherwise game over condition will stay true
 
             // which level to switch to based on what the last game room you were in
             isPaused = false;
@@ -554,7 +531,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             gameRoom = murphysRoom2;
             currLevel.setVisible(true);
 
-            healthBar.refillHealth();   //NEED TO SET THIS TO FULL   
+            p1.getHealthBar().refillHealth();   //NEED TO SET THIS TO FULL
             isPaused = true;
             isOver = false;
             titleOrPause = true; //game ended make pause menu go to the title menu

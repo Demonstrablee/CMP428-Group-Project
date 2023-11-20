@@ -60,7 +60,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
     //Objects
     PlayerCharacter p1 = new PlayerCharacter(300,300, 50,50); // so all levels can share same character
     Wall [] wall; // get walls for refrence and collison detection
-    HealthBar healthBar = new HealthBar(100, 100,20, 20);
+    HealthBar healthBar = new HealthBar(100, 100,20, 20, 3);
     int health;
     Enemy [] enemies;
     Student [] students;

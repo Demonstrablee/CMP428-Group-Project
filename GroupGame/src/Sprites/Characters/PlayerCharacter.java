@@ -1,6 +1,7 @@
 package Sprites.Characters;
 
 
+import Objects.HealthBar;
 import UI.Inventory;
 
 import java.awt.Color;
@@ -19,11 +20,14 @@ public class PlayerCharacter extends Character {
 
     private final Inventory inventory;
 
+    private final HealthBar healthBar;
+
     public PlayerCharacter(int x, int y, int w, int h) {
         super("MC", pose, 7, 0, "png", x, y, w, h);
         c = Color.RED;
         pressing = new boolean[1024];
         inventory = new Inventory(this);
+        healthBar = new HealthBar(100, 100, 20, 20, 3);
     }
 
     /**
@@ -48,6 +52,10 @@ public class PlayerCharacter extends Character {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public HealthBar getHealthBar() {
+        return healthBar;
     }
 
     @Override

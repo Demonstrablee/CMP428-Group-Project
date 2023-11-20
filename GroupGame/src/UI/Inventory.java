@@ -73,12 +73,12 @@ public class Inventory {
 				selectedSlot = i;
 		}
 
-		final int X_OFFSET = 450, Y_OFFSET = 700;
+		final int X_OFFSET = 350, Y_OFFSET = 600;
 		final int SLOT_SIZE = 64;
 
 		for(int i = 0; i < MAX_ITEMS; i++) {
 			int x = X_OFFSET + (i * SLOT_SIZE) + i;
-			g.setColor(isSlotSelected(i + 1) ? Color.RED : Color.GRAY);
+			g.setColor(isSlotSelected(i + 1) ? Color.RED : Color.WHITE);
 			g.drawRect(x, Y_OFFSET, SLOT_SIZE, SLOT_SIZE);
 			Item item = getItem(i);
 			if(item == null)continue;
