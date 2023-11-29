@@ -98,6 +98,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     static final int A = KeyEvent.VK_A;
     static final int S = KeyEvent.VK_S;
     static final int D = KeyEvent.VK_D;
+    static final int U = KeyEvent.VK_U;
     
     /**the currrent level that is being displayed  */
     Level2 currLevel; // for paintmethod
@@ -280,6 +281,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                     if (p1.isPressing(A)){ p1.moveBy(-4,0);}
                     if (p1.isPressing(S)){ p1.moveBy(0,4);}
                     if (p1.isPressing(D)){ p1.moveBy(4,0);}
+                    if(p1.isPressing(U)) p1.getInventory().useSelectedItem();
 
 
                      // TODO collision detection STILL NOT WORKING

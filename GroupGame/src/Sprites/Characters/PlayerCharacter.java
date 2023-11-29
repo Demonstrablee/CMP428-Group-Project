@@ -29,6 +29,9 @@ public class PlayerCharacter extends Character {
         pressing = new boolean[1024];
         inventory = new Inventory(this);
         healthBar = new HealthBar(100, 100, 20, 20, 3);
+        inventory.addItem(new BandAid(this));
+        inventory.addItem(new BandAid(this));
+        inventory.addItem(new BandAid(this));
     }
 
     /**

@@ -5,23 +5,22 @@ import Sprites.Characters.PlayerCharacter;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Inventory {
 
 	private final PlayerCharacter player;
 
-	private final List<Item> items;
+	private final Item[] items;
 	private final int MAX_ITEMS = 6;
-	private int selectedSlot;
+	private int selectedSlot, itemCount;
 
 	private final Image hotbarImg, selectedImg;
 
 	public Inventory(PlayerCharacter player) {
 		this.player = player;
-		this.items = new ArrayList<>();
-		this.selectedSlot = 2;
+		this.items = new Item[MAX_ITEMS];
+		selectedSlot = 2;
+		itemCount = 0;
 
 		// Load inventory sprites
 		final String RESOURCE_DIR = "GroupGame/src/images/inventory/";
@@ -36,26 +35,33 @@ public class Inventory {
 	 * @return True if the item was added or false if the inventory is full.
 	 */
 	public boolean addItem(Item item) {
-		if(items.size() < MAX_ITEMS) {
-			items.add(item);
+		if(itemCount < MAX_ITEMS) {
+			items[itemCount] = item;
+			itemCount++;
 			return true;
 		} else return false;
 	}
 
-	public boolean removeItem(Item item) {
-		return items.remove(item);
+	/**
+	 * Removes an item from a specific slot.
+	 *
+	 * @param slot The slot to be cleared.
+	 */
+	public void removeItem(int slot) {
+		items[slot] = null;
+		itemCount--;
 	}
 
 	/**
 	 * @return True if the number of items within the inventory is less than the max amount set at class scope.
 	 */
 	public boolean isFull() {
-		return items.size() >= MAX_ITEMS;
+		return itemCount >= MAX_ITEMS;
 	}
 
 	public Item getItem(int index) {
-		if(index >= items.size())return null;
-		return items.get(index);
+		if(index >= MAX_ITEMS)return null;
+		return items[index];
 	}
 
 	/**
@@ -66,6 +72,35 @@ public class Inventory {
 	 */
 	public boolean isSlotSelected(int slot) {
 		return selectedSlot == slot;
+	}
+
+	/**
+	 * Uses an item within the inventory that is
+	 * currently selected.
+	 */
+	public void useSelectedItem() {
+		Item item = getSelectedItem();
+		if(item == null)return;
+		item.use();
+	}
+
+	/**
+	 * Removes the currently selected item
+	 * from the inventory.
+	 */
+	public void removeSelectedItem() {
+		Item item = getSelectedItem();
+		if(item == null)return;
+		removeItem(selectedSlot - 1);
+	}
+
+	/**
+	 * Grabs the selected item.
+	 *
+	 * @return An item, if it exists, otherwise null.
+	 */
+	public Item getSelectedItem() {
+		return getItem(selectedSlot - 1);
 	}
 
 	/**
