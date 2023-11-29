@@ -4,6 +4,8 @@ import java.awt.*;
 
 public abstract class Item {
 
+    public static final int DEFAULT_SIZE = 32;
+
     public abstract String getName();
     public abstract String getDescription();
 

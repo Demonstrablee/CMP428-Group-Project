@@ -2,6 +2,7 @@ package Sprites.Characters;
 
 
 import Objects.HealthBar;
+import Objects.Items.BandAid;
 import UI.Inventory;
 
 import java.awt.Color;

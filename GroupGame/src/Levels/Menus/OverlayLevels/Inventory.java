@@ -3,7 +3,6 @@ import javax.swing.*;
 
 import Levels.Managers.GameWindow2;
 import Levels.Managers.Level2;
-import Objects.Item;
 
 import java.awt.*;
 
@@ -55,7 +54,6 @@ public class Inventory extends Level2{
 
         // adding components to the screen
         this.item = itemButtons;
-        JButton g = new Item(); 
         setVisible(false);
         //Adding elements to the panel
         constraints = new GridBagConstraints();

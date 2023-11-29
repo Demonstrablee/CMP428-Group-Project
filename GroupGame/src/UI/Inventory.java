@@ -13,13 +13,20 @@ public class Inventory {
 	private final PlayerCharacter player;
 
 	private final List<Item> items;
-	private final int MAX_ITEMS = 9;
+	private final int MAX_ITEMS = 6;
 	private int selectedSlot;
+
+	private final Image hotbarImg, selectedImg;
 
 	public Inventory(PlayerCharacter player) {
 		this.player = player;
 		this.items = new ArrayList<>();
 		this.selectedSlot = 2;
+
+		// Load inventory sprites
+		final String RESOURCE_DIR = "GroupGame/src/images/inventory/";
+		this.hotbarImg = Toolkit.getDefaultToolkit().getImage(RESOURCE_DIR + "inventory.png");
+		this.selectedImg = Toolkit.getDefaultToolkit().getImage(RESOURCE_DIR + "selected.png");
 	}
 
 	/**
@@ -73,16 +80,35 @@ public class Inventory {
 				selectedSlot = i;
 		}
 
-		final int X_OFFSET = 350, Y_OFFSET = 600;
-		final int SLOT_SIZE = 64;
+		double SCALE = 2;
+
+		// Displays main inventory bar
+		int DEFAULT_BAR_WIDTH = 244;
+		int DEFAULT_BAR_HEIGHT = 44;
+		int BAR_WIDTH = (int) (DEFAULT_BAR_WIDTH * SCALE);
+		int BAR_HEIGHT = (int) (DEFAULT_BAR_HEIGHT * SCALE);
+
+		int xStart = 375, yStart = 590;
+		g.drawImage(hotbarImg, xStart, yStart, BAR_WIDTH, BAR_HEIGHT, null);
+
+		// Displays the items in the bar
+		final int SLOT_SIZE = (int) (32 * SCALE);
+		final int ITEM_OFFSET = (int) (6 * SCALE);
 
 		for(int i = 0; i < MAX_ITEMS; i++) {
-			int x = X_OFFSET + (i * SLOT_SIZE) + i;
-			g.setColor(isSlotSelected(i + 1) ? Color.RED : Color.WHITE);
-			g.drawRect(x, Y_OFFSET, SLOT_SIZE, SLOT_SIZE);
+			int xItemOffset = ITEM_OFFSET * (i + 1) + (i * 3);
+			int x = xStart + (i * SLOT_SIZE) + i + xItemOffset;
 			Item item = getItem(i);
 			if(item == null)continue;
-			g.drawImage(getItem(i).getDisplayImage(), x, Y_OFFSET, SLOT_SIZE, SLOT_SIZE, null);
+			g.drawImage(getItem(i).getDisplayImage(), x, yStart + ITEM_OFFSET, SLOT_SIZE, SLOT_SIZE, null);
 		}
+
+		// Shows which slot is currently selected
+		int DEFAULT_SELECT_SIZE = 48;
+		int SELECT_SIZE = (int) (DEFAULT_SELECT_SIZE * SCALE);
+
+		int xSelectOffset = (int) (xStart - (2 * SCALE) + (40 * SCALE * (selectedSlot - 1)));
+		int ySelectOfset = (int) (yStart - (2 * SCALE));
+		g.drawImage(selectedImg, xSelectOffset, ySelectOfset, SELECT_SIZE, SELECT_SIZE, null);
 	}
 }
