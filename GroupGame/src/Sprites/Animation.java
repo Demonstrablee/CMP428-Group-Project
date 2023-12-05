@@ -42,6 +42,21 @@ public class Animation
 		}
 	}
 	
+	//This is for the BlueMonster
+	public Animation(String name, int count, int duration)
+	{
+		this.duration = duration;
+		delay         = duration;
+		
+		
+		image = new Image[count];
+		
+		for(int i = 0; i < count; i++)
+		{
+			image[i] = Toolkit.getDefaultToolkit().getImage(name + i + ".png");
+		}
+	}
+	
 	
 	public Image getStaticImage()
 	{

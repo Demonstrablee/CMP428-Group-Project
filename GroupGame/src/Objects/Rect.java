@@ -29,6 +29,28 @@ public class Rect
 		this.w = w;
 		this.h = h;
 	}
+	
+	public double getX() {
+		
+		return this.x;
+	}
+	
+	public double getY() {
+		
+		return this.y;
+	}
+	
+	public void chaseDamage(Rect r)
+	{
+		 if(wasAbove(r))     moveBy(0,8);
+		 if(wasBelow(r))     moveBy(0,-8);
+	}
+	
+	public void chase(Rect r)
+	{
+		 if(wasAbove(r))     moveBy(0,5);
+		 if(wasBelow(r))     moveBy(0,-5);
+	}
 
 	public void moveBy(int dx, int dy)
 	{

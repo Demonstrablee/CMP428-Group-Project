@@ -1,11 +1,13 @@
 package Levels.GameLevels;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
+import Sprites.Characters.BlueMonster;
 import Sprites.Characters.Enemy;
 import Sprites.Characters.Student;
 import Objects.HealthBar;
@@ -17,9 +19,11 @@ public class Classroom01 extends JFrame implements KeyListener, Runnable{
 	
 	Thread t;
 	
-	Rect p1 = new Rect(100, 200, 50, 50);
+	Rect p1 = new Rect(500, 500, 50, 50);
 	
 	Phone ui = new Phone(100,50, 399, 700);
+	
+	BlueMonster mon = new BlueMonster(300, 50, 50, 50);
 	
 	boolean healable = false;
 	
@@ -95,6 +99,22 @@ public class Classroom01 extends JFrame implements KeyListener, Runnable{
             if (pressing[RT]) p1.moveBy(5,0);
             if (pressing[LT]) p1.moveBy(-5,0);
             
+            //Monster chase
+            
+            if(p1.overlaps(mon)) {
+            	
+            	p1.pushedOutOf(mon);
+            }
+            if(p1.overlaps(mon.sight)) {
+    			
+            	mon.chasePlayer(p1);
+    		}
+            
+            if(p1.overlaps(mon.damageZone) && mon.delay >= 30) {
+            	
+            	p1.setColor(Color.RED);
+            }
+            
             //show phone
             
             if (pressing[SP]) {
@@ -159,6 +179,8 @@ public class Classroom01 extends JFrame implements KeyListener, Runnable{
 		p1.draw(g);
 		
 		ui.draw(g);
+		
+		mon.draw(g);
 	
 		/*
 		 * //health, enemy, and healthStation
