@@ -12,7 +12,7 @@ public class BlueMonster extends Rect {
 	
 	public Rect sight;
 	public Rect damageZone;
-	public int delay = 0;
+	public double delay = 0;
 	
 	/*
 	 * if(p1.overlaps(mon)) {
@@ -37,16 +37,16 @@ public class BlueMonster extends Rect {
 	private boolean facingDN = false;
 	private boolean chasing = true;
 	
-	Animation monsterUP = new Animation("Monster/BlueMonster/UP", 20, 5);
+	Animation monsterUP = new Animation("Images/BlueMonster/UP", 20, 5);
 	
-	Animation monsterDN = new Animation("Monster/BlueMonster/DN", 20, 5);
+	Animation monsterDN = new Animation("Images/BlueMonster/DN", 20, 5);
 	
-	Animation monsterATK_UP = new Animation("Monster/BlueMonsterATK/ATK_UP", 30, 2);
+	Animation monsterATK_UP = new Animation("Images/BlueMonsterATK/ATK_UP", 30, 2);
 	
-	Animation monsterATK_DN = new Animation("Monster/BlueMonsterATK/ATK_DN", 30, 2);
+	Animation monsterATK_DN = new Animation("Images/BlueMonsterATK/ATK_DN", 30, 2);
 
 	public BlueMonster(int x, int y, int w, int h) {
-		super(x, y, w, h);
+		super(x, y, 50, 50);
 		
 		sight = new Rect(x - 15, y, 75, 500);
 		

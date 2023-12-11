@@ -26,7 +26,7 @@ public class Animation
 		
 		
 		image = new Image[count];
-		
+
 
 		for(int i = 0; i < count; i++)
          
@@ -35,9 +35,8 @@ public class Animation
             	//System.out.println("GroupGame/src/images/"+ name +"/" + name + "_" + pose + "/"+ name +"_" +pose +"_"+ i + "." + type);
 				image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/"+ name +"/" + name + "_" + pose + "/"+ name +"_" +pose +"_"+ i + "." + type);}
 			else{ // if you are on windows
-				//System.out.println("GroupGame\\srcimages\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
+//				System.out.println("GroupGame\\srcimages\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
 				image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame\\srcimages\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
-		
 			}
 		}
 	}
@@ -55,6 +54,18 @@ public class Animation
 		{
 			image[i] = Toolkit.getDefaultToolkit().getImage(name + i + ".png");
 		}
+	}
+	
+	//Makes sure animation plays only once
+	public boolean animationFinish() {
+		
+		if (current == image.length - 1){
+			
+			current = 0;
+			
+			return true;
+		}
+		return false;
 	}
 	
 	

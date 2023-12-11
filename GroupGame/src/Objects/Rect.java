@@ -4,7 +4,7 @@ import java.awt.*;
 
 
 /*
- * Collision does not occur if you move horizontally while adjacent to another rectangle
+ * Collision does not occur if you move diagonally while adjacent to another rectangle
  * Only occurs when your above it or below it
 */
 
@@ -15,6 +15,8 @@ public class Rect
 	
 	public double w;
 	public double h;
+	
+	public boolean held = false;
 	
 	protected double vx = 0;
 	protected double vy = 0;
@@ -28,6 +30,16 @@ public class Rect
 		this.y = y;
 		this.w = w;
 		this.h = h;
+	}
+	
+	public void grab()
+	{
+		held = true;
+	}
+	
+	public void drop()
+	{
+		held = false;
 	}
 	
 	public double getX() {
