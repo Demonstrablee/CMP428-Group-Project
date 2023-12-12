@@ -5,10 +5,6 @@ import Map.Room;
 
 import java.awt.*;
 
-/**
- * Written by Nicholas Cercos
- * Created on Dec 12 2023
- **/
 public class Classroom extends Room {
 
 	public Classroom(Game game) {

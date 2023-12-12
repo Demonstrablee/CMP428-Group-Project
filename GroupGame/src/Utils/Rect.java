@@ -7,7 +7,6 @@ import java.awt.*;
  * Collision does not occur if you move diagonally while adjacent to another rectangle
  * Only occurs when your above it or below it
 */
-
 public class Rect {
 
 	protected double x, y, w, h;

@@ -7,7 +7,6 @@ import Sprites.Characters.Enemy;
 
 import java.awt.*;
 
-
 public class Hallway extends Room {
 	public Hallway(Game game) {
 		super(game, "hallway");
