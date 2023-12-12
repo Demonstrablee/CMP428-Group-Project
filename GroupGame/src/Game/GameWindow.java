@@ -21,4 +21,16 @@ public class GameWindow extends JFrame {
 
 		SimpleSoundPlayer.playSoundForever("GroupGame/src/music/Main_Theme.wav");
 	}
+
+	/**
+	 * Resizes the window to the given dimension.
+	 *
+	 * @param dimension The new size of this component/
+	 */
+	@Override
+	public void resize(Dimension dimension) {
+		setPreferredSize(dimension);
+		pack();
+		setLocationRelativeTo(null);
+	}
 }

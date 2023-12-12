@@ -44,13 +44,8 @@ public abstract class GameScreen extends JPanel {
 	}
 
 	public void setVisible(boolean visible, boolean room) {
-		if(visible && game != null) {
-			GameWindow window = game.getPanel().getWindow();
-			if(room) window.setPreferredSize(Game.ROOM_DIMENSION);
-			else     window.setPreferredSize(Game.MENU_DIMENSION);
-			window.pack();
-			window.setLocationRelativeTo(null);
-		}
+		if(visible && game != null)
+			game.getPanel().getWindow().resize(room ? Game.ROOM_DIMENSION : Game.MENU_DIMENSION);
 		super.setVisible(visible);
 	}
 
