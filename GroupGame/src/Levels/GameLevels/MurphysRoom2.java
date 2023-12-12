@@ -4,6 +4,7 @@ import java.awt.*;
 import Levels.Managers.Level2;
 import Objects.Wall;
 
+@Deprecated
 public class MurphysRoom2 extends Level2{ 
     //Students
    //Student stacy = new Student("STACY",690, 172);  // ALL THE IMAGES ARE IN THE FOLDER ASSOCIATED WITH THE CHARACTER

@@ -4,34 +4,23 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import Levels.Managers.Level2;
-//import Objects.Rect;
 
 public class Student extends Character{ // christan
-	
-	String phrase;
-	
-	
-	boolean appear = false;
 
-	static String[] pose = new String[] {"IDLE"}; // all students have just one pose
+	private final static String[] POSE = new String[] { "IDLE" };
+	
+	private String phrase;
+	private boolean appear;
 
 	public Student(String name, int x, int y) {
-		super(name,pose,4,0,"png",x,y,50,50);
+		super(null, name, POSE, 4, "png",x,y,50,50, 0, 0);
 	}
     
-    public Student(String name, int imagecount, int start, String filetype,int x, int y , int h, int w, long pNum, Level2 location, boolean canInterview){
-		super(name,pose,imagecount,start,filetype,x,y,w,h,pNum, location, canInterview);
-	}
-	
-	// Setters
-	public void setPhrase(String phrase) {
-		this.phrase = phrase;
+	public Student(String name, int imageCount, String filetype, int x, int y , int h, int w, long pNum, boolean canInterview) {
+		super(null, name, POSE, imageCount, filetype, x, y, w, h, pNum, canInterview);
 	}
 
-	/** */
 	public void talk(Graphics g) {
-		
-		
 		g.setColor(Color.WHITE);
 		
 		if(appear) g.drawString(phrase, (int) (this.x), (int) (this.y - 10));
@@ -49,22 +38,21 @@ public class Student extends Character{ // christan
 		super.draw(g);
 	}
 	
-	public boolean isSpeaking() {
-		
-		return appear = true;
+	public void speaking() {
+		appear = true;
 	}
 	
-	public boolean isNotSpeaking() {
-		
-		return appear = false;
+	public void silent() {
+		appear = false;
 	}
 	
-	public void draw(Graphics pen)
-	{
+	public void draw(Graphics pen) {
 		super.setColor(Color.yellow);
 		super.draw(pen);
-		
 	}
-	
+
+	public void setPhrase(String phrase) {
+		this.phrase = phrase;
+	}
 }
 

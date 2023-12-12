@@ -3,11 +3,11 @@ package Levels.Managers;
 import javax.swing.JFrame;
 
 import Sprites.Characters.Enemy;
-import Sprites.Characters.PlayerCharacter;
+import Sprites.Characters.Player;
 import Sprites.Characters.Student;
 import Objects.HealthBar;
 import Objects.HealthStation;
-import Objects.Rect;
+import Utils.Rect;
 
 import Objects.Wall;
 
@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+@Deprecated
 public class GameWindow2 extends JFrame implements KeyListener, Runnable, ActionListener{
     Thread t;
     
@@ -58,7 +59,7 @@ public class GameWindow2 extends JFrame implements KeyListener, Runnable, Action
     public Image appIcon = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/appIcon/");
 
     //Objects
-    PlayerCharacter p1 = new PlayerCharacter(300,300, 50,50); // so all levels can share same character
+    Player p1 = new Player(null, 300,300); // so all levels can share same character
     Wall [] wall; // get walls for refrence and collison detection
     HealthBar healthBar = new HealthBar(100, 100,20, 20, 3);
     int health;

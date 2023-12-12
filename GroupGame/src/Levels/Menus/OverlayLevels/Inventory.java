@@ -1,6 +1,9 @@
 package Levels.Menus.OverlayLevels;
 import javax.swing.*;
 
+import Game.Game;
+import Game.GameScreen;
+import Game.GameWindow;
 import Levels.Managers.GameWindow2;
 import Levels.Managers.Level2;
 
@@ -8,29 +11,23 @@ import java.awt.*;
 
 import javax.swing.border.Border;
 
-public class Inventory extends Level2{ 
+public class Inventory extends GameScreen {
+
     JLabel title = new JLabel("5:35 PM");
     JButton[] item;
    
     String folderPath;
 
-  
-
- 
-
-    public Inventory(JButton [] itemButtons){ // This is the Phone
-        super(null,null, "Inventory");
+    public Inventory(Game game, JButton [] itemButtons){ // This is the Phone
+        super(game, "Inventory");
 
         //BACKGROUND
         setBg("black01.jpg");
         setBounds(450,10,500,720); // set the bounds of the panel
 
-        if(GameWindow2.getOs().contains("Mac")){
+        if(GameWindow.OS.contains("Mac"))
             folderPath = "GroupGame/src/images/icons/";
-        }else{
-            folderPath = "GroupGame\\src\\images\\icons\\";
-        }
-       
+        else folderPath = "GroupGame\\src\\images\\icons\\";
        
     //Grab Icons from Folder 
         Image toPause = Toolkit.getDefaultToolkit().getImage(folderPath + "Arrow Left_Lightgreen.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
@@ -56,7 +53,7 @@ public class Inventory extends Level2{
         this.item = itemButtons;
         setVisible(false);
         //Adding elements to the panel
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.PAGE_START;
         constraints.gridx = 2;
         constraints.gridy = -1;

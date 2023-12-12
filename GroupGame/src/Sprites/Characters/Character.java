@@ -1,59 +1,133 @@
 package Sprites.Characters;
-// import Levels.Managers.Level;
+import Game.Game;
 import Levels.Managers.Level2;
 
 
-import java.awt.*;
-
+import Map.Room;
 import Sprites.Sprite;
 
-
-public class Character extends Sprite{
-    //private static int numStudent =+ 1; // track the student created
-    private String name = ""; //
-
-    private long pNum = 00000000L; // their phone number
-    private Level2 location; // where they are
-    private boolean canInterview = false; // seperates important and extra characters
-    private boolean canCall = false; // can you call them
-    
-
-    //Animation animation;
-    //Sprite sprites;
-
-    public Character(String name, String[] pose, int imagecount, int start, String filetype, int x, int y, int w, int h){
-        super(name, pose,imagecount, start, filetype, x, y, w, h);
-        
+import java.awt.*;
 
 
+public abstract class Character extends Sprite {
+
+    private final Game game;
+
+    private String name;
+    private long pNum = 0L;        // their phone number
+    private boolean canInterview;  // separates important and extra characters
+    private boolean canCall;       // can you call them
+
+    public Character(Game game, String name, String[] pose, int imageCount, String filetype, int x, int y, int w, int h, double xDrawOffset, double yDrawOffset) {
+        super(name, pose, imageCount, filetype, x, y, w, h, xDrawOffset, yDrawOffset);
+        this.game = game;
     }
-    public Character(String name, String[] pose, int imagecount, int start, String filetype,int x, int y , int h, int w, long pNum, Level2 location, boolean canInterview){
-        this(name, pose,imagecount, start, filetype, x, y, w, h);
+
+    public Character(Game game, String name, String[] pose, int imageCount, String filetype, int x, int y , int h, int w, long pNum, boolean canInterview) {
+        this(game, name, pose, imageCount, filetype, x, y, w, h, 0, 0);
         this.name = name; // name of the character vs Name for the file
         this.pNum = pNum;
-        this.location = location;
         this.canInterview = canInterview;
-            
     }
 
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
 
+    }
+
+    /**
+     * Modifies the position of the character
+     * by its given velocity.
+     */
+    public void move() {
+        if(!moving)return;
+
+        // Check movement on x-axis
+        if(canMoveTo(x + vx, y)) x += vx;
+        else x = getXPosNextToTile();
+
+        // Check movement on y-axis
+        if(canMoveTo(x, y + vy)) y += vy;
+        else y = getYPosAboveOrUnderTile();
+
+        applyFrictionWithFloor();
+    }
+
+    /**
+     * Checks if entity can move to the given location
+     * within the current room.
+     *
+     * @param x The new x-coordinate.
+     * @param y The new y-coordinate.
+     * @return True if the move is possible, otherwise, false.
+     */
+    public boolean canMoveTo(double x, double y) {
+        Room room = game.getGameRoom();
+        if(room != null) {
+            if (room.isTransparent(x, y))
+                if (room.isTransparent(x + w, y + h))
+                    if (room.isTransparent(x + w, y))
+                        return room.isTransparent(x, y + h);
+        }
+        return false;
+    }
+
+    /**
+     * @return The x-coordinate closest to an adjacent tile, horizontally.
+     */
+    protected double getXPosNextToTile() {
+        int tileXPos = getTileX() * Game.TILES_SIZE;
+        if(vx > 0) { /* moving to the right */
+            int xOffset = (int)(Game.TILES_SIZE - w);
+            return tileXPos + xOffset - 1;
+        } else return tileXPos;
+    }
+
+    /**
+     * @return The y-coordinate closest to an adjacent tile, vertically.
+     */
+    private double getYPosAboveOrUnderTile() {
+        int tileYPos = getTileY() * Game.TILES_SIZE;
+        if(vy > 0) { /* going down */
+            int yOffset = (int)(Game.TILES_SIZE - h);
+            return tileYPos + yOffset - 1;
+        } else return tileYPos;
+    }
+
+    /**
+     * @return The level tile at the current x-location.
+     */
+    public int getTileX() {
+        return (int) (x / Game.TILES_SIZE);
+    }
+
+    /**
+     * @return The level tile at the current y-location.
+     */
+    public int getTileY() {
+        return (int) (y / Game.TILES_SIZE);
+    }
+
+    /**
+     * Resets all velocity related variables.
+     */
+    public void applyFrictionWithFloor() {
+        vx = 0;
+        vy = 0;
+    }
 
     public String getName() {
         return name;
     }
-    public long getpNum() {
+
+    public long getPhoneNum() {
         return pNum;
     }
-
-    public Level2 getLevelLocation() {
-        return location;
-    }
-
 
     public boolean canBeInterviewed() {
         return canInterview;
     }
-
 
     public boolean canBeCalled() {
         return canCall;
@@ -62,12 +136,4 @@ public class Character extends Sprite{
     public void setCanCall(boolean canCall) {
         this.canCall = canCall;
     }
-
-    public void draw (Graphics pen){
-        super.draw(pen);
-    }
-
-
-
-
 }

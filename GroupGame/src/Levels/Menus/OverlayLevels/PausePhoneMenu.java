@@ -2,6 +2,9 @@
 package Levels.Menus.OverlayLevels;
 import javax.swing.*;
 
+import Game.Game;
+import Game.GameScreen;
+import Game.GameWindow;
 import Levels.Managers.GameWindow2;
 import Levels.Managers.Level2;
 
@@ -11,7 +14,7 @@ import java.awt.*;
 
 import javax.swing.border.Border;
 
-public class PausePhoneMenu extends Level2{ 
+public class PausePhoneMenu extends GameScreen {
     JLabel title = new JLabel("5:35 PM");
     JButton[] pauseMButtons;
    
@@ -21,18 +24,16 @@ public class PausePhoneMenu extends Level2{
 
  
 
-    public PausePhoneMenu(JButton [] pauseButtons){ // This is the Phone
-        super(null,null, "phonePauseMenu");
+    public PausePhoneMenu(Game game, JButton [] pauseButtons){ // This is the Phone
+        super(game, "phonePauseMenu");
 
         //BACKGROUND
         setBg("bg_pause02.jpg");
         setBounds(450,10,500,720); // set the bounds of the panel
 
-        if(GameWindow2.getOs().contains("Mac")){
-            folderPath = "GroupGame/src/images/icons/";
-        }else{
-            folderPath = "GroupGame\\src\\images\\icons\\";
-        }
+        if(GameWindow.OS.contains("Mac"))
+             folderPath = "GroupGame/src/images/icons/";
+        else folderPath = "GroupGame\\src\\images\\icons\\";
        
        
     //Grab Icons from Folder 
@@ -58,7 +59,7 @@ public class PausePhoneMenu extends Level2{
         this.pauseMButtons = pauseButtons;
         setVisible(false);
         //Adding elements to the panel
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.PAGE_START;
         constraints.gridx = 1;
         constraints.gridy = 0;

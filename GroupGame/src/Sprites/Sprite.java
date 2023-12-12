@@ -1,11 +1,15 @@
 package Sprites;
 import java.awt.*;
 
-import Objects.Rect;
+import Game.Game;
+import Utils.Rect;
 
-public class Sprite extends Rect
-{
-	Animation[] animation; // ARRAY OF ANIMATIONS
+public class Sprite extends Rect {
+
+	private final Animation[] animation;
+	protected boolean moving;
+
+	private final double xDrawOffset, yDrawOffset;
 	
 	final static int UP = 0;
 	final static int DN = 1;
@@ -13,81 +17,79 @@ public class Sprite extends Rect
 	final static int RT = 3;
 	final static int IDLE = 4;
 	int pose = DN;
-	
-	static double scale = 1.4;
-	
-	public boolean moving = false;
-	
-	public Sprite(String name, String[] pose, int imagecount, int start, String filetype, int x, int y, int w, int h)
-	{
+
+	public Sprite(String name, String[] pose, int imageCount, String filetype, int x, int y, int w, int h, double xDrawOffset, double yDrawOffset) {
 		super(x, y, w, h);
-		
-		animation = new Animation[pose.length];  
-		
+		this.xDrawOffset = xDrawOffset * Game.SCALE;
+		this.yDrawOffset = yDrawOffset * Game.SCALE;
+
+		animation = new Animation[pose.length];
+
 		for(int i = 0; i < pose.length; i ++)
-		{
-			animation[i] = new Animation(name, pose[i], imagecount, start,  18, filetype);
-		}
+			animation[i] = new Animation(name, pose[i], imageCount,  18, filetype);
 	}
+
+	public Sprite(String name, String[] pose, int imageCount, String filetype, int x, int y, int w, int h) {
+		this(name, pose, imageCount, filetype, x, y, w, h, 0, 0);
+	}
+
+	public void update() {
+		moving = false;
+	}
+
 	/**Change the animation to move to the left */
-	public void goLT(int dx)
-	{
+	public void goLT(int dx) {
 		pose = LT;
 		
+		vx = -dx * Game.SCALE;
+
 		moving = true;
-		
-		vx = -dx;
 	}
+
 	/**Change the animation to move to the right */
-	public void goRT(int dx)
-	{
+	public void goRT(int dx) {
 		pose = RT;
 		
+		vx = dx * Game.SCALE;
+
 		moving = true;
-		
-		vx = dx;
 	}
+
 	/**Change the animation to move to the Up */
-	public void goUP(int dy)
-	{
+	public void goUP(int dy) {
 		pose = UP;
 		
+		vy = -dy * Game.SCALE;
+
 		moving = true;
-		
-		vy = -dy;
 	}
+
 	/**Change the animation to move to the down */
-	public void goDN(int dy)
-	{
+	public void goDN(int dy) {
 		pose = DN;
 		
+		vy = dy * Game.SCALE;
+
 		moving = true;
-		
-		vy = dy;
 	}
 	
 	/**Draw the character with the current animation */
-	public void draw(Graphics pen)
-	{	
-		Image temp;
-		
-		if (!moving) // if you hare not moving
+	public void draw(Graphics pen) {
+		Image sprite;
 
-			temp = animation[IDLE].getCurrentImage(); // let the idle animation play when the character isnt moving
-		
+		// Let the idle animation play when the character isn't moving
+		if (!moving)
+			sprite = animation[IDLE].getCurrentImage();
 		else
-		
-			temp = animation[pose].getCurrentImage();
-	
+			sprite = animation[pose].getCurrentImage();
 
-		 w = scale * temp.getWidth(null);
-		 h = scale * temp.getHeight(null);
-			
-		pen.drawImage(temp, (int)(x), (int)(y), (int)w, (int)h, null);
-		
-		pen.setColor(c); // use the color set for each character type
-        pen.drawRect((int)(x), (int)(y), (int)w, (int)h);
-		//pen.drawRect((int)(x - Camera.x), (int)(y - Camera.y), (int)w, (int)h);
+		int width  = (int) (sprite.getWidth(null)  * 1.75);
+		int height = (int) (sprite.getHeight(null) * 1.75);
+
+		// The draw offset shifts the image within the sprite hit-box.
+		pen.drawImage(sprite, (int)(x - xDrawOffset), (int)(y - yDrawOffset), width, height, null);
+
+		pen.setColor(c);
+		pen.drawRect((int)x, (int)y, (int)w, (int)h);
 	}
-	
 }

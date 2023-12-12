@@ -1,18 +1,13 @@
 package Levels.Menus;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
+
+import Game.Game;
+import Game.GameScreen;
+
+import javax.swing.*;
+import java.awt.*;
 
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import javax.swing.JRadioButton;
-import javax.swing.JSlider;
-
-import Levels.Managers.Level2;
-
-
-public class OptionsMenu extends Level2 {
+public class OptionsMenu extends GameScreen {
 
     JLabel title = new JLabel("OPTIONS");
 
@@ -38,8 +33,8 @@ public class OptionsMenu extends Level2 {
     
 
 
-    public OptionsMenu(JButton backButtons){
-        super(null,null, "optionsMenu"); // no enterance exit logic just using card manager in levelbuilder
+    public OptionsMenu(Game game, JButton backButtons){
+        super(game, "optionsMenu"); // no enterance exit logic just using card manager in levelbuilder
         
         //BACKGROUND
         setBg("bg_classroom03.jpg"); 

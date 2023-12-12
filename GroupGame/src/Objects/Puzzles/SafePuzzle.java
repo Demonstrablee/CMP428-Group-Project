@@ -3,12 +3,10 @@ package Objects.Puzzles;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import Objects.Rect;
+import Utils.Rect;
 import Sprites.Animation;
 
 public class SafePuzzle extends Rect implements MouseListener {
@@ -101,11 +99,11 @@ public class SafePuzzle extends Rect implements MouseListener {
     	
     	for(int i = 0; i < buttons.length; i++) {
     		
-    	if(buttonClicked == i)  pen.drawImage(buttons[i].getCurrentImage(), (int)buttonLocation[i].x, (int)buttonLocation[i].y, (int)buttonLocation[i].w, (int)buttonLocation[i].h, null);
+    	if(buttonClicked == i)  pen.drawImage(buttons[i].getCurrentImage(), (int)buttonLocation[i].getX(), (int)buttonLocation[i].getY(), (int)buttonLocation[i].getWidth(), (int)buttonLocation[i].getHeight(), null);
     	
     	if(buttons[i].animationFinish()) buttonClicked = -1;
     	
-    	else pen.drawImage(buttons[i].getStaticImage(), (int)buttonLocation[i].x, (int)buttonLocation[i].y, (int)buttonLocation[i].w, (int)buttonLocation[i].h, null);
+    	else pen.drawImage(buttons[i].getStaticImage(), (int)buttonLocation[i].getX(), (int)buttonLocation[i].getY(), (int)buttonLocation[i].getWidth(), (int)buttonLocation[i].getHeight(), null);
     	}
     	
     	for(int i = 0; i < 5; i++) 

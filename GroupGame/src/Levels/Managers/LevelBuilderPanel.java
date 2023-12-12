@@ -1,7 +1,7 @@
 package Levels.Managers;
 
 import Sprites.Characters.Enemy;
-import Sprites.Characters.PlayerCharacter;
+import Sprites.Characters.Player;
 import Sprites.Characters.Student;
 import Levels.GameLevels.Hallway01;
 import Levels.GameLevels.MurphysRoom2;
@@ -13,9 +13,8 @@ import Levels.Menus.TitleScreen;
 import Levels.Menus.OverlayLevels.CampusMap;
 import Levels.Menus.OverlayLevels.Inventory;
 import Levels.Menus.OverlayLevels.PausePhoneMenu;
-import Objects.HealthBar;
 import Objects.HealthStation;
-import Objects.Rect;
+import Utils.Rect;
 import Objects.Wall;
 import UI.InterviewMode;
 
@@ -34,6 +33,7 @@ import javax.swing.border.Border;
 /**
  * Initializes a level inheriting from JPanel.
  */
+@Deprecated
 public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runnable, ActionListener, MouseListener {
     
     Thread t;
@@ -52,7 +52,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
 
     
     //Objects
-    PlayerCharacter p1 = new PlayerCharacter(300,300, 50,50); // so all levels can share same character
+    Player p1 = new Player(null, 300,300); // so all levels can share same character
     Wall [] wall; // get walls for refrence and collison detection
     int health;
     Enemy [] enemies;
@@ -79,7 +79,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     static CampusMap campusMap; // 6
 
     //UI
-    InterviewMode interviewMode = new InterviewMode();
+    InterviewMode interviewMode = new InterviewMode(null);
 
     /**States when the game is paused state (happens while in any menu)*/
     boolean isPaused; 
@@ -163,13 +163,13 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
            
 
             //Intializing
-            titleScreen = new TitleScreen(titleButtons);
-            pauseMenu = new PausePhoneMenu(pauseMButtons);
-            optionsMenu = new OptionsMenu(toPauseButtons[1]);
-            saveMenu = new SaveMenu(toPauseButtons[0]); 
-            gameOverMenu = new GameOverMenu(gameOverButtons);
-            campusMap = new CampusMap(mapButton); // technically a menu sort of
-            inventory = new Inventory(inventoryButtons); // TODO NOT FINISHED
+            titleScreen = new TitleScreen(null, titleButtons);
+            pauseMenu = new PausePhoneMenu(null, pauseMButtons);
+            optionsMenu = new OptionsMenu(null, toPauseButtons[1]);
+            saveMenu = new SaveMenu(null, toPauseButtons[0]);
+            gameOverMenu = new GameOverMenu(null, gameOverButtons);
+            campusMap = new CampusMap(null, mapButton); // technically a menu sort of
+            inventory = new Inventory(null, inventoryButtons); // TODO NOT FINISHED
             // CAMPUS MAP
             
 
@@ -178,8 +178,8 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             murphysRoom2.setExit(hallway01); // the address initially was null 
 
             //HALLWAY01
-            hallway01.setEnterance(murphysRoom2);
-            hallway01.setExit(campusMap);
+            hallway01.setEntrance(murphysRoom2);
+            //hallway01.setExit(campusMap);
 
            
             //campusMap.setEnterance(hallway01);
@@ -203,7 +203,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             
             
             // Game State variables AT START
-            currLevel = titleScreen; // which room to draw currLevel and levLevel index are one to one (default: titleScreen)
+            //currLevel = titleScreen; // which room to draw currLevel and levLevel index are one to one (default: titleScreen)
             gameRoom =  murphysRoom2; // track of the ingame rooms that player traverses with p1 (default; murphysRoom)
 
             //levIndex = currLevel.toString(); // which room to display
@@ -241,7 +241,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                     isPaused = true; // so it works in testing and in game
                     //gameRoom = gameOverMenu; // its a menu after all
                     currLevel.setVisible(false);
-                    currLevel = gameOverMenu;
+                    //currLevel = gameOverMenu;
                     currLevel.setVisible(true);
                     
                 }
@@ -305,14 +305,14 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
 
                         // Player Healing
                         if(healthStation != null && p1.overlaps(healthStation))
-                            p1.getHealthBar().increaseHealth(1);
+                            p1.getHealthBar().increaseHealth();
                     }
 
                     // Student interactions
                     if(students != null) {
                         Student s = students[0];
-                            if(p1.overlaps(s)) s.isSpeaking();
-                            else s.isNotSpeaking();
+                            if(p1.overlaps(s)) s.speaking();
+                            else s.silent();
                             // TODO: FIX NOT DISPLAYING ON JPANEL
                     }
 
@@ -326,7 +326,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                             int [] exitPosition = currLevel.getExit().getLevelEntrancePos();//get position of enterance in next level
 
                             nExitOrEnterX = exitPosition[0] + exitPosition[2]/3;
-                            nExitOrEnterY = exitPosition[1]- (int)(p1.h +20);
+                            nExitOrEnterY = exitPosition[1]- (int)(p1.getHeight() +20);
                             p1.setLocation(nExitOrEnterX, nExitOrEnterY); //  make play start infront of the exit
 
                             // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
@@ -354,14 +354,14 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
                             if(enter.overlaps(p1)) {
 
                                 //put player infront of the entrance to the previous level
-                                int [] enterPositon = currLevel.getEnterance().getLevelExitPos();//get position of exit in previous level
+                                int [] enterPositon = currLevel.getEntrance().getLevelExitPos();//get position of exit in previous level
                                 nExitOrEnterX = enterPositon[0] + enterPositon[2] / 3 ; //x + width/3
-                                nExitOrEnterY = enterPositon[1] - (int)(p1.h + 20); //y
+                                nExitOrEnterY = enterPositon[1] - (int)(p1.getHeight() + 20); //y
                                 p1.setLocation(nExitOrEnterX, nExitOrEnterY); //  make play start infront of the exit
 
 
                                 // THIS MUST HAPPEN AFTER PLAYER PLACEMENT
-                                gameRoom = currLevel.getEnterance();
+                                gameRoom = currLevel.getEntrance();
 
                                 // Changing the level displayed on screen
                                 if (!gameRoom.equals(campusMap)) {
@@ -453,7 +453,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
         if(e.getKeyCode() == KeyEvent.VK_P){ // if P is pressed pause the game
             if(!isPaused){
                 //currLevel.setVisible(false);
-                currLevel = pauseMenu;
+                //currLevel = pauseMenu;
                 currLevel.setVisible(true);
                 //levIndex = currLevel.toString();
                 isPaused = true; // pause the game
@@ -474,7 +474,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
     @Override
     public void keyReleased(KeyEvent e) {
         p1.setPressing(e.getKeyCode(), false);
-        p1.moving = false;
+        //p1.moving = false;
     }
 
     @Override
@@ -515,21 +515,21 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
        else if(buttonClicked == pauseMButtons[1]){ // go to save 
     
             currLevel.setVisible(false);
-            currLevel = saveMenu;
+            //currLevel = saveMenu;
             currLevel.setVisible(true);
        
         }
        else if(buttonClicked == titleButtons[1] || buttonClicked == pauseMButtons[2]){// go to options
 
             currLevel.setVisible(false);
-            currLevel = optionsMenu;
+           // currLevel = optionsMenu;
             currLevel.setVisible(true);
   
        }
        else if(buttonClicked == pauseMButtons[3] || buttonClicked == toPauseButtons[1] && titleOrPause || buttonClicked == gameOverButtons[1]){ // back to title screen
 
             currLevel.setVisible(false);
-            currLevel = titleScreen;
+           // currLevel = titleScreen;
             gameRoom = murphysRoom2;
             currLevel.setVisible(true);
 
@@ -553,7 +553,7 @@ public class LevelBuilderPanel extends JLayeredPane implements KeyListener, Runn
             else if(currLevel != gameRoom){ // if the last level was a menu level
                 currLevel.setVisible(false);
             }
-            currLevel = pauseMenu; // so the phone stacks ontop of the game level
+            //currLevel = pauseMenu; // so the phone stacks ontop of the game level
             currLevel.setVisible(true);
             inventory.setVisible(false);
 

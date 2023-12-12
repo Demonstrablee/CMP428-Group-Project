@@ -8,14 +8,16 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import Game.Game;
+import Game.GameScreen;
 import Levels.Managers.Level2;
 
-public class InterviewMode extends Level2 { // basically a video player
+public class InterviewMode extends GameScreen { // basically a video player
         JLabel title = new JLabel("Interveiw");
         JButton[] choiceButtons = new JButton [] {new JButton("1"),new JButton("2"),new JButton("3"), new JButton("4")};
         
-    public InterviewMode(){ //
-        super(null,null, "interviewMode");
+    public InterviewMode(Game game){ //
+        super(game, "interviewMode");
         
         //BACKGROUND
         //setBg("bg_classroom01.jpg");
@@ -26,7 +28,7 @@ public class InterviewMode extends Level2 { // basically a video player
          
 
         //Adding buttons to panel
-        constraints = new GridBagConstraints(); 
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints. gridy = 0;
         add(title, constraints);

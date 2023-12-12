@@ -8,6 +8,7 @@ import Objects.Wall;
 
 import java.awt.*;
 
+@Deprecated
 public class Hallway01 extends Level2 { 
     GridBagConstraints constraints = new GridBagConstraints(); // constraints you will add to each element
     JLabel title = new JLabel("HALLWAY"); 

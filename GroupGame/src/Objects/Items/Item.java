@@ -5,8 +5,6 @@ import java.awt.*;
 public abstract class Item {
 
     public abstract String getName();
-    public abstract String getDescription();
-
     public abstract void use();
 
     /**
@@ -19,5 +17,4 @@ public abstract class Item {
         return Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/items/" +
             getName().toLowerCase().replaceAll(" ", "_") + ".png");
     }
-
 }

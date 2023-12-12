@@ -7,7 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import Objects.Rect;
+import Utils.Rect;
 
 public class Phone extends Rect  implements MouseListener{
 	
@@ -70,11 +70,11 @@ public class Phone extends Rect  implements MouseListener{
 			
              buttons[i].draw(pen);
              
-             if (i == 0) pen.drawString("Map",  (int)(buttons[i].x + 15), (int)(buttons[i].y + 30));
+             if (i == 0) pen.drawString("Map",  (int)(buttons[i].getX() + 15), (int)(buttons[i].getY() + 30));
              
-             if (i == 1) pen.drawString("Interface", (int)(buttons[i].x + 15), (int)(buttons[i].y + 30));
+             if (i == 1) pen.drawString("Interface", (int)(buttons[i].getX() + 15), (int)(buttons[i].getY() + 30));
              
-             if (i == 2) pen.drawString("Pause", (int)(buttons[i].x + 15), (int)(buttons[i].y + 30));
+             if (i == 2) pen.drawString("Pause", (int)(buttons[i].getX() + 15), (int)(buttons[i].getY() + 30));
              
 		}
 		}

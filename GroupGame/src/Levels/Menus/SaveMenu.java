@@ -8,17 +8,19 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import Game.Game;
+import Game.GameScreen;
 import Levels.Managers.Level2;
 
 
 
 
-public class SaveMenu extends Level2 {
+public class SaveMenu extends GameScreen {
     JLabel title = new JLabel("SAVE");
 
 
-    public SaveMenu(JButton backButton){
-        super(null,null, "saveMenu");
+    public SaveMenu(Game game, JButton backButton){
+        super(game, "saveMenu");
 
         //BACKGROUND
         //setBg("black01.jpg");
@@ -27,7 +29,7 @@ public class SaveMenu extends Level2 {
 
 
         // adding components to the screen
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.PAGE_START;
         constraints.gridx = 0;
         constraints.gridy = 0;

@@ -1,5 +1,7 @@
 package Objects;
 
+import Utils.Rect;
+
 import java.awt.Color;
 import java.awt.Graphics;
 

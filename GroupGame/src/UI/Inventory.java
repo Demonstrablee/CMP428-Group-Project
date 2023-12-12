@@ -1,14 +1,14 @@
 package UI;
 
 import Objects.Items.Item;
-import Sprites.Characters.PlayerCharacter;
+import Sprites.Characters.Player;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Inventory {
 
-	private final PlayerCharacter player;
+	private final Player player;
 
 	private final Item[] items;
 	private final int MAX_ITEMS = 6;
@@ -16,10 +16,10 @@ public class Inventory {
 
 	private final Image hotbarImg, selectedImg;
 
-	public Inventory(PlayerCharacter player) {
+	public Inventory(Player player) {
 		this.player = player;
 		this.items = new Item[MAX_ITEMS];
-		selectedSlot = 2;
+		selectedSlot = 1;
 		itemCount = 0;
 
 		// Load inventory sprites
@@ -123,7 +123,7 @@ public class Inventory {
 		int BAR_WIDTH = (int) (DEFAULT_BAR_WIDTH * SCALE);
 		int BAR_HEIGHT = (int) (DEFAULT_BAR_HEIGHT * SCALE);
 
-		int xStart = 375, yStart = 590;
+		int xStart = 225, yStart = 800;
 		g.drawImage(hotbarImg, xStart, yStart, BAR_WIDTH, BAR_HEIGHT, null);
 
 		// Displays the items in the bar

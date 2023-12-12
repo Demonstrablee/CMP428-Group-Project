@@ -2,12 +2,14 @@ package Levels.Menus.OverlayLevels;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import Game.Game;
+import Game.GameScreen;
 import Levels.Managers.Level2;
 
 
 import java.awt.*;
 
-public class CampusMap extends Level2 { 
+public class CampusMap extends GameScreen {
     //JLabel title = new JLabel("HUB GILLET");
     //Gillet Hall, Cafeteria, Near Quad
     int locations [][] = new int [][] {{370,270}, {310,210}, {530,240}};
@@ -16,8 +18,8 @@ public class CampusMap extends Level2 {
     Image phone = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/icons/Arrow Left_Lightgreen.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
     ImageIcon phoneIcon = new ImageIcon(phone);
 
-    public CampusMap( JButton mapButton){
-        super(null, null, "campusMap");
+    public CampusMap(Game game, JButton mapButton){
+        super(game, "campusMap");
         
         //BACKGROUND
         setBackground(Color.BLACK); // set pane to black

@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import Objects.Rect;
+import Utils.Rect;
 
 public class CodePuzzle extends Rect implements MouseListener, MouseMotionListener{
 	
@@ -145,7 +145,7 @@ public class CodePuzzle extends Rect implements MouseListener, MouseMotionListen
 		
 		for(int i = 0; i < piece.length; i++) {
 			
-		if(piece[i].held) {
+		if(piece[i].isHeld()) {
 			
 			piece[i].moveBy(dx, dy);;
 		}

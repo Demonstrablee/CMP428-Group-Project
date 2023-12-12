@@ -2,10 +2,8 @@ package Sprites.Characters;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 
-import Objects.Rect;
+import Utils.Rect;
 import Sprites.Animation;
 
 public class BlueMonster extends Rect {
@@ -62,7 +60,7 @@ public class BlueMonster extends Rect {
 			super.moveBy(0, 1);
 			damageZone.moveBy(0, 1);
 			
-			if(getY() >= sight.y + 250 + 200) movingDown = false;
+			if(getY() >= sight.getY() + 250 + 200) movingDown = false;
 		}
 		
 		if(!movingDown) {
@@ -70,7 +68,7 @@ public class BlueMonster extends Rect {
 			super.moveBy(0, -1);
 			damageZone.moveBy(0, -1);
 			
-			if(getY() <= sight.y - 15) movingDown = true;
+			if(getY() <= sight.getY() - 15) movingDown = true;
 		}
 		}
 	}

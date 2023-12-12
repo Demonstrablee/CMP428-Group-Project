@@ -1,21 +1,23 @@
 package Sprites.Characters;
 
 
+import Game.Game;
 import Objects.HealthBar;
 import Objects.Items.BandAid;
 import UI.Inventory;
+import Utils.Input;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 
-public class PlayerCharacter extends Character {
+public class Player extends Character {
 
     /**
      * Poses MUST be in the correct order to work within the Animation class!
      * Name does not matter, but the order contributes to what animation is played.
      */
-    static String [] pose = new String[] {"UP", "DOWN", "LT", "RT","IDLE"};
+    private final static String[] POSE = new String[] {"UP", "DOWN", "LT", "RT", "IDLE"};
 
     private final boolean[] pressing;
 
@@ -23,15 +25,37 @@ public class PlayerCharacter extends Character {
 
     private final HealthBar healthBar;
 
-    public PlayerCharacter(int x, int y, int w, int h) {
-        super("MC", pose, 7, 0, "png", x, y, w, h);
+    public Player(Game game, int x, int y) {
+        super(game, "MC", POSE, 7, "png", x, y, 20, 58, 6, 4);
         c = Color.RED;
         pressing = new boolean[1024];
         inventory = new Inventory(this);
-        healthBar = new HealthBar(100, 100, 20, 20, 3);
+        healthBar = new HealthBar(25, 25, 20, 20, 5);
         inventory.addItem(new BandAid(this));
-        inventory.addItem(new BandAid(this));
-        inventory.addItem(new BandAid(this));
+    }
+
+    /**
+     * Updates the players movement based on
+     * user input.
+     */
+    @Override
+    public void update() {
+        super.update();
+
+        int speed = 1;
+        if(isPressing(Input.W, Input.UP)) goUP(speed);
+        if(isPressing(Input.S, Input.DN)) goDN(speed);
+        if(isPressing(Input.A, Input.LT)) goLT(speed);
+        if(isPressing(Input.D, Input.RT)) goRT(speed);
+        if(isPressing(Input.U)) inventory.useSelectedItem();
+        move();
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
+        healthBar.draw(g);
+        inventory.draw(g);
     }
 
     /**
@@ -40,8 +64,12 @@ public class PlayerCharacter extends Character {
      * @param keyCode The code of the key in question.
      * @return True if the key is being pressed.
      */
-    public boolean isPressing(int keyCode) {
-        return pressing[keyCode];
+    public boolean isPressing(int... keyCode) {
+        for(int code : keyCode) {
+            if(pressing[code])
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -62,8 +90,4 @@ public class PlayerCharacter extends Character {
         return healthBar;
     }
 
-    @Override
-    public void draw(Graphics pen) {
-        super.draw(pen);
-    }
 }

@@ -1,17 +1,19 @@
 package Levels.Menus;
 import javax.swing.*;
 
+import Game.Game;
+import Game.GameScreen;
 import Levels.Managers.Level2;
 
 import java.awt.*;
 
 
-public class TitleScreen extends Level2{ 
+public class TitleScreen extends GameScreen {
     JLabel title = new JLabel("TITLE SCREEN");
     JButton[] titleButtons;
-    public TitleScreen(JButton[] menuButtons){
+    public TitleScreen(Game game, JButton[] menuButtons){
        
-        super(null,null, "titleScreen");
+        super(game, "titleScreen");
         
         
         //BACKGROUND
@@ -23,7 +25,7 @@ public class TitleScreen extends Level2{
         this.titleButtons = menuButtons;
 
         //Adding buttons to panel
-        constraints = new GridBagConstraints();  
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints. gridy = 0;
         add(title, constraints);

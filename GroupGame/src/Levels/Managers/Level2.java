@@ -1,7 +1,7 @@
 package Levels.Managers;
 
 import Objects.HealthStation;
-import Objects.Rect;
+import Utils.Rect;
 import Objects.Wall;
 
 import java.awt.*;
@@ -14,19 +14,19 @@ import Sprites.Characters.Student;
 //import Characters.Characters.PlayerCharacter;
 
 /** Initialize a level inhertiting from JPanel*/
+@Deprecated
 public abstract class Level2 extends JPanel{
 
     // the file names of paths will change base on this
     protected String os = System.getProperty("os.name"); // check os of user
     
     //Level Vars
-    private Level2 enterance = null; // node ahead
-    private Level2 exit = null; // node behind
+    private Level2 entrance; // node ahead
+    private Level2 exit; // node behind
     int [] lEnterP = new int [4]; // describes the rect that acts as the entrance for the level
     int [] lExitP = new int[4];
     protected Rect dRectEx = null;
     protected Rect dRectEnter = null;
- 
 
 
     // Constraints
@@ -51,7 +51,7 @@ public abstract class Level2 extends JPanel{
         setBackground(Color.BLACK);
         setVisible(false);
 
-        this.enterance = enter;
+        this.entrance = enter;
         this.exit = exit;
         this.name = name;
          
@@ -70,8 +70,8 @@ public abstract class Level2 extends JPanel{
     /**
      * @return the Level represntation of the enterance
      */
-    public Level2 getEnterance() {
-        return enterance;
+    public Level2 getEntrance() {
+        return entrance;
     }  
     /**
      * Returns the array of the x position, y position, width and hight 
@@ -123,8 +123,8 @@ public abstract class Level2 extends JPanel{
 
 //SETTERS
     /** Set the level representation of the levels enterance */
-    public void setEnterance(Level2 enterance) {
-        this.enterance = enterance;
+    public void setEntrance(Level2 entrance) {
+        this.entrance = entrance;
     } 
     /**
      * Set the location of the enterance point in the level dRectEnter will be

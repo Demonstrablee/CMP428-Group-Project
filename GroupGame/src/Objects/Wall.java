@@ -1,5 +1,7 @@
 package Objects;
 
+import Utils.Rect;
+
 import java.awt.Graphics;
 
 public class Wall extends Rect

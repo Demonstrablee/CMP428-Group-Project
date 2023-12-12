@@ -1,16 +1,12 @@
 package Objects.Items;
 
-import Sprites.Characters.PlayerCharacter;
+import Sprites.Characters.Player;
 
-/**
- * Written by Nicholas Cercos
- * Created on Nov 29 2023
- **/
 public class BandAid extends Item {
 
-	private final PlayerCharacter player;
+	private final Player player;
 
-	public BandAid(PlayerCharacter player) {
+	public BandAid(Player player) {
 		this.player = player;
 	}
 
@@ -20,13 +16,8 @@ public class BandAid extends Item {
 	}
 
 	@Override
-	public String getDescription() {
-		return "Applies health";
-	}
-
-	@Override
 	public void use() {
-		player.getHealthBar().increaseHealth(player.getHealthBar().getMaxHealth());
+		player.getHealthBar().increaseHealth();
 		player.getInventory().removeSelectedItem();
 	}
 }

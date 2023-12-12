@@ -1,94 +1,76 @@
 package Sprites;
-import Levels.Managers.GameWindow2;
-/**
-    The Animation class manages a series of images (frames) and
-    the amount of time to display each frame.
-*/
+
+import Game.GameWindow;
+
 import java.awt.*;
 
-public class Animation
-{
-	private Image[] image;
-	
-	private int current = 0;
-	
-	private int duration;
+/**
+ * The Animation class manages a series of images (frames) and
+ * the amount of time to display each frame.
+ */
+public class Animation {
+
+	private final Image[] image;
+	private final int duration;
 	private int delay;
+	private int current;
 	
-	private int start = 0;
-	
-	public Animation(String name,String pose, int count, int start, int duration, String type)
-	{
-		this.start    = start;
-		
+	public Animation(String name, String pose, int count, int duration, String type) {
 		this.duration = duration;
 		delay         = duration;
-		
-		
 		image = new Image[count];
 
-
-		for(int i = 0; i < count; i++)
-         
-		{
-			if (GameWindow2.getOs().contains("Mac")){ // if on mac
-            	//System.out.println("GroupGame/src/images/"+ name +"/" + name + "_" + pose + "/"+ name +"_" +pose +"_"+ i + "." + type);
-				image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/"+ name +"/" + name + "_" + pose + "/"+ name +"_" +pose +"_"+ i + "." + type);}
-			else{ // if you are on windows
-//				System.out.println("GroupGame\\srcimages\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
-				image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame\\srcimages\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
-			}
+		if(pose == null || type == null)return;
+		for(int i = 0; i < count; i++) {
+			// Modify the path based on the computer OS and load the desired sprites.
+			if (GameWindow.OS.contains("Mac"))
+				   image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/"+ name +"/" + name + "_" + pose + "/"+ name +"_" +pose +"_"+ i + "." + type);
+			else image[i] = Toolkit.getDefaultToolkit().getImage("GroupGame\\src\\images\\"+ name +"\\" + name + "_" + pose + "\\"+ name +"_" +pose +"_"+ i + "." + type);
 		}
 	}
-	
-	//This is for the BlueMonster
-	public Animation(String name, int count, int duration)
-	{
-		this.duration = duration;
-		delay         = duration;
-		
-		
-		image = new Image[count];
-		
+
+	/**
+	 * Loads a sprite for the 'Blue Monster'
+	 */
+	public Animation(String name, int count, int duration) {
+		this(name, null, count, duration, null);
+
 		for(int i = 0; i < count; i++)
-		{
 			image[i] = Toolkit.getDefaultToolkit().getImage(name + i + ".png");
-		}
 	}
-	
-	//Makes sure animation plays only once
+
+	/**
+	 * Makes sure animation plays only once.
+	 *
+	 * @return True if the animation has completed.
+	 */
 	public boolean animationFinish() {
-		
-		if (current == image.length - 1){
-			
-			current = 0;
-			
-			return true;
-		}
-		return false;
+		boolean isLast = isLastImage();
+		if(isLast) current = 0;
+		return isLast;
+	}
+
+	/**
+	 * @return True if the current displayed image is the last of the animation.
+	 */
+	private boolean isLastImage() {
+		return current == image.length - 1;
 	}
 	
-	
-	public Image getStaticImage()
-	{
+	public Image getStaticImage() {
 		return image[0];
 	}
 
-	public Image getCurrentImage()
-	{
+	/**
+	 * @return The current image or the following image within an animation if it's duration has expired.
+	 */
+	public Image getCurrentImage() {
 		delay--;
-		
-		if(delay == 0)
-		{
-			current++;
-			
-			if(current == image.length)  current = start;
-			
+		if(delay == 0) {
+			if(!animationFinish())
+				current++;
 			delay = duration;
 		}
-		
 		return image[current];
 	}
-	
-
 }

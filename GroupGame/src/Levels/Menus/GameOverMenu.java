@@ -7,16 +7,19 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
+import Game.Game;
+import Game.GameScreen;
 import Levels.Managers.Level2;
 // import Objects.Wall;
 
-public class GameOverMenu extends Level2 {
+public class GameOverMenu extends GameScreen {
 
     JLabel title = new JLabel("GAME OVER");
     JButton[] gameOverOptions;
 
-    public GameOverMenu(JButton [] gameOverOptions){
-        super(null,null, "gameOverMenu");
+    public GameOverMenu(Game game, JButton [] gameOverOptions){
+        super(game, "gameOverMenu");
 
         //BACKGROUND
         //setBg("black01.jpg");
@@ -27,7 +30,7 @@ public class GameOverMenu extends Level2 {
         // Add Buttons 
         this.gameOverOptions = gameOverOptions;
         // adding components to the screen
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.PAGE_START;
         constraints.gridx = 0;
         constraints.gridy = 0;
