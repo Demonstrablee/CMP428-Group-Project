@@ -1,5 +1,6 @@
 package UI;
 
+import Game.Game;
 import Objects.Items.Item;
 import Sprites.Characters.Player;
 
@@ -23,9 +24,8 @@ public class Inventory {
 		itemCount = 0;
 
 		// Load inventory sprites
-		final String RESOURCE_DIR = "GroupGame/src/images/inventory/";
-		this.hotbarImg = Toolkit.getDefaultToolkit().getImage(RESOURCE_DIR + "inventory.png");
-		this.selectedImg = Toolkit.getDefaultToolkit().getImage(RESOURCE_DIR + "selected.png");
+		this.hotbarImg = Toolkit.getDefaultToolkit().getImage(Game.RESOURCE_URL + "ui/inventory.png");
+		this.selectedImg = Toolkit.getDefaultToolkit().getImage(Game.RESOURCE_URL + "ui/selected_slot.png");
 	}
 
 	/**
