@@ -14,9 +14,10 @@ public abstract class Character extends Sprite {
     private final Game game;
 
     private String name;
-    private long pNum = 0L;        // their phone number
-    private boolean canInterview;  // separates important and extra characters
-    private boolean canCall;       // can you call them
+    private long pNum = 0L;        		// their phone number
+    private boolean canInterview;  		// separates important and extra characters
+    private boolean canCall;       		// can you call them
+    public int actionLockCounter = 0;   //used to make character move
 
     public Character(Game game, String name, String[] pose, int imageCount, String filetype, int x, int y, int w, int h, double xDrawOffset, double yDrawOffset) {
         super(name, pose, imageCount, filetype, x, y, w, h, xDrawOffset, yDrawOffset);

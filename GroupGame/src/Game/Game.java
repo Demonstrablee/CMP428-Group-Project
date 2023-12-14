@@ -158,6 +158,9 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 				if(player.overlaps(s)) s.speaking();
 				else s.silent();
 				// TODO: FIX NOT DISPLAYING ON JPANEL
+				
+				s.update();
+				
 			}
 
 			// Going to different levels based on currLevel and position
