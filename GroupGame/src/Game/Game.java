@@ -11,8 +11,13 @@ import Levels.Menus.TitleScreen;
 import Map.Room;
 import Map.RoomManager;
 import Map.Rooms.Classroom;
+import Map.Rooms.ClassroomB_3rdFloor;
 import Map.Rooms.Hallway;
+import Map.Rooms.Hallway2_3rdFloor;
+import Map.Rooms.Hallway3_3rdFloor;
 import Objects.HealthStation;
+import Objects.Puzzles.CodePuzzle;
+import Objects.Puzzles.SafePuzzle;
 import Sprites.Characters.Enemy;
 import Sprites.Characters.Player;
 import Sprites.Characters.Student;
@@ -47,12 +52,16 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 	private GameScreen currLevel;
 	private Room gameRoom;
 
+	//TODO: CREATE ARRAY FOR CLASSROOM AND HALLWAY
 	private Classroom classroom;
 	private Hallway hallway;
 	private CampusMap campusMap;
+	private Hallway2_3rdFloor hallway2_3rdFloor;
+	private Hallway3_3rdFloor hallway3_3rdFloor;
+	private ClassroomB_3rdFloor classroomB_3rdFloor;
 
 	// Entities
-	private Player player;
+	public Player player;
 	private Enemy[] enemies;
 	private Student[] students;
 	private HealthStation healthStation;
@@ -62,6 +71,7 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 	Rect enter;
 	int nExitOrEnterX;
 	int nExitOrEnterY;
+	public SafePuzzle safePuzzle = new SafePuzzle(this, 350, 225, 200, 150);
 
 	//Menus
 	static TitleScreen titleScreen;
@@ -257,6 +267,9 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 		player = new Player(this, 150, 500);
 		classroom = new Classroom(this);
 		hallway = new Hallway(this);
+		hallway2_3rdFloor = new Hallway2_3rdFloor(this);
+		hallway3_3rdFloor = new Hallway3_3rdFloor(this);
+		classroomB_3rdFloor = new ClassroomB_3rdFloor(this);
 
 		inGameMenuButton.addActionListener(this);
 		inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
@@ -298,7 +311,18 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 
 		//HALLWAY01
 		hallway.setEntrance(classroom);
-
+		hallway.setExit(hallway2_3rdFloor);
+		
+		//3RD Floor HALLWAY02
+		hallway2_3rdFloor.setEntrance(hallway);
+		hallway2_3rdFloor.setExit(hallway3_3rdFloor);
+		
+		//3RD Floor HALLWAY03
+		hallway3_3rdFloor.setEntrance(hallway2_3rdFloor);
+		hallway3_3rdFloor.setExit(classroomB_3rdFloor);
+		
+		//3RD Floor CLASSROOM B
+		classroomB_3rdFloor.setEntrance(hallway3_3rdFloor);
 
 		//campusMap.setEnterance(hallway01);
 
@@ -314,6 +338,9 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 		panel.add(saveMenu);
 		panel.add(classroom);
 		panel.add(hallway);
+		panel.add(hallway2_3rdFloor);
+		panel.add(hallway3_3rdFloor);
+		panel.add(classroomB_3rdFloor);
 
 		panel.add(gameOverMenu);
 

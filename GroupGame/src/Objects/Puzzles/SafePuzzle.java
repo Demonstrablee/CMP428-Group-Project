@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import Game.Game;
 import Utils.Rect;
 import Sprites.Animation;
 
@@ -21,6 +22,7 @@ public class SafePuzzle extends Rect implements MouseListener {
 //	}
 //	else if(pressing[ESC]) safe.interact = false;
 
+	Game game;
 	private int mx;
 	private int my;
 	private boolean open = false;
@@ -48,18 +50,18 @@ public class SafePuzzle extends Rect implements MouseListener {
     		new Animation("Images/SafeButton/tick_pressed", 2, 10),};
     
     private Rect [] buttonLocation = new Rect[] {
-    		new Rect(610, 250, 45, 45),
-    		new Rect(655, 250, 45, 45),
-    		new Rect(700, 250, 45, 45),
-    		new Rect(745, 250, 45, 45),
-    		new Rect(610, 295, 45, 45),
-    		new Rect(655, 295, 45, 45),
-    		new Rect(700, 295, 45, 45),
-    		new Rect(745, 295, 45, 45),
-    		new Rect(610, 340, 45, 45),
-    		new Rect(655, 340, 45, 45),
-    		new Rect(700, 340, 45, 45),
-    		new Rect(745, 340, 45, 45),
+    		new Rect(425, 280, 20, 20),
+    		new Rect(448, 280, 20, 20),
+    		new Rect(472, 280, 20, 20),
+    		new Rect(495, 280, 20, 20),
+    		new Rect(425, 301, 20, 20),
+    		new Rect(448, 301, 20, 20),
+    		new Rect(472, 301, 20, 20),
+    		new Rect(495, 301, 20, 20),
+    		new Rect(425, 322, 20, 20),
+    		new Rect(448, 322, 20, 20),
+    		new Rect(472, 322, 20, 20),
+    		new Rect(495, 322, 20, 20),
     };
     
     private Image [] number = new Image []{
@@ -80,9 +82,10 @@ public class SafePuzzle extends Rect implements MouseListener {
     private int buttonClicked = -1;
     private int[] correctCode = {8, 6, 4, 0, 1};
 
-    public SafePuzzle(int x, int y, int w, int h) {
+    public SafePuzzle(Game game,int x, int y, int w, int h) {
         super(x, y, w, h);
         
+        this.game = game;
         interactZone = new Rect((int) x, (int) y, (int) w, (int)h + 10);
     }
 
@@ -90,30 +93,35 @@ public class SafePuzzle extends Rect implements MouseListener {
     	
     	interactZone.draw(pen);
     	
+    	interact = game.player.overlaps(interactZone) ? true : false;
+    	
     	if(interact) {
     		
-    	if(!open) {
-    	pen.drawImage(safeClose, 400, 50, 500, 500, null);
-    		
-    	pen.drawImage(keyPad, 600, 200, 200, 200, null);
+	    	if(!open) {
+	    		//this displays a bigger safe
+	//    		pen.drawImage(safeClose, 400, 50, 500, 500, null);
+	    		pen.drawImage(safeClose, (int) x, (int) y, (int) w, (int) h, null);
+	    		
+	//    		pen.drawImage(keyPad, 600, 200, 200, 200, null);
+	    		pen.drawImage(keyPad, 420, 253, 100, 100, null);
+	    	
+	    		for(int i = 0; i < buttons.length; i++) {
+	    		
+	    			if(buttonClicked == i)  pen.drawImage(buttons[i].getCurrentImage(), (int)buttonLocation[i].getX(), (int)buttonLocation[i].getY(), (int)buttonLocation[i].getWidth(), (int)buttonLocation[i].getHeight(), null);
+	    	
+	    			if(buttons[i].animationFinish()) buttonClicked = -1;
+	    	
+	    			else pen.drawImage(buttons[i].getStaticImage(), (int)buttonLocation[i].getX(), (int)buttonLocation[i].getY(), (int)buttonLocation[i].getWidth(), (int)buttonLocation[i].getHeight(), null);
+	    		}
+	    	
+	    		for(int i = 0; i < 5; i++) 
+	    			pen.drawImage(number[numberEntered[i]], 495 - (i * 15), 263, 10, 10, null);
+	    	
+	    	}
+	    	else pen.drawImage(safeOpen, 400, 50, 500, 500, null);
     	
-    	for(int i = 0; i < buttons.length; i++) {
-    		
-    	if(buttonClicked == i)  pen.drawImage(buttons[i].getCurrentImage(), (int)buttonLocation[i].getX(), (int)buttonLocation[i].getY(), (int)buttonLocation[i].getWidth(), (int)buttonLocation[i].getHeight(), null);
-    	
-    	if(buttons[i].animationFinish()) buttonClicked = -1;
-    	
-    	else pen.drawImage(buttons[i].getStaticImage(), (int)buttonLocation[i].getX(), (int)buttonLocation[i].getY(), (int)buttonLocation[i].getWidth(), (int)buttonLocation[i].getHeight(), null);
     	}
-    	
-    	for(int i = 0; i < 5; i++) 
-    	pen.drawImage(number[numberEntered[i]], 745 - (i * 30), 218, 25, 25, null);
-    	
-    	}
-    	else pen.drawImage(safeOpen, 400, 50, 500, 500, null);
-    	
-    	}
-    	else pen.drawImage(safe, (int) x, (int) y, (int) w, (int) h, null);
+    	else pen.drawImage(safe, (int) x, (int) y, (int) w, (int) h, null); //this displays the safe
     }
     
     public boolean openSafe() {
@@ -174,7 +182,8 @@ public class SafePuzzle extends Rect implements MouseListener {
 			}
 			 
 			numberLocation = 0;
-		}	
+		}
+		
 	}
 
 	@Override
