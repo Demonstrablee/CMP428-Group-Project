@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import Game.Game;
 import Utils.Rect;
 
 public class CodePuzzle extends Rect implements MouseListener, MouseMotionListener{
@@ -29,6 +30,7 @@ public class CodePuzzle extends Rect implements MouseListener, MouseMotionListen
 	
 	public boolean interact = false;
 	public Rect interactZone;
+	Game game;
 	
 	private Rect [] piece = new Rect [] {
 					new Rect(50, 80, 99, 200),
@@ -55,9 +57,10 @@ public class CodePuzzle extends Rect implements MouseListener, MouseMotionListen
 	};
 	
 
-	public CodePuzzle(int x, int y, int w, int h) {
+	public CodePuzzle(Game game, int x, int y, int w, int h) {
 		super(x, y, w, h);
 		
+		this.game = game;
 		interactZone = new Rect((int) x, (int) y, (int) w, (int)h + 10);	
 	}
 	
