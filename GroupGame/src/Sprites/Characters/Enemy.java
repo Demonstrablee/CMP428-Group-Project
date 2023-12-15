@@ -16,6 +16,8 @@ public class Enemy extends Sprite {
     private boolean chaseLT = false;
     
     public Rect sight;
+    public int hitDelay = 0;
+    public int hits = 0;
 	
 	public Enemy(String type, int x, int y, int h, int w) {
 		super(type, POSE, 6, "png", x, y, w, h);

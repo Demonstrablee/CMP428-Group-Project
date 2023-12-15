@@ -19,10 +19,11 @@ public class Hallway extends Room {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		for(Enemy enemy : enemies)
+		
+		for(Enemy enemy : enemies) {
+			if(enemy.hits <= 2)
 			enemy.draw(g);
-
+		}
 		healthStation.draw(g);
 		dRectEnter.draw(g);
 		dRectExit.draw(g);
