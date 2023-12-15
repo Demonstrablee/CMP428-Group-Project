@@ -138,6 +138,7 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 
 			// Player Damage
 			if (enemies != null) {
+				for(Enemy enemy : enemies) enemy.chase(player); //enemies now move back and forth and chase player
 				Enemy e1 = enemies[1]; // temporary a loop will kill the player immediately
 				if (player.overlaps(e1)) {
 					player.setColor(Color.GREEN);

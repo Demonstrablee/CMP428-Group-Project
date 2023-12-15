@@ -108,6 +108,8 @@ public class Rect {
 	
 	public void chase(Rect r)
 	{
+		 if(wasLeftOf(r))    moveBy(2,0);
+		 if(wasRightOf(r))   moveBy(-2,0);
 		 if(wasAbove(r))     moveBy(0,5);
 		 if(wasBelow(r))     moveBy(0,-5);
 	}
