@@ -26,7 +26,10 @@ public class Player extends Character {
 
     private final HealthBar healthBar;
     
-    private boolean bulletShot = false;
+    public boolean bulletShot = false;
+    
+    private boolean right = false;
+    private boolean left = false;
     
     public Rect bullet;
     private int bulletDistance = 1;
@@ -42,21 +45,32 @@ public class Player extends Character {
     
     public void shoot() {
     	
-    	//Couldn't find where to change the input
-    	if(isPressing(Input.RT)) bulletShot = true;
+    	if(isPressing(Input.RT)) {
+    		bulletShot = true;
+    		right = true;
+    		left = false;
+    	}
+    	if(isPressing(Input.LT)) {
+    		bulletShot = true;
+    		right = false;
+    		left = true;
+    	}
     	
     	if(!bulletShot) bullet = new Rect(super.getX() + super.getWidth(), super.getY() + 30, 10, 10);
     	
-    	if(bulletShot) {
+    	if(bulletShot && right) {
     		bulletDistance += 10;
     		bullet = new Rect((super.getX() + super.getWidth()) + bulletDistance, super.getY() + 30, 10, 10);
-    		
-    		if(bulletDistance >= 500) {
-    			System.out.println("Ammo READY");
-    			bulletShot = false;
-    			bulletDistance = 0;
-    		}
-    	} 	
+    	}
+    	if(bulletShot && left) {
+    		bulletDistance -= 10;
+    		bullet = new Rect((super.getX() + super.getWidth()) + bulletDistance, super.getY() + 30, 10, 10);
+    	}
+    	if(bulletDistance >= 500 || bulletDistance <= -500) {
+			System.out.println("Ammo READY");
+			bulletShot = false;
+			bulletDistance = 0;
+		}
     }
 
     /**

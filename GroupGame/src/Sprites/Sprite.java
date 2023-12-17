@@ -25,6 +25,7 @@ public class Sprite extends Rect {
 		this.xDrawOffset = xDrawOffset * Game.SCALE;
 		this.yDrawOffset = yDrawOffset * Game.SCALE;
 
+	
 		animation = new Animation[pose.length];
 
 		for(int i = 0; i < pose.length; i ++)

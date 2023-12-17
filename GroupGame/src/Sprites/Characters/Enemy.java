@@ -51,14 +51,14 @@ public class Enemy extends Sprite {
 		patrol();
 		
 		if(r.overlaps(sight)) {
-		if(chaseRT && getX() <= r.getX()) {super.chase(r);
-			
-		if(r.overlaps(this)) System.out.println("ATK from right");} //Do ATTACKRT
-		
-		if(chaseLT && getX() >= r.getX()) { super.chase(r);
-		
-		if(r.overlaps(this)) System.out.println("ATK from left");} //Do ATTACKLT
-		
+		if(chaseRT && getX() <= r.getX()) {
+		super.chase(r);
+		super.goUP(0);
+		}
+		if(chaseLT && getX() >= r.getX()) {
+		super.chase(r);
+		super.goDN(0);
 		}
 	}
-	}
+}
+}

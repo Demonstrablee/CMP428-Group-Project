@@ -150,7 +150,7 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 			if (enemies != null) {
 				for(Enemy enemy : enemies) { 
 					enemy.chase(player); //enemies now move back and forth and chase player
-				if(enemy.overlaps(player.bullet)) {
+				if(enemy.overlaps(player.bullet) && player.bulletShot) {
 					enemy.hitDelay++;
 					
 					System.out.println(enemy.hitDelay);
