@@ -1,6 +1,5 @@
 package Sprites.Characters;
 import Game.Game;
-import Levels.Managers.Level2;
 
 
 import Map.Room;

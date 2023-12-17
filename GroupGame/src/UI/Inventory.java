@@ -115,20 +115,20 @@ public class Inventory {
 				selectedSlot = i;
 		}
 
-		double SCALE = 2;
+		int SCALE = (int)Game.SCALE;
 
 		// Displays main inventory bar
 		int DEFAULT_BAR_WIDTH = 244;
 		int DEFAULT_BAR_HEIGHT = 44;
-		int BAR_WIDTH = (int) (DEFAULT_BAR_WIDTH * SCALE);
-		int BAR_HEIGHT = (int) (DEFAULT_BAR_HEIGHT * SCALE);
+		int BAR_WIDTH = DEFAULT_BAR_WIDTH * SCALE;
+		int BAR_HEIGHT = DEFAULT_BAR_HEIGHT * SCALE;
 
-		int xStart = 225, yStart = 800;
+		int xStart = Game.GAME_WIDTH / 2 - BAR_WIDTH / 2, yStart = (int)(Game.GAME_HEIGHT * .85);
 		g.drawImage(hotbarImg, xStart, yStart, BAR_WIDTH, BAR_HEIGHT, null);
 
 		// Displays the items in the bar
-		final int SLOT_SIZE = (int) (32 * SCALE);
-		final int ITEM_OFFSET = (int) (6 * SCALE);
+		final int SLOT_SIZE = 32 * SCALE;
+		final int ITEM_OFFSET = 6 * SCALE;
 
 		for(int i = 0; i < MAX_ITEMS; i++) {
 			int xItemOffset = ITEM_OFFSET * (i + 1) + (i * 3);
@@ -140,10 +140,10 @@ public class Inventory {
 
 		// Shows which slot is currently selected
 		int DEFAULT_SELECT_SIZE = 48;
-		int SELECT_SIZE = (int) (DEFAULT_SELECT_SIZE * SCALE);
+		int SELECT_SIZE = DEFAULT_SELECT_SIZE * SCALE;
 
-		int xSelectOffset = (int) (xStart - (2 * SCALE) + (40 * SCALE * (selectedSlot - 1)));
-		int ySelectOfset = (int) (yStart - (2 * SCALE));
-		g.drawImage(selectedImg, xSelectOffset, ySelectOfset, SELECT_SIZE, SELECT_SIZE, null);
+		int xSelectOffset = xStart - (2 * SCALE) + (40 * SCALE * (selectedSlot - 1));
+		int ySelectOffset = yStart - (2 * SCALE);
+		g.drawImage(selectedImg, xSelectOffset, ySelectOffset, SELECT_SIZE, SELECT_SIZE, null);
 	}
 }

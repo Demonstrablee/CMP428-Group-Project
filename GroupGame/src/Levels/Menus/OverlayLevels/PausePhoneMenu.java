@@ -5,10 +5,6 @@ import javax.swing.*;
 import Game.Game;
 import Game.GameScreen;
 import Game.GameWindow;
-import Levels.Managers.GameWindow2;
-import Levels.Managers.Level2;
-
-import Objects.Wall;
 
 import java.awt.*;
 

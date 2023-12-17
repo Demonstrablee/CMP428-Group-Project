@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 
 import Game.Game;
 import Game.GameScreen;
-import Levels.Managers.Level2;
 
 public class InterviewMode extends GameScreen { // basically a video player
         JLabel title = new JLabel("Interveiw");
@@ -21,7 +20,6 @@ public class InterviewMode extends GameScreen { // basically a video player
         
         //BACKGROUND
         //setBg("bg_classroom01.jpg");
-        setBounds(0, 0, 1280, 720);
         setBackground(Color.GREEN);
         
         // Getting the buttons for the Menu

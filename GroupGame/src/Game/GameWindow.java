@@ -13,6 +13,7 @@ public class GameWindow extends JFrame {
 		setTitle("In the Night");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Game.RESOURCE_URL + "icon.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(new Dimension(Game.GAME_WIDTH, Game.GAME_HEIGHT));
 		getContentPane().add(new GamePanel(this));
 		setResizable(false);
 		pack();
@@ -20,17 +21,5 @@ public class GameWindow extends JFrame {
 		setVisible(true);
 
 		SimpleSoundPlayer.playSoundForever("GroupGame/src/music/Main_Theme.wav");
-	}
-
-	/**
-	 * Resizes the window to the given dimension.
-	 *
-	 * @param dimension The new size of this component/
-	 */
-	@Override
-	public void resize(Dimension dimension) {
-		setPreferredSize(dimension);
-		pack();
-		setLocationRelativeTo(null);
 	}
 }

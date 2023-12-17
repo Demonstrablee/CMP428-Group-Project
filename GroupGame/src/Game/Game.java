@@ -16,7 +16,6 @@ import Map.Rooms.Hallway;
 import Map.Rooms.Hallway2_3rdFloor;
 import Map.Rooms.Hallway3_3rdFloor;
 import Objects.HealthStation;
-import Objects.Puzzles.CodePuzzle;
 import Objects.Puzzles.SafePuzzle;
 import Sprites.Characters.Enemy;
 import Sprites.Characters.Player;
@@ -44,8 +43,6 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 	public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
 	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
 	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
-	public final static Dimension ROOM_DIMENSION = new Dimension(GAME_WIDTH, GAME_HEIGHT);
-	public final static Dimension MENU_DIMENSION = new Dimension(1280, 720);
 
 	// Rooms
 	private RoomManager roomManager;

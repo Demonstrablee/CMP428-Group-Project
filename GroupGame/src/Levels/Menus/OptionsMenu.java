@@ -37,8 +37,7 @@ public class OptionsMenu extends GameScreen {
         super(game, "optionsMenu"); // no enterance exit logic just using card manager in levelbuilder
         
         //BACKGROUND
-        setBg("bg_classroom03.jpg"); 
-        setBounds(0, 0, 1280, 720);
+        setBg("bg_classroom03.jpg");
         setVisible(false);
         
         //Get Buttons

@@ -35,12 +35,6 @@ public abstract class Room extends GameScreen {
 		this.data = game.getRoomManager().loadRoomData(name);
 		this.entrance = null;
 		this.exit = null;
-		setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
-	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		setVisible(visible, true);
 	}
 
 	/**

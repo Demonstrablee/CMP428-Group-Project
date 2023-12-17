@@ -3,6 +3,9 @@ package Game;
 import javax.swing.*;
 import java.awt.*;
 
+import static Game.Game.GAME_HEIGHT;
+import static Game.Game.GAME_WIDTH;
+
 public abstract class GameScreen extends JPanel {
 
 	protected final Game game;
@@ -14,6 +17,7 @@ public abstract class GameScreen extends JPanel {
 		this.name = name;
 		setLayout(new GridBagLayout());
 		setVisible(false);
+		setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
 	}
 
 	@Override
@@ -31,22 +35,6 @@ public abstract class GameScreen extends JPanel {
 		if (GameWindow.OS.contains("Mac"))pathFolder = "GroupGame/src/images/";
 		else pathFolder ="GroupGame\\src\\images\\";
 		bg = Toolkit.getDefaultToolkit().getImage(pathFolder + fileName);
-	}
-
-	@Override
-	public void setBounds(int x, int y, int width, int height) {
-		super.setBounds(x, y, width, height);
-	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		setVisible(visible, false);
-	}
-
-	public void setVisible(boolean visible, boolean room) {
-		if(visible && game != null)
-			game.getPanel().getWindow().resize(room ? Game.ROOM_DIMENSION : Game.MENU_DIMENSION);
-		super.setVisible(visible);
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import javax.swing.border.Border;
 
 import Game.Game;
 import Game.GameScreen;
-import Levels.Managers.Level2;
 
 
 import java.awt.*;

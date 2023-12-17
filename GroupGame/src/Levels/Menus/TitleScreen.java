@@ -3,7 +3,6 @@ import javax.swing.*;
 
 import Game.Game;
 import Game.GameScreen;
-import Levels.Managers.Level2;
 
 import java.awt.*;
 
@@ -18,7 +17,6 @@ public class TitleScreen extends GameScreen {
         
         //BACKGROUND
         setBg("bg_classroom01.jpg");
-        setBounds(0, 0, 1280, 720);
        
         
         // Getting the buttons for the Menu

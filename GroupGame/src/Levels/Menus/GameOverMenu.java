@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 
 import Game.Game;
 import Game.GameScreen;
-import Levels.Managers.Level2;
 // import Objects.Wall;
 
 public class GameOverMenu extends GameScreen {
@@ -23,7 +22,6 @@ public class GameOverMenu extends GameScreen {
 
         //BACKGROUND
         //setBg("black01.jpg");
-        setBounds(0, 0, 1280, 720);
         
 
         

@@ -10,9 +10,6 @@ import javax.swing.JLabel;
 
 import Game.Game;
 import Game.GameScreen;
-import Levels.Managers.Level2;
-
-
 
 
 public class SaveMenu extends GameScreen {
@@ -24,7 +21,6 @@ public class SaveMenu extends GameScreen {
 
         //BACKGROUND
         //setBg("black01.jpg");
-        setBounds(0, 0, 1280, 720);
         setBackground(Color.lightGray);
 
 
