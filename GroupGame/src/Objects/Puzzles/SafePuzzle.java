@@ -98,7 +98,6 @@ public class SafePuzzle extends Rect implements MouseListener {
     	if(interact) {
     		
 	    	if(!open) {
-	    		//this displays a bigger safe
 	//    		pen.drawImage(safeClose, 400, 50, 500, 500, null);
 	    		pen.drawImage(safeClose, (int) x, (int) y, (int) w, (int) h, null);
 	    		
@@ -118,10 +117,10 @@ public class SafePuzzle extends Rect implements MouseListener {
 	    			pen.drawImage(number[numberEntered[i]], 495 - (i * 15), 263, 10, 10, null);
 	    	
 	    	}
-	    	else pen.drawImage(safeOpen, 400, 50, 500, 500, null);
+	    	else pen.drawImage(safeOpen, (int) x, (int) y, (int) w, (int) h, null);
     	
     	}
-    	else pen.drawImage(safe, (int) x, (int) y, (int) w, (int) h, null); //this displays the safe
+    	else pen.drawImage(safe, (int) x, (int) y, (int) w, (int) h, null);
     }
     
     public boolean openSafe() {
@@ -138,7 +137,7 @@ public class SafePuzzle extends Rect implements MouseListener {
     
     public void interactPrompt(Graphics pen) {
     	
-    	pen.drawString("Interact", (int) x, (int) y);
+    	pen.drawString("Solve puzzle to complete level!", (int) x, (int) y);
     }
     
 	@Override

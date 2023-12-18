@@ -23,10 +23,8 @@ public class ClassroomB_3rdFloor extends Room{
 		
 		game.safePuzzle.draw(g);
 		game.safePuzzle.interactPrompt(g);
-		
-		// Draw the exit (there's no entrance)
-		dRectEnter.draw(g);
-		
+
+		dRectEnter.draw(g);	
 	}
 
 }

@@ -19,9 +19,7 @@ public class Classroom extends Room {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-//
-//		for(Student student : students)
-//			student.draw(g);
+		students[0].talk(g, "The code is 10468");
 		
 		// Draw the exit (there's no entrance)
 		dRectExit.draw(g);

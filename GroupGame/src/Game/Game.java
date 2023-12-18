@@ -21,6 +21,7 @@ import Sprites.Characters.Enemy;
 import Sprites.Characters.Player;
 import Sprites.Characters.Student;
 import UI.InterviewMode;
+import UI.LevelCompletion;
 import Utils.Rect;
 
 import javax.imageio.ImageIO;
@@ -77,6 +78,7 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 	static SaveMenu saveMenu;
 	static GameOverMenu gameOverMenu;
 	static Inventory inventory;
+	public LevelCompletion completion;
 
 	//Buttons
 	Image phone = Toolkit.getDefaultToolkit().getImage("GroupGame/src/images/icons/Phone_Blue.png").getScaledInstance(66, 64, Image.SCALE_SMOOTH);
@@ -249,6 +251,7 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 
 			inGameMenuButton.setVisible(true);
 		}
+		
 	}
 
 	/**
@@ -284,8 +287,8 @@ public class Game implements Runnable, KeyListener, ActionListener, MouseListene
 		inGameMenuButton.setFocusable(false);  // so important  stops the button form stealing focus from the keyboard
 		inGameMenuButton.setBounds(1130, 70,62,62); // w and h are smaller than the image size so that the white background doesnt appear arround the button
 
-
 		panel.add(inGameMenuButton);
+		panel.addMouseListener(safePuzzle);
 		inGameMenuButton.setVisible(false);
 
 		mapButton.addActionListener(this);

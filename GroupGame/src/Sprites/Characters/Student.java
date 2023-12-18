@@ -11,6 +11,9 @@ public class Student extends Character{ // christan
 	
 	private String phrase;
 	private boolean appear;
+	double ay = G;
+	
+	static final double G = 0.4;
 
 	public Student(String name, int x, int y) {
 		super(null, name, POSE, 4, "png",x,y,50,50, 0, 0);
@@ -60,8 +63,6 @@ public class Student extends Character{ // christan
 	public void update() {
 		
 		applyFrictionWithFloor();
-//		this.moving = false;
-		
 		actionLockCounter++;
 		
 		if(actionLockCounter == 120 ) { // ~2 seconds --> 60 FPS
@@ -88,9 +89,16 @@ public class Student extends Character{ // christan
 			
 			actionLockCounter = 0;
 		}
-		
-//		moveBy(1, 1);
+		move();
 		
 	}
+	
+	public void move() {
+		x += vx;
+		y += vy;
+		
+		ay += vy;
+	}
+	
 }
 
