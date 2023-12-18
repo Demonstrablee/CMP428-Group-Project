@@ -9,7 +9,7 @@ import Utils.Rect;
 
 public class Enemy extends Sprite {
 
-	private final static String[] POSE = new String[] { "ATTACKRT", "ATTACKLT", "RT", "LT", "IDLE" };
+	private final static String[] POSE = new String[] { "ATTACKRT", "ATTACKLT", "LT", "RT", "IDLE" };
 	
     private boolean moveLT = true;
     private boolean chaseRT = false;
@@ -30,19 +30,19 @@ public class Enemy extends Sprite {
 		
 		if(moveLT) {
 			super.goLT(0);
+			super.moveBy(-1, 0);
+			chaseRT = false;
+			chaseLT = true;
+			 
+			if(getX() <= sight.getX()) moveLT = false;
+		}
+		else {
+			super.goRT(0);
 			super.moveBy(1, 0);
 			chaseRT = true;
 			chaseLT = false;
 			
-			if(getX() >= (sight.getX() + sight.getWidth())) moveLT = false;
-		}
-		else {
-			super.goRT(0);
-			super.moveBy(-1, 0);
-			chaseRT = false;
-			chaseLT = true;
-			
-			if(getX() <= sight.getX()) moveLT = true;
+			if(getX() >= (sight.getX() + sight.getWidth())) moveLT = true;
 		}
 	}
 	
